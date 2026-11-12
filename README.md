@@ -29,8 +29,8 @@ Dự án nhóm triển khai kiến trúc Application Load Balancer (ALB) định
 ---
 
 ## 📂 Cấu trúc thư mục dự án (Chia file tránh xung đột Git)
-- `main.tf` — (Thành viên 1) Cấu hình VPC, Subnets, ALB, Listener Rules.
-- `targets.tf` — (Thành viên 2) Cấu hình Target Groups và Backend.
-- `security.tf` — (Thành viên 3) Cấu hình SSL/TLS và Security Groups.
-- `variables.tf` — Biến đầu vào chung.
-- `outputs.tf` — Đầu ra kết nối.
+- `main.tf` — [Phạm Đinh Gia Bảo] Cấu hình VPC, Subnets, ALB, Listener Rules.
+- `targets.tf` — [Huỳnh Nhật Hòa] Cấu hình Target Groups và Backend.
+- `security.tf` — [Ngô Khánh Hưng] Cấu hình SSL/TLS và Security Groups.
+- `variables.tf` — Khai báo các biến đầu vào dùng chung (region, CIDR, v.v.)
+- `outputs.tf` — Xuất các thông tin đầu ra quan trọng (DNS của ALB, ARN, v.v.)
