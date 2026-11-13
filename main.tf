@@ -116,24 +116,20 @@ resource "aws_lb" "ecommerce_lb" {
   tags = { Environment = "Project-Team" }
 }
 
-# 7. Khai báo Listener cổng 80 (Chuyển hướng hoặc định tuyến mặc định)
+# 7. Khai báo Listener cổng 80 (Định tuyến mặc định về Target Group Frontend)
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.ecommerce_lb.arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
-    type = "fixed-response"
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Trang chu (Default Home)"
-      status_code  = "200"
-    }
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tg_frontend.arn
   }
 }
 
 # 8. Cấu hình Listener Rules định tuyến theo nội dung đường dẫn URL (/products/* và /checkout/*)
-# Lưu ý: Các biến target_group_arn bên dưới sẽ liên kết với phần Target Groups do Thành viên 2 viết sau này.
+# Liên kết trực tiếp với các Target Groups do Thành viên 2 (Huỳnh Nhật Hòa) định nghĩa trong targets.tf
 
 resource "aws_lb_listener_rule" "products_rule" {
   listener_arn = aws_lb_listener.http.arn
@@ -141,7 +137,7 @@ resource "aws_lb_listener_rule" "products_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = "/* Sẽ điền ARN của Target Group sản phẩm từ Thành viên 2 */" 
+    target_group_arn = aws_lb_target_group.tg_products.arn
   }
 
   condition {
@@ -157,7 +153,7 @@ resource "aws_lb_listener_rule" "checkout_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = "/* Sẽ điền ARN của Target Group thanh toán từ Thành viên 2 */"
+    target_group_arn = aws_lb_target_group.tg_checkout.arn
   }
 
   condition {
