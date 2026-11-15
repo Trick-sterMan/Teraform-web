@@ -58,3 +58,28 @@ output "backend_instances" {
     }
   }
 }
+
+# ==============================================================================
+# [THANH VIEN 3 - NGO KHANH HUNG] OUTPUTS BAO MAT HTTPS
+# ==============================================================================
+
+# 5. HTTPS URLs sau khi bao mat SSL/TLS
+output "https_urls" {
+  description = "Cac duong dan HTTPS (cong 443) sau khi cau hinh SSL/TLS"
+  value = {
+    home_page     = "https://${aws_lb.ecommerce_lb.dns_name}/"
+    products_page = "https://${aws_lb.ecommerce_lb.dns_name}/products/"
+    checkout_page = "https://${aws_lb.ecommerce_lb.dns_name}/checkout/"
+  }
+}
+
+# 6. Thong tin chung chi SSL/TLS ACM
+output "ssl_certificate_info" {
+  description = "ARN va thong tin chung chi SSL/TLS da import vao ACM"
+  value = {
+    certificate_arn = aws_acm_certificate.ecommerce_cert.arn
+    issued_to       = "ecommerce-alb.internal"
+    managed_by      = "Ngo Khanh Hung - Thanh vien 3"
+    ssl_policy      = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  }
+}

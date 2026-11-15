@@ -1,4 +1,4 @@
-# ==============================================================================
+﻿# ==============================================================================
 # PHẦN CỦA THÀNH VIÊN 2: HUỲNH NHẬT HÒA
 # Mục tiêu: Tạo nơi nhận lưu lượng từ Load Balancer và dựng 3 trang web mẫu.
 # - Khai báo 3 Target Groups (tg_frontend, tg_products, tg_checkout) & Health Check
@@ -144,7 +144,7 @@ resource "aws_instance" "frontend" {
   subnet_id                   = aws_subnet.public_1.id
   vpc_security_group_ids      = [aws_security_group.backend_sg.id]
   associate_public_ip_address = true
-  user_data                   = file("${path.module}/scripts/user_data_frontend.sh")
+  user_data_base64 = filebase64("${path.module}/scripts/user_data_frontend.sh")
 
   tags = {
     Name = "ecommerce-frontend-server"
@@ -159,7 +159,7 @@ resource "aws_instance" "products" {
   subnet_id                   = aws_subnet.public_1.id
   vpc_security_group_ids      = [aws_security_group.backend_sg.id]
   associate_public_ip_address = true
-  user_data                   = file("${path.module}/scripts/user_data_products.sh")
+  user_data_base64 = filebase64("${path.module}/scripts/user_data_products.sh")
 
   tags = {
     Name = "ecommerce-products-server"
@@ -174,7 +174,7 @@ resource "aws_instance" "checkout" {
   subnet_id                   = aws_subnet.public_2.id
   vpc_security_group_ids      = [aws_security_group.backend_sg.id]
   associate_public_ip_address = true
-  user_data                   = file("${path.module}/scripts/user_data_checkout.sh")
+  user_data_base64 = filebase64("${path.module}/scripts/user_data_checkout.sh")
 
   tags = {
     Name = "ecommerce-checkout-server"
