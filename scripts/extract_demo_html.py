@@ -2,7 +2,8 @@
 import os
 import re
 
-base_dir = "/Users/huynhnhathoa/.gemini/antigravity/scratch/Teraform-web"
+# Tự động nhận diện thư mục gốc của project (hoạt động tốt trên cả Windows và macOS)
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def extract_html(script_path):
     with open(script_path, "r", encoding="utf-8") as f:
@@ -12,24 +13,29 @@ def extract_html(script_path):
         return match.group(1)
     return ""
 
-html_fe = extract_html(f"{base_dir}/scripts/user_data_frontend.sh")
-html_prod = extract_html(f"{base_dir}/scripts/user_data_products.sh")
-html_check = extract_html(f"{base_dir}/scripts/user_data_checkout.sh")
+html_fe = extract_html(os.path.join(base_dir, "scripts", "user_data_frontend.sh"))
+html_prod = extract_html(os.path.join(base_dir, "scripts", "user_data_products.sh"))
+html_check = extract_html(os.path.join(base_dir, "scripts", "user_data_checkout.sh"))
 
-# Write Frontend
-with open(f"{base_dir}/demo_pages/frontend/index.html", "w", encoding="utf-8") as f:
+# Đảm bảo các thư mục tồn tại
+os.makedirs(os.path.join(base_dir, "demo_pages", "frontend"), exist_ok=True)
+os.makedirs(os.path.join(base_dir, "demo_pages", "products", "products"), exist_ok=True)
+os.makedirs(os.path.join(base_dir, "demo_pages", "checkout", "checkout"), exist_ok=True)
+
+# Ghi file Frontend
+with open(os.path.join(base_dir, "demo_pages", "frontend", "index.html"), "w", encoding="utf-8") as f:
     f.write(html_fe)
 
-# Write Products
-with open(f"{base_dir}/demo_pages/products/products/index.html", "w", encoding="utf-8") as f:
+# Ghi file Products (hỗ trợ cả /products và /products/)
+with open(os.path.join(base_dir, "demo_pages", "products", "products", "index.html"), "w", encoding="utf-8") as f:
     f.write(html_prod)
-with open(f"{base_dir}/demo_pages/products/index.html", "w", encoding="utf-8") as f:
+with open(os.path.join(base_dir, "demo_pages", "products", "index.html"), "w", encoding="utf-8") as f:
     f.write(html_prod)
 
-# Write Checkout
-with open(f"{base_dir}/demo_pages/checkout/checkout/index.html", "w", encoding="utf-8") as f:
+# Ghi file Checkout (hỗ trợ cả /checkout và /checkout/)
+with open(os.path.join(base_dir, "demo_pages", "checkout", "checkout", "index.html"), "w", encoding="utf-8") as f:
     f.write(html_check)
-with open(f"{base_dir}/demo_pages/checkout/index.html", "w", encoding="utf-8") as f:
+with open(os.path.join(base_dir, "demo_pages", "checkout", "index.html"), "w", encoding="utf-8") as f:
     f.write(html_check)
 
-print("Generated HTML demo files successfully!")
+print("Đã trích xuất các file demo HTML thành công!")

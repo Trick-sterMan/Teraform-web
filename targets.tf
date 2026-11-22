@@ -1,4 +1,4 @@
-﻿# ==============================================================================
+# ==============================================================================
 # PHẦN CỦA THÀNH VIÊN 2: HUỲNH NHẬT HÒA
 # Mục tiêu: Tạo nơi nhận lưu lượng từ Load Balancer và dựng 3 trang web mẫu.
 # - Khai báo 3 Target Groups (tg_frontend, tg_products, tg_checkout) & Health Check
@@ -140,11 +140,11 @@ resource "aws_lb_target_group" "tg_checkout" {
 # Máy chủ 1: Frontend Server
 resource "aws_instance" "frontend" {
   ami                         = data.aws_ami.amazon_linux_2023.id
-  instance_type               = "t2.micro"
+  instance_type               = var.instance_type
   subnet_id                   = aws_subnet.public_1.id
   vpc_security_group_ids      = [aws_security_group.backend_sg.id]
   associate_public_ip_address = true
-  user_data_base64 = filebase64("${path.module}/scripts/user_data_frontend.sh")
+  user_data_base64            = filebase64("${path.module}/scripts/user_data_frontend.sh")
 
   tags = {
     Name = "ecommerce-frontend-server"
@@ -155,11 +155,11 @@ resource "aws_instance" "frontend" {
 # Máy chủ 2: Products Server
 resource "aws_instance" "products" {
   ami                         = data.aws_ami.amazon_linux_2023.id
-  instance_type               = "t2.micro"
+  instance_type               = var.instance_type
   subnet_id                   = aws_subnet.public_1.id
   vpc_security_group_ids      = [aws_security_group.backend_sg.id]
   associate_public_ip_address = true
-  user_data_base64 = filebase64("${path.module}/scripts/user_data_products.sh")
+  user_data_base64            = filebase64("${path.module}/scripts/user_data_products.sh")
 
   tags = {
     Name = "ecommerce-products-server"
@@ -170,11 +170,11 @@ resource "aws_instance" "products" {
 # Máy chủ 3: Checkout Server (Đặt ở Subnet 2 để đạt tính sẵn sàng cao - Multi-AZ)
 resource "aws_instance" "checkout" {
   ami                         = data.aws_ami.amazon_linux_2023.id
-  instance_type               = "t2.micro"
+  instance_type               = var.instance_type
   subnet_id                   = aws_subnet.public_2.id
   vpc_security_group_ids      = [aws_security_group.backend_sg.id]
   associate_public_ip_address = true
-  user_data_base64 = filebase64("${path.module}/scripts/user_data_checkout.sh")
+  user_data_base64            = filebase64("${path.module}/scripts/user_data_checkout.sh")
 
   tags = {
     Name = "ecommerce-checkout-server"

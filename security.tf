@@ -36,6 +36,13 @@ resource "tls_self_signed_cert" "ecommerce" {
     locality            = "Ho Chi Minh City"
   }
 
+  # Danh sach Subject Alternative Names (SAN) bat buoc de trinh duyet (Chrome/Safari) chap nhan
+  dns_names = [
+    "ecommerce-alb.internal",
+    "*.elb.amazonaws.com",
+    "localhost"
+  ]
+
   # Chung chi co hieu luc 1 nam (8760 gio)
   validity_period_hours = 8760
 
@@ -101,7 +108,7 @@ resource "aws_lb_listener_rule" "https_products_rule" {
 
   condition {
     path_pattern {
-      values = ["/products/*"]
+      values = ["/products", "/products/*"]
     }
   }
 }
@@ -118,14 +125,14 @@ resource "aws_lb_listener_rule" "https_checkout_rule" {
 
   condition {
     path_pattern {
-      values = ["/checkout/*"]
+      values = ["/checkout", "/checkout/*"]
     }
   }
 }
 
 # ==============================================================================
 # BUOC 5: CAU HINH REDIRECT HTTP -> HTTPS TREN CONG 80
-# Thay the default_action "forward" trong main.tf bang "redirect"
+# Chuyen huong toan bo luu luong cong 80 sang HTTPS 443
 # ==============================================================================
 
 resource "aws_lb_listener_rule" "http_to_https_redirect" {
@@ -149,17 +156,8 @@ resource "aws_lb_listener_rule" "http_to_https_redirect" {
 }
 
 # ==============================================================================
-# BUOC 6: CAP NHAT SECURITY GROUP - Dam bao cong 443 da mo (tham khao main.tf)
-# Security Group lb_sg trong main.tf da mo san cong 443, phan nay bo sung
-# Security Group rieng cho HTTPS de quan ly ro rang hon
+# BUOC 6: SECURITY GROUP CHO HTTPS
+# Luu y: Cong 443 da duoc khai bao san trong khoi ingress cua aws_security_group.lb_sg (main.tf).
+# De tranh loi xung dot "inline ingress vs security_group_rule" cua AWS Terraform Provider,
+# quy tac mo cong 443 duoc dong bo nhat quan tai main.tf.
 # ==============================================================================
-
-resource "aws_security_group_rule" "alb_https_ingress" {
-  type              = "ingress"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.lb_sg.id
-  description       = "Allow HTTPS inbound - Thanh vien 3 confirm"
-}

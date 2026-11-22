@@ -1,0 +1,6 @@
+# Enforce LF for shell scripts and Terraform files across all OS (Windows & macOS)
+*.sh text eol=lf
+*.py text eol=lf
+*.tf text eol=lf
+*.tfvars text eol=lf
+*.md text eol=lf

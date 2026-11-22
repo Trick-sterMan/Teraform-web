@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-southeast-1"
+  region = var.aws_region
 }
 
 # 1. Tạo mạng ảo VPC
@@ -146,7 +146,7 @@ resource "aws_lb_listener_rule" "products_rule" {
 
   condition {
     path_pattern {
-      values = ["/products/*"]
+      values = ["/products", "/products/*"]
     }
   }
 }
@@ -162,7 +162,7 @@ resource "aws_lb_listener_rule" "checkout_rule" {
 
   condition {
     path_pattern {
-      values = ["/checkout/*"]
+      values = ["/checkout", "/checkout/*"]
     }
   }
 }

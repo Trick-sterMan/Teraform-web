@@ -43,16 +43,16 @@ class ALBRouterHandler(http.server.SimpleHTTPRequestHandler):
 
     def translate_path(self, path):
         # Mô phỏng chính xác thuật toán định tuyến ALB của AWS:
-        # 1. Rule 1: /products/* -> Thư mục products
-        if path.startswith("/products"):
+        # 1. Rule 1: /products và /products/* -> Thư mục products
+        if path == "/products" or path.startswith("/products/"):
             rel_path = path.lstrip("/")
             full_path = os.path.join(DEMO_DIR, "products", rel_path)
             if os.path.isdir(full_path):
                 full_path = os.path.join(full_path, "index.html")
             return full_path
 
-        # 2. Rule 2: /checkout/* -> Thư mục checkout
-        elif path.startswith("/checkout"):
+        # 2. Rule 2: /checkout và /checkout/* -> Thư mục checkout
+        elif path == "/checkout" or path.startswith("/checkout/"):
             rel_path = path.lstrip("/")
             full_path = os.path.join(DEMO_DIR, "checkout", rel_path)
             if os.path.isdir(full_path):

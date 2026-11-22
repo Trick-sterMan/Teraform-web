@@ -23,3 +23,7 @@ override.tf.json
 .terraformrc
 terraform.rc
 demo_pages/
+
+# Python cache
+__pycache__/
+*.py[cod]
