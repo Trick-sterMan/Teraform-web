@@ -1,381 +1,656 @@
 #!/usr/bin/env python3
 """
-==============================================================================
-HE THONG HA LOCAL - MO PHONG ACTIVE-PASSIVE FAILOVER (THAY THE HAPROXY)
-De tai: Can bang tai dua tren noi dung HTTPS voi Terraform
-==============================================================================
-Kien truc LOCAL:
-  Cong 7443 (HTTPS) - HAProxy Python = Diem vao duy nhat (Entry Point)
-    -> Health check chu dong vao ALB chinh (8443) moi 2 giay
-    -> Neu ALB chinh khoe: proxy tat ca request sang 8443 (PRIMARY)
-    -> Neu ALB chinh sap (fall 2 lan): tu dong chuyen sang ALB backup (9443)
-    -> Khi ALB chinh hoi phuc (rise 2 lan): tu dong quay ve 8443
+CloudMart — Load Balancer (7443) + Node-2 (9443) + Node-3 (9444)
 
-  Cong 8443 (HTTPS) - ALB chinh (run_local_demo.py - khong doi)
-  Cong 9443 (HTTPS) - ALB backup (server nay - run_ha_local.py khoi dong)
-  Cong 9081/9082/9083 - Backend backup (phuc vu tu demo_pages/)
+Giải pháp chống quá tải: 1 link duy nhất (7443) nhưng chia đều traffic
+sang 3 backend nodes bằng thuật toán Round-Robin.
 
-Cach chay:
-  python scripts/run_ha_local.py
+  Node-1 (Main):     port 8443  → Tab 1: python3 scripts/run_local_demo.py
+  Node-2 (Backup-1): port 9443  → script này (tự khởi động)
+  Node-3 (Backup-2): port 9444  → script này (tự khởi động)
+  Load Balancer:     port 7443  → script này (điểm vào duy nhất)
 
-Sau do mo them terminal khac va chay ALB chinh:
-  python scripts/run_local_demo.py
-==============================================================================
+Luồng traffic khi 100 người truy cập:
+  Request  1 → Node-1 (8443)
+  Request  2 → Node-2 (9443)
+  Request  3 → Node-3 (9444)
+  Request  4 → Node-1 (8443)
+  ... (lặp lại)
+
+Khi 1 node sập → LB tự loại khỏi pool, 2 node còn lại chia đều
+Khi node phục hồi → LB tự thêm lại vào pool
+
+Tab 2: python3 scripts/run_ha_local.py
 """
 
-import http.server
-import socketserver
-import threading
 import ssl
-import os
-import sys
-import time
+import http.server
 import urllib.request
-import urllib.error
-import signal
+import threading
+import time
+import json
+import sys
+import subprocess
+import mimetypes
+from pathlib import Path
+from datetime import datetime
 
-# --- Duong dan goc ---
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEMO_DIR = os.path.join(BASE_DIR, "demo_pages")
-CERTS_DIR = os.path.join(BASE_DIR, "certs")
+# ─── Cấu hình ─────────────────────────────────────────────────────────────────
+LB_PORT      = 7443   # Load Balancer — điểm vào duy nhất
+NODE2_PORT   = 9443   # Backend Node-2 (script này)
+NODE3_PORT   = 9444   # Backend Node-3 (script này)
+MAIN_PORT    = 8443   # Backend Node-1 (run_local_demo.py)
 
-# --- Cau hinh cong ---
-PRIMARY_HOST   = "127.0.0.1"
-PRIMARY_PORT   = 8443      # ALB chinh (run_local_demo.py)
-BACKUP_PORT    = 9443      # ALB backup (file nay khoi dong)
-ENTRY_PORT     = 7443      # Diem vao duy nhat (HAProxy Python)
-BACKEND_B_FE   = 9081      # Backend backup frontend
-BACKEND_B_PROD = 9082      # Backend backup products
-BACKEND_B_CHK  = 9083      # Backend backup checkout
+CHECK_INTERVAL        = 2.0   # Giây giữa các health check
+FAIL_THRESHOLD        = 2     # Số lần fail liên tiếp → loại khỏi pool
+RECOVER_THRESHOLD     = 2     # Số lần ok liên tiếp → thêm lại vào pool
+OVERLOAD_RPS_THRESHOLD = 5.0  # Ngưỡng req/s để bật cảnh báo quá tải (dễ test bằng F5 liên tục hoặc stress test)
 
-# --- Tham so health check (giong HAProxy: inter 2s fall 2 rise 2) ---
-HEALTH_INTERVAL = 2        # Kiem tra moi 2 giay
-FALL_THRESHOLD  = 2        # Sap sau 2 lan loi lien tiep
-RISE_THRESHOLD  = 2        # Hoi phuc sau 2 lan thanh cong lien tiep
+BASE_DIR  = Path(__file__).parent.parent
+DEMO_DIR  = BASE_DIR / "demo_pages"
+SSL_DIR   = BASE_DIR / "scripts" / "ssl"
+CERT_FILE = SSL_DIR / "server.crt"
+KEY_FILE  = SSL_DIR / "server.key"
 
-# =============================================================================
-# TRANG THAI FAILOVER (chia se giua cac thread)
-# =============================================================================
-class FailoverState:
-    def __init__(self):
-        self._lock         = threading.Lock()
-        self.use_backup    = False   # False = dang dung primary, True = dang dung backup
-        self._fail_count   = 0
-        self._rise_count   = 0
+# ─── Danh sách backend nodes ──────────────────────────────────────────────────
+ALL_NODES = [
+    {'name': 'Node-1 (Main)',     'port': MAIN_PORT,  'icon': '🟢'},
+    {'name': 'Node-2 (Backup-1)', 'port': NODE2_PORT, 'icon': '🔵'},
+    {'name': 'Node-3 (Backup-2)', 'port': NODE3_PORT, 'icon': '🟣'},
+]
 
-    def record_fail(self):
-        """Ghi nhan 1 lan health check that bai."""
-        with self._lock:
-            self._fail_count += 1
-            self._rise_count = 0
-            if not self.use_backup and self._fail_count >= FALL_THRESHOLD:
-                self.use_backup = True
-                self._fail_count = 0
-                return "FAILOVER"   # Vua chuyen sang backup
-        return None
-
-    def record_success(self):
-        """Ghi nhan 1 lan health check thanh cong."""
-        with self._lock:
-            self._rise_count += 1
-            self._fail_count = 0
-            if self.use_backup and self._rise_count >= RISE_THRESHOLD:
-                self.use_backup = False
-                self._rise_count = 0
-                return "FAILBACK"   # Vua quay ve primary
-        return None
-
-    def current(self):
-        with self._lock:
-            return "BACKUP" if self.use_backup else "PRIMARY"
-
-    def target_port(self):
-        with self._lock:
-            return BACKUP_PORT if self.use_backup else PRIMARY_PORT
-
-FAILOVER = FailoverState()
-
-# =============================================================================
-# HEALTH CHECK THREAD - Kiem tra ALB chinh moi HEALTH_INTERVAL giay
-# =============================================================================
-def health_check_loop():
+# ─── Node Pool (Round-Robin) ───────────────────────────────────────────────────
+class NodePool:
     """
-    Kiem tra HTTPS cong 8443 (ALB chinh) moi 2 giay.
-    Dung urllib voi context bo qua SSL tu ky (self-signed).
-    Chap nhan ma 2xx va 3xx (ke ca redirect 301) la KHOE.
+    Quản lý pool các backend nodes với Round-Robin load balancing.
+    Thread-safe.
     """
+    def __init__(self, nodes):
+        self._all    = nodes                    # Tất cả nodes (kể cả down)
+        self._active = list(nodes)              # Chỉ nodes đang healthy
+        self._idx    = 0                        # Con trỏ round-robin
+        self._lock   = threading.Lock()
+        self._fail_count    = {n['name']: 0 for n in nodes}
+        self._recover_count = {n['name']: 0 for n in nodes}
+        self._stats  = {
+            n['name']: {
+                'port': n['port'],
+                'icon': n['icon'],
+                'healthy': True,
+                'req_total': 0,
+                'req_ok': 0,
+                'req_fail': 0,
+                'last_latency_ms': None,
+            }
+            for n in nodes
+        }
+        self._events     = []    # Lịch sử sự kiện
+        self._start_time = time.time()
+        self._req_history = []   # Timestamps cho req/s calculation
+        self._was_overloaded = False
+
+    def _calc_rps_locked(self):
+        cutoff = time.time() - 3.0
+        self._req_history = [t for t in self._req_history if t > cutoff]
+        return round(len(self._req_history) / 3.0, 1)
+
+    def get_overload_state_locked(self):
+        rps = self._calc_rps_locked()
+        inactive_cnt = len(self._all) - len(self._active)
+        high_traffic = rps >= OVERLOAD_RPS_THRESHOLD
+        is_overloaded = high_traffic or inactive_cnt > 0
+        reason = []
+        if high_traffic:
+            reason.append(f"Lưu lượng cao ({rps} req/s)")
+        if inactive_cnt > 0:
+            reason.append(f"{inactive_cnt} server gặp sự cố/quá tải")
+        return is_overloaded, rps, " • ".join(reason)
+
+    def next_node(self):
+        """Lấy node tiếp theo theo Round-Robin. Trả về (node_dict | None, is_overloaded, rps, reason)."""
+        with self._lock:
+            if not self._active:
+                return None, True, 0.0, "Tất cả server đều đang quá tải hoặc bảo trì"
+            node = self._active[self._idx % len(self._active)]
+            self._idx += 1
+            self._stats[node['name']]['req_total'] += 1
+            self._req_history.append(time.time())
+
+            is_overloaded, rps, reason = self.get_overload_state_locked()
+            if rps >= OVERLOAD_RPS_THRESHOLD and not self._was_overloaded:
+                self._was_overloaded = True
+                msg = f"🔥 CẢNH BÁO QUÁ TẢI ({rps} req/s) → Đang chia tải sang {len(self._active)} server!"
+                self._events.append({'time': _ts(), 'type': 'OVERLOAD', 'msg': msg})
+                print(_clr(f"\n  [{_ts()}] {msg}\n", 'red', 'bold'))
+            elif rps < OVERLOAD_RPS_THRESHOLD * 0.6 and self._was_overloaded:
+                self._was_overloaded = False
+                msg = f"✨ Lưu lượng đã ổn định trở lại ({rps} req/s)"
+                self._events.append({'time': _ts(), 'type': 'RECOVER', 'msg': msg})
+                print(_clr(f"\n  [{_ts()}] {msg}\n", 'green'))
+
+            return node, is_overloaded, rps, reason
+
+    def report_ok(self, name, latency_ms):
+        with self._lock:
+            self._stats[name]['req_ok'] += 1
+            self._stats[name]['last_latency_ms'] = latency_ms
+
+    def report_fail(self, name):
+        with self._lock:
+            self._stats[name]['req_fail'] += 1
+
+    def health_update(self, name, is_healthy):
+        """Cập nhật trạng thái health, xử lý failover/recovery."""
+        with self._lock:
+            st = self._stats[name]
+            if is_healthy:
+                self._fail_count[name] = 0
+                self._recover_count[name] += 1
+                # Thêm lại vào pool nếu đủ lần recover
+                if (not st['healthy'] and
+                        self._recover_count[name] >= RECOVER_THRESHOLD):
+                    st['healthy'] = True
+                    self._active.append(
+                        next(n for n in self._all if n['name'] == name)
+                    )
+                    self._events.append({
+                        'time': _ts(), 'type': 'RECOVER',
+                        'msg': f"✅ {name} phục hồi → đã thêm lại vào pool"
+                    })
+                    print(_clr(
+                        f"\n  [{_ts()}] ✅ RECOVER: {name} → thêm lại pool "
+                        f"({len(self._active)}/{len(self._all)} nodes)\n",
+                        'green', 'bold'))
+            else:
+                self._recover_count[name] = 0
+                self._fail_count[name] += 1
+                # Loại khỏi pool nếu fail đủ lần
+                if (st['healthy'] and
+                        self._fail_count[name] >= FAIL_THRESHOLD):
+                    st['healthy'] = False
+                    self._active = [n for n in self._active if n['name'] != name]
+                    # Reset index để không out-of-range
+                    if self._active:
+                        self._idx = self._idx % len(self._active)
+                    else:
+                        self._idx = 0
+                    self._events.append({
+                        'time': _ts(), 'type': 'DOWN',
+                        'msg': f"🔴 {name} đã sập → loại khỏi pool"
+                    })
+                    print(_clr(
+                        f"\n  [{_ts()}] 🔴 DOWN: {name} → loại khỏi pool "
+                        f"({len(self._active)}/{len(self._all)} nodes còn hoạt động)\n",
+                        'red', 'bold'))
+
+    def get_stats(self):
+        """Trả về JSON stats cho endpoint /lb-stats."""
+        with self._lock:
+            uptime = int(time.time() - self._start_time)
+            is_overloaded, rps, overload_reason = self.get_overload_state_locked()
+
+            total_reqs = sum(s['req_total'] for s in self._stats.values())
+            return {
+                'active_nodes':       [n['name'] for n in self._active],
+                'inactive_nodes':     [n['name'] for n in self._all
+                                       if n['name'] not in [a['name'] for a in self._active]],
+                'algorithm':          'Round-Robin',
+                'total_requests':     total_reqs,
+                'req_per_sec':        rps,
+                'overload_threshold': OVERLOAD_RPS_THRESHOLD,
+                'is_overloaded':      is_overloaded,
+                'overload_reason':    overload_reason,
+                'uptime_sec':         uptime,
+                'nodes':              dict(self._stats),
+                'events':             self._events[-20:],  # 20 sự kiện gần nhất
+            }
+
+# ─── Khởi tạo pool ────────────────────────────────────────────────────────────
+pool = NodePool(ALL_NODES)
+
+# ─── Colors & helpers ─────────────────────────────────────────────────────────
+C = {
+    'green':   '\033[92m', 'yellow': '\033[93m', 'red':     '\033[91m',
+    'blue':    '\033[94m', 'cyan':   '\033[96m', 'magenta': '\033[95m',
+    'bold':    '\033[1m',  'dim':    '\033[2m',  'reset':   '\033[0m',
+}
+def _clr(t, *cs): return ''.join(C[c] for c in cs if c in C) + str(t) + C['reset']
+def _ts(): return datetime.now().strftime('%H:%M:%S')
+
+# ─── SSL ──────────────────────────────────────────────────────────────────────
+def ensure_ssl():
+    SSL_DIR.mkdir(parents=True, exist_ok=True)
+    if not CERT_FILE.exists() or not KEY_FILE.exists():
+        print(_clr("🔐 Tạo SSL certificate...", 'yellow'))
+        subprocess.run([
+            "openssl", "req", "-x509", "-newkey", "rsa:2048",
+            "-keyout", str(KEY_FILE), "-out", str(CERT_FILE),
+            "-days", "365", "-nodes",
+            "-subj", "/C=VN/ST=HCM/L=HoChiMinh/O=CloudMart/CN=localhost"
+        ], capture_output=True)
+
+def server_ssl_ctx():
+    ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ctx.load_cert_chain(str(CERT_FILE), str(KEY_FILE))
+    return ctx
+
+def client_ssl_ctx():
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
+    return ctx
 
-    while True:
-        try:
-            url = f"https://{PRIMARY_HOST}:{PRIMARY_PORT}/"
-            req = urllib.request.Request(url, method="HEAD")
-            with urllib.request.urlopen(req, timeout=3, context=ctx) as resp:
-                code = resp.getcode()
-            # 2xx va 3xx deu la KHOE
-            if 200 <= code < 400:
-                event = FAILOVER.record_success()
-                if event == "FAILBACK":
-                    ts = time.strftime("%H:%M:%S")
-                    print(f"\n[{ts}] *** FAILBACK *** ALB chinh hoi phuc -> Quay ve PRIMARY (:{PRIMARY_PORT})\n")
-        except Exception:
-            # Loi ket noi hoac timeout -> primary sap
-            event = FAILOVER.record_fail()
-            if event == "FAILOVER":
-                ts = time.strftime("%H:%M:%S")
-                print(f"\n[{ts}] *** FAILOVER *** ALB chinh KHONG PHAN HOI -> Chuyen sang BACKUP (:{BACKUP_PORT})\n")
+_CLIENT_CTX = None
+def get_client_ctx():
+    global _CLIENT_CTX
+    if _CLIENT_CTX is None:
+        _CLIENT_CTX = client_ssl_ctx()
+    return _CLIENT_CTX
 
-        time.sleep(HEALTH_INTERVAL)
+# ─── Shared file resolver ─────────────────────────────────────────────────────
+def resolve_path(raw_path):
+    path = raw_path.split('?')[0].split('#')[0]
+    clean = path.lstrip('/')
+    if path == '/' or clean in ('', 'frontend', 'frontend/'):
+        return DEMO_DIR / "frontend" / "index.html"
+    if clean.startswith('frontend/'):
+        return DEMO_DIR / "frontend" / clean[len('frontend/'):]
+    if clean in ('products', 'products/'):
+        return DEMO_DIR / "products" / "index.html"
+    if clean.startswith('products/'):
+        return DEMO_DIR / "products" / clean[len('products/'):]
+    if clean in ('checkout', 'checkout/'):
+        return DEMO_DIR / "checkout" / "index.html"
+    if clean.startswith('checkout/'):
+        return DEMO_DIR / "checkout" / clean[len('checkout/'):]
+    if clean.startswith('assets/'):
+        asset = clean[len('assets/'):]
+        for base in [DEMO_DIR / "assets",
+                     DEMO_DIR / "products" / "assets",
+                     DEMO_DIR / "frontend" / "assets"]:
+            f = base / asset
+            if f.exists():
+                return f
+        return DEMO_DIR / "assets" / asset
+    return DEMO_DIR / clean
 
-# =============================================================================
-# BACKEND BACKUP - Phuc vu noi dung tu demo_pages/ (giong ALB chinh)
-# =============================================================================
-def make_static_handler(root_dir):
-    """Tao handler phuc vu file tinh tu root_dir."""
-    class StaticHandler(http.server.SimpleHTTPRequestHandler):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, directory=root_dir, **kwargs)
+# ─── Backend Node Handler (Node-2 & Node-3) ───────────────────────────────────
+def make_node_handler(node_name, node_port):
+    """Factory: tạo handler class cho từng backend node."""
+    class NodeHandler(http.server.BaseHTTPRequestHandler):
+        _name = node_name
+        _port = node_port
+
+        def do_GET(self):
+            fp = resolve_path(self.path)
+            if fp.is_dir():
+                fp = fp / "index.html"
+            if not fp.exists():
+                self.send_error(404)
+                return
+            try:
+                data = fp.read_bytes()
+            except Exception as e:
+                self.send_error(500, str(e))
+                return
+            ct, _ = mimetypes.guess_type(str(fp))
+            self.send_response(200)
+            self.send_header('Content-Type', ct or 'application/octet-stream')
+            self.send_header('Content-Length', len(data))
+            self.send_header('X-Served-By',  self._name)
+            self.send_header('X-Node-Port',  str(self._port))
+            self.send_header('Cache-Control', 'no-cache')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(data)
+
+        def do_HEAD(self):
+            self.send_response(200)
+            self.send_header('X-Served-By', self._name)
+            self.end_headers()
 
         def log_message(self, fmt, *args):
-            pass   # Tat log thieu de khong ran console
+            status = args[1] if len(args) > 1 else '???'
+            sc = 'green' if status.startswith('2') else 'yellow'
+            path = self.path[:45] + ('…' if len(self.path) > 45 else '')
+            print(_clr(f"  [{_ts()}][{self._name}:{self._port}] {path}", 'dim') +
+                  " → " + _clr(status, sc))
 
-        def handle_one_request(self):
-            try:
-                super().handle_one_request()
-            except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
-                pass
+    return NodeHandler
 
-    return StaticHandler
+# ─── Load Balancer Handler ────────────────────────────────────────────────────
+class LBHandler(http.server.BaseHTTPRequestHandler):
 
+    def do_GET(self):
+        # Endpoint stats
+        if self.path.rstrip('/') == '/lb-stats':
+            self._send_stats()
+            return
+        self._proxy()
 
-def run_static_server(port, folder):
-    """Chay HTTP server don gian cho 1 backend."""
-    folder_path = os.path.join(DEMO_DIR, folder)
-    handler = make_static_handler(folder_path)
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("0.0.0.0", port), handler) as srv:
-        srv.serve_forever()
+    def do_HEAD(self):
+        self._proxy()
 
-# =============================================================================
-# ALB BACKUP (CONG 9443, HTTPS) - Dinh tuyen path giong ALB chinh
-# Them header: X-Served-By: backup (de chung minh request qua server nao)
-# =============================================================================
-class BackupALBHandler(http.server.SimpleHTTPRequestHandler):
-    def log_message(self, fmt, *args):
-        pass
+    def _send_stats(self):
+        """Trả về JSON stats cho ha_test.py monitor."""
+        data = json.dumps(pool.get_stats(), indent=2, ensure_ascii=False).encode()
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Content-Length', len(data))
+        self.send_header('Cache-Control', 'no-cache')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(data)
 
-    def handle_one_request(self):
+    def _inject_overload_widget(self, body_bytes, node, is_overloaded, rps, reason):
+        """Chèn thông báo quá tải & auto-polling /lb-stats vào HTML mà không cần sửa demo_pages/."""
         try:
-            super().handle_one_request()
-        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
-            pass
+            html = body_bytes.decode('utf-8')
+        except UnicodeDecodeError:
+            return body_bytes
 
-    def translate_path(self, path):
-        """Dinh tuyen Path giong ALB chinh (mo phong Listener Rules)."""
-        # Strip query string
-        path = path.split("?")[0].split("#")[0]
+        if '</body>' not in html.lower():
+            return body_bytes
 
-        if path == "/products" or path.startswith("/products/"):
-            rel = path.lstrip("/")
-            full = os.path.join(DEMO_DIR, "products", rel)
-            if os.path.isdir(full):
-                full = os.path.join(full, "index.html")
-            return full
+        node_name = node['name']
+        init_display = 'flex' if is_overloaded else 'none'
+        init_msg = (
+            f"⚠️ Hệ thống đang có lượng truy cập cao ({reason}) — "
+            f"Bạn đang được điều hướng tự động sang <b>{node_name}</b> để tránh quá tải!"
+            if is_overloaded else ""
+        )
 
-        elif path == "/checkout" or path.startswith("/checkout/"):
-            rel = path.lstrip("/")
-            full = os.path.join(DEMO_DIR, "checkout", rel)
-            if os.path.isdir(full):
-                full = os.path.join(full, "index.html")
-            return full
+        widget = f"""
+<!-- CloudMart Load Balancer Overload Notification -->
+<style>
+  #cm-lb-banner {{
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 999999; display: {init_display}; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, #dc2626, #ea580c);
+    color: #fff; padding: 12px 20px; border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(220, 38, 38, 0.45);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px; line-height: 1.4; max-width: 92vw;
+    border: 1px solid rgba(255,255,255,0.25);
+    animation: cmPulse 2s infinite;
+  }}
+  @keyframes cmPulse {{
+    0%, 100% {{ box-shadow: 0 12px 32px rgba(220, 38, 38, 0.45); }}
+    50% {{ box-shadow: 0 12px 40px rgba(234, 88, 12, 0.75); }}
+  }}
+  #cm-lb-banner .cm-close {{
+    background: rgba(255,255,255,0.2); border: none; color: #fff;
+    width: 24px; height: 24px; border-radius: 50%; cursor: pointer;
+    font-weight: bold; flex-shrink: 0;
+  }}
+  #cm-lb-pill {{
+    position: fixed; bottom: 16px; left: 16px; z-index: 999998;
+    background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(8px);
+    color: #e2e8f0; padding: 6px 12px; border-radius: 999px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12px; border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; gap: 6px;
+  }}
+  #cm-lb-dot {{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: {'#f59e0b' if is_overloaded else '#22c55e'};
+  }}
+</style>
+<div id="cm-lb-banner">
+  <span style="font-size:18px;">🔥</span>
+  <span id="cm-lb-text">{init_msg}</span>
+  <button class="cm-close" onclick="document.getElementById('cm-lb-banner').style.display='none'">×</button>
+</div>
+<div id="cm-lb-pill">
+  <span id="cm-lb-dot"></span>
+  <span id="cm-lb-pill-text">Server: <b>{node_name}</b> • {rps} req/s</span>
+</div>
+<script>
+(function() {{
+  let dismissed = false;
+  const closeBtn = document.querySelector('#cm-lb-banner .cm-close');
+  if (closeBtn) closeBtn.addEventListener('click', () => {{ dismissed = true; }});
+  setInterval(async () => {{
+    try {{
+      const res = await fetch('/lb-stats', {{ cache: 'no-store' }});
+      if (!res.ok) return;
+      const st = await res.json();
+      const banner = document.getElementById('cm-lb-banner');
+      const text = document.getElementById('cm-lb-text');
+      const dot = document.getElementById('cm-lb-dot');
+      const pill = document.getElementById('cm-lb-pill-text');
+      if (pill) pill.innerHTML = 'Server: <b>{node_name}</b> • ' + st.req_per_sec + ' req/s (' + st.active_nodes.length + ' nodes)';
+      if (st.is_overloaded) {{
+        if (dot) dot.style.background = '#ef4444';
+        if (banner && !dismissed) {{
+          text.innerHTML = '⚠️ <b>CẢNH BÁO QUÁ TẢI:</b> ' + (st.overload_reason || 'Lưu lượng cao') +
+            ' — Hệ thống đang tự động chia tải sang <b>' + st.active_nodes.length + ' server</b> (Bạn đang ở <b>{node_name}</b>)';
+          banner.style.display = 'flex';
+        }}
+      }} else {{
+        if (dot) dot.style.background = '#22c55e';
+        if (banner) banner.style.display = 'none';
+        dismissed = false;
+      }}
+    }} catch(e) {{}}
+  }}, 2500);
+}})();
+</script>
+"""
+        idx = html.lower().rfind('</body>')
+        new_html = html[:idx] + widget + html[idx:]
+        return new_html.encode('utf-8')
 
-        else:
-            rel = path.lstrip("/")
-            full = os.path.join(DEMO_DIR, "frontend", rel)
-            if os.path.isdir(full):
-                full = os.path.join(full, "index.html")
-            return full
-
-    def end_headers(self):
-        # Header kiem dinh: request nay duoc phuc vu boi SERVER NAO
-        self.send_header("X-Served-By",  "backup")
-        self.send_header("X-ALB-Node",   f"backup-alb:{BACKUP_PORT}")
-        self.send_header("X-HA-Role",    "SECONDARY")
-
-        # Header dinh tuyen (giong ALB chinh)
-        p = self.path.split("?")[0]
-        if p == "/products" or p.startswith("/products/"):
-            self.send_header("X-ALB-Rule", "Priority 10: /products/* -> tg_products (backup)")
-        elif p == "/checkout" or p.startswith("/checkout/"):
-            self.send_header("X-ALB-Rule", "Priority 20: /checkout/* -> tg_checkout (backup)")
-        else:
-            self.send_header("X-ALB-Rule", "Default: / -> tg_frontend (backup)")
-
-        super().end_headers()
-
-
-def run_backup_alb(port=BACKUP_PORT):
-    """Chay ALB backup voi HTTPS (dung chung cert/key voi ALB chinh)."""
-    cert_path = os.path.join(CERTS_DIR, "cert.pem")
-    key_path  = os.path.join(CERTS_DIR, "key.pem")
-
-    socketserver.TCPServer.allow_reuse_address = True
-    httpd = socketserver.TCPServer(("0.0.0.0", port), BackupALBHandler)
-
-    if os.path.exists(cert_path) and os.path.exists(key_path):
-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-        ctx.load_cert_chain(certfile=cert_path, keyfile=key_path)
-        httpd.socket = ctx.wrap_socket(httpd.socket, server_side=True)
-        print(f"[Cong {port}] HTTPS ALB Backup san sang (SSL/TLS)")
-    else:
-        print(f"[Cong {port}] HTTP ALB Backup san sang (khong tim thay cert.pem)")
-
-    httpd.serve_forever()
-
-# =============================================================================
-# HAPROXY PYTHON - DIEM VAO DUY NHAT (CONG 7443, HTTPS)
-# Proxy toan bo request sang ALB dang hoat dong (primary hoac backup)
-# =============================================================================
-class HAProxyHandler(http.server.BaseHTTPRequestHandler):
-    """
-    Proxy HTTPS don gian: nhan request -> chuyen sang target hien tai
-    -> tra ve response cho client, giu nguyen header.
-    """
-    def log_message(self, fmt, *args):
-        pass
-
-    def handle_one_request(self):
-        try:
-            super().handle_one_request()
-        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
-            pass
+    def _send_overload_503(self):
+        """Trang thông báo thân thiện khi tất cả server đều quá tải/sập."""
+        html = """<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><title>Hệ thống đang quá tải — CloudMart</title>
+<style>
+  body { font-family: -apple-system, sans-serif; background: #0f172a; color: #f8fafc;
+         display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+  .card { background: #1e293b; padding: 36px; border-radius: 16px; max-width: 480px;
+          text-align: center; border: 1px solid #ef4444; box-shadow: 0 20px 50px rgba(239,68,68,0.25); }
+  h1 { color: #f87171; margin-top: 0; }
+  p { color: #cbd5e1; line-height: 1.6; }
+  .btn { display: inline-block; margin-top: 16px; padding: 10px 24px; background: #3b82f6;
+         color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; }
+</style>
+<meta http-equiv="refresh" content="5">
+</head><body><div class="card">
+  <h1>🚨 Hệ Thống Đang Quá Tải</h1>
+  <p>Hiện tại lượng người truy cập quá lớn hoặc tất cả máy chủ đang bảo trì.</p>
+  <p>Trang sẽ tự động tải lại sau <b>5 giây</b>...</p>
+  <a class="btn" href="/">Thử lại ngay</a>
+</div></body></html>""".encode('utf-8')
+        self.send_response(503)
+        self.send_header('Content-Type', 'text/html; charset=utf-8')
+        self.send_header('Content-Length', len(html))
+        self.send_header('Retry-After', '5')
+        self.end_headers()
+        self.wfile.write(html)
 
     def _proxy(self):
-        target_port = FAILOVER.target_port()
-        # ALB chinh la HTTPS, backup cung HTTPS
-        target_url = f"https://127.0.0.1:{target_port}{self.path}"
+        node, is_overloaded, rps, reason = pool.next_node()
+        if node is None:
+            self._send_overload_503()
+            return
 
-        ctx = ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
-
+        url = f"https://localhost:{node['port']}{self.path}"
+        t0 = time.time()
         try:
-            # Doc body neu co (POST)
-            content_length = int(self.headers.get("Content-Length", 0))
-            body = self.rfile.read(content_length) if content_length else None
+            req = urllib.request.Request(url, method=self.command)
+            for h in ('Accept', 'Accept-Language', 'User-Agent'):
+                v = self.headers.get(h)
+                if v:
+                    req.add_header(h, v)
 
-            req = urllib.request.Request(target_url, data=body, method=self.command)
-            # Chuyen mot so header quan trong
-            for h in ["Accept", "Accept-Language", "Accept-Encoding", "User-Agent", "Cookie"]:
-                val = self.headers.get(h)
-                if val:
-                    req.add_header(h, val)
+            with urllib.request.urlopen(req, context=get_client_ctx(), timeout=5) as resp:
+                body = resp.read() if self.command != 'HEAD' else b''
+                latency_ms = int((time.time() - t0) * 1000)
+                pool.report_ok(node['name'], latency_ms)
 
-            with urllib.request.urlopen(req, timeout=5, context=ctx) as resp:
-                self.send_response(resp.getcode())
-                # Chuyen header tu upstream ve client
-                for key, val in resp.headers.items():
-                    if key.lower() not in ("transfer-encoding", "connection"):
-                        self.send_header(key, val)
-                # Them header cho biet dang dung node nao
-                self.send_header("X-HA-Active-Node", FAILOVER.current())
-                self.send_header("X-HA-Entry-Port",  str(ENTRY_PORT))
+                ctype = resp.headers.get('Content-Type', '')
+                if body and 'text/html' in ctype.lower():
+                    body = self._inject_overload_widget(body, node, is_overloaded, rps, reason)
+
+                self.send_response(resp.status)
+                skip = {'transfer-encoding', 'connection', 'content-length'}
+                for k, v in resp.headers.items():
+                    if k.lower() not in skip:
+                        self.send_header(k, v)
+
+                # LB headers — quan trọng để client biết đang nói chuyện với node nào
+                self.send_header('X-LB-Node',     node['name'])
+                self.send_header('X-LB-Port',     str(node['port']))
+                self.send_header('X-Served-By',   node['name'])
+                self.send_header('X-Latency-Ms',  str(latency_ms))
+                self.send_header('X-LB-Overload', 'true' if is_overloaded else 'false')
+                self.send_header('X-LB-RPS',      str(rps))
+                if body:
+                    self.send_header('Content-Length', len(body))
                 self.end_headers()
-                self.wfile.write(resp.read())
+                if body:
+                    self.wfile.write(body)
 
         except Exception as e:
-            # Loi proxy -> tra 502
-            self.send_response(502)
-            self.send_header("Content-Type", "text/plain; charset=utf-8")
-            self.send_header("X-HA-Active-Node", FAILOVER.current())
-            self.end_headers()
-            self.wfile.write(
-                f"502 Bad Gateway\nHA Proxy khong the ket noi toi {target_url}\nLoi: {e}".encode()
-            )
+            pool.report_fail(node['name'])
+            # Thử lại node tiếp theo ngay lập tức (tránh request bị lỗi)
+            fallback, is_overloaded2, rps2, reason2 = pool.next_node()
+            if fallback and fallback['name'] != node['name']:
+                url2 = f"https://localhost:{fallback['port']}{self.path}"
+                try:
+                    req2 = urllib.request.Request(url2, method=self.command)
+                    with urllib.request.urlopen(req2, context=get_client_ctx(), timeout=5) as resp2:
+                        body2 = resp2.read() if self.command != 'HEAD' else b''
+                        ctype2 = resp2.headers.get('Content-Type', '')
+                        if body2 and 'text/html' in ctype2.lower():
+                            body2 = self._inject_overload_widget(body2, fallback, True, rps2, f"{node['name']} gặp sự cố")
+                        self.send_response(resp2.status)
+                        skip = {'transfer-encoding', 'connection', 'content-length'}
+                        for k, v in resp2.headers.items():
+                            if k.lower() not in skip:
+                                self.send_header(k, v)
+                        self.send_header('X-LB-Node',     fallback['name'])
+                        self.send_header('X-LB-Fallback', node['name'])
+                        self.send_header('X-Served-By',   fallback['name'])
+                        self.send_header('X-LB-Overload', 'true')
+                        if body2:
+                            self.send_header('Content-Length', len(body2))
+                        self.end_headers()
+                        if body2:
+                            self.wfile.write(body2)
+                        return
+                except Exception:
+                    pass
+            self._send_overload_503()
 
-    def do_GET(self):    self._proxy()
-    def do_HEAD(self):   self._proxy()
-    def do_POST(self):   self._proxy()
+    def log_message(self, fmt, *args):
+        pass   # Logging được xử lý trong _proxy để có màu đẹp hơn
 
+# ─── Health Checker ───────────────────────────────────────────────────────────
+def health_checker_loop():
+    ctx = client_ssl_ctx()
+    while True:
+        for node in ALL_NODES:
+            try:
+                req = urllib.request.Request(
+                    f"https://localhost:{node['port']}/", method='HEAD'
+                )
+                urllib.request.urlopen(req, context=ctx, timeout=3)
+                is_healthy = True
+            except Exception:
+                is_healthy = False
+            pool.health_update(node['name'], is_healthy)
+        time.sleep(CHECK_INTERVAL)
 
-def run_ha_entry(port=ENTRY_PORT):
-    """Chay HTTPS entry point (HAProxy Python) voi cert/key chung."""
-    cert_path = os.path.join(CERTS_DIR, "cert.pem")
-    key_path  = os.path.join(CERTS_DIR, "key.pem")
+# ─── Khởi chạy server ─────────────────────────────────────────────────────────
+def run_https_server(port, handler_class, label):
+    class ThreadedHTTPSServer(http.server.ThreadingHTTPServer):
+        daemon_threads = True
+        allow_reuse_address = True
 
-    socketserver.TCPServer.allow_reuse_address = True
-    httpd = socketserver.TCPServer(("0.0.0.0", port), HAProxyHandler)
+    srv = ThreadedHTTPSServer(('0.0.0.0', port), handler_class)
+    ctx = server_ssl_ctx()
+    srv.socket = ctx.wrap_socket(srv.socket, server_side=True)
+    print(_clr(f"  ✅ {label} đang chạy tại https://localhost:{port}/", 'green'))
+    srv.serve_forever()
 
-    if os.path.exists(cert_path) and os.path.exists(key_path):
-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-        ctx.load_cert_chain(certfile=cert_path, keyfile=key_path)
-        httpd.socket = ctx.wrap_socket(httpd.socket, server_side=True)
-        print(f"[Cong {port}] HTTPS HA Entry Point (HAProxy Python) san sang")
-    else:
-        print(f"[Cong {port}] CANH BAO: Khong tim thay cert.pem / key.pem!")
+# ─── Live stats printer ───────────────────────────────────────────────────────
+def stats_printer_loop():
+    """In stats phân phối tải ra terminal mỗi 5 giây."""
+    time.sleep(3)  # Chờ servers khởi động
+    while True:
+        time.sleep(5)
+        st = pool.get_stats()
+        total = st['total_requests'] or 1
+        print(_clr(f"\n  [{_ts()}] 📊 Phân phối tải (Round-Robin):", 'cyan', 'bold'))
+        for name, info in st['nodes'].items():
+            pct = round(info['req_total'] / total * 100)
+            bar = '█' * (pct // 5) + '░' * (20 - pct // 5)
+            status = _clr('✅ ONLINE ', 'green') if info['healthy'] else _clr('❌ OFFLINE', 'red')
+            lat = f" {info['last_latency_ms']}ms" if info['last_latency_ms'] else ''
+            print(f"    {info['icon']} {name:<22} {status} "
+                  f"{_clr(bar, 'blue')} {pct:3d}% ({info['req_total']} reqs{lat})")
+        print(f"    {'─'*65}")
+        print(f"    Total: {total} reqs | "
+              f"{st['req_per_sec']} req/s | "
+              f"{len(st['active_nodes'])}/{len(ALL_NODES)} nodes active\n")
 
-    httpd.serve_forever()
+# ─── Main ─────────────────────────────────────────────────────────────────────
+def main():
+    ensure_ssl()
 
-# =============================================================================
-# MAIN
-# =============================================================================
-if __name__ == "__main__":
-    print("=" * 70)
-    print("HA LOCAL - ACTIVE-PASSIVE FAILOVER (Thay the HAProxy)")
-    print("=" * 70)
+    print(_clr("""
+╔══════════════════════════════════════════════════════════╗
+║  ⚖️   CloudMart — Load Balancer + 2 Backend Nodes       ║
+║       Chống quá tải: Phân phối tải tự động             ║
+╚══════════════════════════════════════════════════════════╝""", 'bold', 'cyan'))
 
-    # 1. Khoi dong 3 backend BACKUP
-    for port, folder in [(BACKEND_B_FE, "frontend"), (BACKEND_B_PROD, "products"), (BACKEND_B_CHK, "checkout")]:
-        t = threading.Thread(target=run_static_server, args=(port, folder), daemon=True)
-        t.start()
-        print(f"  [Cong {port}] Backend Backup {folder} san sang")
+    print(f"""
+  {_clr('⚖️  Load Balancer (điểm vào duy nhất):', 'bold')}
+     {_clr(f'🌐 https://localhost:{LB_PORT}/', 'cyan', 'bold')}
+     Thuật toán: {_clr('Round-Robin', 'yellow')} (chia đều request sang 3 nodes)
 
+  {_clr('Backend Nodes:', 'bold')}
+     🟢 Node-1 (Main)     → https://localhost:{MAIN_PORT}/   [Tab 1]
+     🔵 Node-2 (Backup-1) → https://localhost:{NODE2_PORT}/   [script này]
+     🟣 Node-3 (Backup-2) → https://localhost:{NODE3_PORT}/   [script này]
+
+  {_clr('Khi quá tải / node sập:', 'yellow')}
+     • Load Balancer tự loại node chết sau {FAIL_THRESHOLD * CHECK_INTERVAL:.0f}s
+     • Traffic tự động chia đều sang các node còn lại
+     • Node phục hồi → tự thêm lại vào pool sau {RECOVER_THRESHOLD * CHECK_INTERVAL:.0f}s
+
+  {_clr('Stats endpoint:', 'dim')}
+     curl -k https://localhost:{LB_PORT}/lb-stats
+""")
+
+    # Khởi chạy Node-2 và Node-3
+    for port, label in [(NODE2_PORT, "Node-2 (Backup-1)"),
+                        (NODE3_PORT, "Node-3 (Backup-2)")]:
+        handler = make_node_handler(label.split('(')[0].strip(), port)
+        threading.Thread(target=run_https_server,
+                         args=(port, handler, label),
+                         daemon=True).start()
+        time.sleep(0.3)
+
+    # Health checker
+    threading.Thread(target=health_checker_loop, daemon=True).start()
+
+    # Stats printer
+    threading.Thread(target=stats_printer_loop, daemon=True).start()
+
+    # Load Balancer (chạy ở main thread)
     time.sleep(0.5)
-
-    # 2. Khoi dong ALB Backup (HTTPS cong 9443)
-    t_backup = threading.Thread(target=run_backup_alb, args=(BACKUP_PORT,), daemon=True)
-    t_backup.start()
-    time.sleep(0.5)
-
-    # 3. Khoi dong HA Entry Point (HTTPS cong 7443)
-    t_entry = threading.Thread(target=run_ha_entry, args=(ENTRY_PORT,), daemon=True)
-    t_entry.start()
-    time.sleep(0.5)
-
-    # 4. Khoi dong Health Check thread
-    t_hc = threading.Thread(target=health_check_loop, daemon=True)
-    t_hc.start()
-
-    print()
-    print("=" * 70)
-    print("HUONG DAN SU DUNG:")
-    print("-" * 70)
-    print(f"  BUOC 1: Mo terminal KHAC, chay ALB chinh:")
-    print(f"            python scripts/run_local_demo.py")
-    print()
-    print(f"  BUOC 2: Truy cap qua HA Entry Point (diem vao duy nhat):")
-    print(f"            https://localhost:{ENTRY_PORT}/")
-    print(f"            https://localhost:{ENTRY_PORT}/products/")
-    print(f"            https://localhost:{ENTRY_PORT}/checkout/")
-    print()
-    print(f"  BUOC 3: Tat ALB chinh (Ctrl+C tren terminal run_local_demo.py)")
-    print(f"          hoac chay ha_test.sh de load test.")
-    print(f"          -> He thong tu dong chuyen sang BACKUP (:{BACKUP_PORT}) sau {FALL_THRESHOLD * HEALTH_INTERVAL}s")
-    print()
-    print(f"  BUOC 4: Khoi dong lai ALB chinh")
-    print(f"          -> He thong tu dong quay ve PRIMARY sau {RISE_THRESHOLD * HEALTH_INTERVAL}s")
-    print()
-    print(f"  Kiem tra dang phuc vu server nao:")
-    print(f"    curl -k -s -I https://localhost:{ENTRY_PORT}/ | grep X-HA-Active-Node")
-    print(f"    curl -k -s -I https://localhost:{BACKUP_PORT}/ | grep X-Served-By")
-    print("=" * 70)
-    print("Nhan Ctrl+C de dung.")
+    print(f"\n  {_clr('─' * 58, 'dim')}")
+    print(f"  {_clr('💡 Mô phỏng quá tải: Ctrl+C ở Tab 1 để tắt Node-1', 'yellow')}")
+    print(f"  {_clr('💡 Monitor: python3 scripts/ha_test.py monitor (Tab 3)', 'dim')}")
+    print(f"  {_clr('─' * 58, 'dim')}\n")
 
     try:
-        while True:
-            time.sleep(1)
+        run_https_server(LB_PORT, LBHandler, "Load Balancer")
     except KeyboardInterrupt:
-        print("\nDa dung he thong HA local.")
-        sys.exit(0)
+        print(_clr("\n  ⚠️  Load Balancer đã dừng!\n", 'yellow', 'bold'))
+
+if __name__ == '__main__':
+    main()

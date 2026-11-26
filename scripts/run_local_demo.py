@@ -157,7 +157,11 @@ def main():
   {clr('─' * 54, 'dim')}
 """)
 
-    server = http.server.HTTPServer(('0.0.0.0', PORT), ALBHandler)
+    class ThreadedHTTPSServer(http.server.ThreadingHTTPServer):
+        daemon_threads = True
+        allow_reuse_address = True
+
+    server = ThreadedHTTPSServer(('0.0.0.0', PORT), ALBHandler)
     ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ctx.load_cert_chain(cert, key)
     server.socket = ctx.wrap_socket(server.socket, server_side=True)
