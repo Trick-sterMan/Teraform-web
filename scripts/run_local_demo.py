@@ -160,6 +160,7 @@ def main():
     class ThreadedHTTPSServer(http.server.ThreadingHTTPServer):
         daemon_threads = True
         allow_reuse_address = True
+        request_queue_size = 128
 
     server = ThreadedHTTPSServer(('0.0.0.0', PORT), ALBHandler)
     ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)

@@ -687,6 +687,7 @@ def run_https_server(port, handler_class, label):
     class ThreadedHTTPSServer(http.server.ThreadingHTTPServer):
         daemon_threads = True
         allow_reuse_address = True
+        request_queue_size = 128
 
     srv = ThreadedHTTPSServer(('0.0.0.0', port), handler_class)
     ctx = server_ssl_ctx()
