@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Thanh Toán Trực Tuyến An Toàn | CloudMart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-hover: #6d28d9;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { 
+    background-color: #f8fafc; 
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.06) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.04) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: var(--text-main); 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+        /* Top Announcement Bar */
+        .top-bar { background: #4c1d95; color: #ede9fe; font-size: 0.8rem; padding: 0.5rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar strong { color: #fff; }
+        .top-links a { color: #ede9fe; text-decoration: none; margin-left: 1rem; }
+
+        /* Cloud System Monitor Badge Bar */
+        .cloud-badge-bar { background: linear-gradient(90deg, #5b21b6, #7c3aed); color: white; padding: 0.55rem 1.5rem; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); }
+        .cloud-badge-bar .sys-info { display: flex; gap: 1rem; align-items: center; }
+        .cloud-pill { background: rgba(255,255,255,0.2); padding: 0.2rem 0.65rem; border-radius: 9999px; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 0.35rem; }
+        .cloud-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: #c4b5fd; display: inline-block; box-shadow: 0 0 8px #c4b5fd; }
+
+        /* Main Navigation */
+        header { background: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; box-shadow: var(--shadow-sm); }
+        .nav-container { max-width: 1240px; margin: 0 auto; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .brand-logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .brand-logo span { color: var(--secondary); }
+        .secure-badge { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: #059669; font-weight: 700; background: #ecfdf5; padding: 0.4rem 0.85rem; border-radius: 9999px; }
+
+        /* Stepper */
+        .stepper-container { max-width: 900px; margin: 2rem auto 0; padding: 0 1.5rem; }
+        .stepper { display: flex; justify-content: space-between; position: relative; }
+        .stepper::before { content: ""; position: absolute; top: 20px; left: 50px; right: 50px; height: 2px; background: #e2e8f0; z-index: 1; }
+        .step-item { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; }
+        .step-num { width: 42px; height: 42px; border-radius: 50%; background: white; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .step-item.completed .step-num { background: #10b981; border-color: #10b981; color: white; }
+        .step-item.active .step-num { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 0 0 4px rgba(124,58,237,0.2); }
+        .step-label { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); }
+        .step-item.active .step-label { color: var(--primary); }
+
+        /* Checkout Layout */
+        .checkout-container { max-width: 1240px; margin: 2rem auto 3rem; padding: 0 1.5rem; display: grid; grid-template-columns: 1.35fr 1fr; gap: 2.5rem; align-items: start; }
+
+        /* Left Column: Form Cards */
+        .checkout-box { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 2rem; box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; }
+        .box-title { font-size: 1.25rem; font-weight: 800; color: var(--secondary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group.full { grid-column: span 2; }
+        .form-label { display: block; font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.4rem; }
+        .form-input { width: 100%; padding: 0.75rem 1rem; border-radius: 10px; border: 1.5px solid var(--border); outline: none; font-size: 0.95rem; font-family: inherit; transition: 0.2s; background: #f8fafc; }
+        .form-input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(124,58,237,0.1); }
+
+        /* Payment Methods Accordion */
+        .payment-options { display: flex; flex-direction: column; gap: 0.85rem; }
+        .payment-card { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; transition: 0.2s; }
+        .payment-card.active { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(124,58,237,0.15); }
+        .payment-header { padding: 1.1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; background: #fff; }
+        .payment-card.active .payment-header { background: #faf5ff; }
+        .payment-info { display: flex; align-items: center; gap: 0.85rem; font-size: 0.95rem; font-weight: 700; color: var(--secondary); }
+        .payment-badge { font-size: 0.75rem; background: #ede9fe; color: var(--primary); padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 700; }
+        .payment-body { padding: 1.25rem; border-top: 1px solid var(--border); background: #f8fafc; display: none; }
+        .payment-card.active .payment-body { display: block; }
+
+        /* VietQR Box Details */
+        .vietqr-box { display: flex; gap: 1.5rem; align-items: center; background: white; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 1.25rem; }
+        .qr-image-wrapper { width: 140px; height: 140px; background: white; border: 1px solid #cbd5e1; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        .qr-placeholder { font-size: 4.5rem; line-height: 1; }
+        .qr-badge-sub { font-size: 0.7rem; font-weight: 800; color: #dc2626; margin-top: 0.2rem; }
+        .qr-details-table { width: 100%; font-size: 0.85rem; }
+        .qr-details-table td { padding: 0.35rem 0; }
+        .qr-details-table td:first-child { color: var(--text-muted); width: 40%; }
+        .qr-details-table td:last-child { font-weight: 700; color: var(--secondary); }
+        .copy-pill { font-size: 0.7rem; background: #ede9fe; color: var(--primary); border: none; padding: 0.2rem 0.5rem; border-radius: 4px; cursor: pointer; font-weight: 700; margin-left: 0.4rem; }
+
+        /* Credit Card Inputs */
+        .credit-card-preview { background: linear-gradient(135deg, #1e1b4b, #4338ca); color: white; border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem; width: 100%; max-width: 320px; font-family: monospace; box-shadow: var(--shadow-md); }
+        .cc-chip { font-size: 1.5rem; margin-bottom: 1rem; }
+        .cc-number { font-size: 1.15rem; letter-spacing: 2px; margin-bottom: 1rem; }
+        .cc-bottom { display: flex; justify-content: space-between; font-size: 0.8rem; }
+
+        /* Right Column: Order Summary Card */
+        .summary-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 2rem; box-shadow: var(--shadow-sm); position: sticky; top: 90px; }
+        .summary-title { font-size: 1.25rem; font-weight: 800; color: var(--secondary); margin-bottom: 1.5rem; }
+        .cart-item { display: flex; align-items: center; gap: 1rem; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .cart-thumb { width: 64px; height: 64px; min-width: 64px; background: #f8fafc; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border: 1px solid var(--border); overflow: hidden; }
+        .cart-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .cart-details { flex: 1; }
+        .cart-name { font-size: 0.9rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.25rem; }
+        .cart-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.6rem; margin-top: 0.2rem; }
+        .qty-btn { background: #e2e8f0; border: none; width: 22px; height: 22px; border-radius: 4px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+        .cart-price { font-weight: 800; font-size: 0.95rem; color: #0f172a; }
+
+        /* Promo Box */
+        .promo-box { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .promo-input { flex: 1; padding: 0.7rem 1rem; border-radius: 8px; border: 1.5px solid var(--border); outline: none; font-size: 0.875rem; text-transform: uppercase; font-weight: 700; }
+        .btn-apply { background: var(--secondary); color: white; border: none; padding: 0 1.2rem; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.875rem; }
+
+        /* Price Calculation */
+        .calc-row { display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.9rem; color: #475569; }
+        .calc-row.discount { color: #10b981; font-weight: 600; }
+        .calc-row.total { font-size: 1.35rem; font-weight: 800; color: var(--secondary); border-top: 2px dashed var(--border); padding-top: 1rem; margin-top: 1rem; }
+        .calc-row.total span:last-child { color: var(--primary); }
+
+        .btn-submit-order { width: 100%; background: linear-gradient(135deg, #7c3aed, #6d28d9); color: white; border: none; padding: 1.1rem; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 1.5rem; transition: 0.25s; box-shadow: 0 10px 15px -3px rgba(124,58,237,0.3); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .btn-submit-order:hover { transform: translateY(-2px); box-shadow: 0 15px 20px -3px rgba(124,58,237,0.4); }
+
+        /* VAT Box */
+        .vat-toggle { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px dashed var(--border); font-size: 0.85rem; color: #475569; }
+
+        /* Architecture Banner */
+        .arch-banner { background: #0f172a; border-radius: 18px; padding: 1.5rem 2rem; color: #94a3b8; margin-top: 2rem; border: 1px solid #334155; }
+        .arch-banner h3 { color: #f8fafc; font-size: 1.1rem; margin-bottom: 0.4rem; }
+        .arch-banner p { font-size: 0.85rem; line-height: 1.5; }
+
+        /* Success Modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 100; }
+        .modal-card { background: white; border-radius: 20px; padding: 2.5rem; max-width: 480px; width: 90%; text-align: center; box-shadow: var(--shadow-xl); animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .modal-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; }
+        .modal-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.75rem; text-align: left; background: #f8fafc; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); }
+        .btn-modal-close { background: var(--primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 10px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; font-size: 0.95rem; }
+
+        /* Footer */
+        footer { background: #0b1120; color: #64748b; padding: 3.5rem 1.5rem 1.5rem; margin-top: auto; border-top: 1px solid #1e293b; }
+        .footer-grid { max-width: 1240px; margin: 0 auto 2.5rem; display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; }
+        .footer-brand h4 { color: white; font-size: 1.3rem; margin-bottom: 0.75rem; }
+        .footer-brand p { font-size: 0.875rem; line-height: 1.6; max-width: 300px; }
+        .footer-col h5 { color: white; font-size: 0.95rem; font-weight: 700; margin-bottom: 1.2rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.65rem; }
+        .footer-col a { color: #94a3b8; text-decoration: none; font-size: 0.875rem; }
+        .footer-bottom { max-width: 1240px; margin: 0 auto; padding-top: 1.5rem; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; font-size: 0.825rem; }
+
+        @media (max-width: 860px) {
+            .checkout-container { grid-template-columns: 1fr; }
+            .vietqr-box { flex-direction: column; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    
+        /* ==================================================== */
+        /* STYLES FOR PRINT RECEIPT (HÓA ĐƠN & BIÊN LAI IN ẤN) */
+        /* ==================================================== */
+        .btn-print-receipt {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            border: none;
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(5,150,105,0.25);
+            text-decoration: none;
+        }
+        .btn-print-receipt:hover {
+            background: #065f46;
+            transform: translateY(-1px);
+        }
+
+        .btn-view-receipt {
+            background: #f1f5f9;
+            color: #1e293b;
+            border: 1.5px solid #cbd5e1;
+            padding: 0.85rem 1.25rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: 0.2s;
+        }
+        .btn-view-receipt:hover {
+            background: #e2e8f0;
+        }
+
+        /* Printable Receipt Container */
+        #printableReceipt {
+            display: none;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            #printableReceipt, #printableReceipt * {
+                visibility: visible !important;
+            }
+            #printableReceipt {
+                display: block !important;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 1.5cm 1.5cm !important;
+                background: white !important;
+                color: #0f172a !important;
+                font-family: 'Plus Jakarta Sans', Arial, sans-serif !important;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+        <div>🔒 <strong>Bảo mật giao dịch:</strong> Mã hóa đường truyền SSL/TLS 256-bit chuẩn quốc tế PCI DSS</div>
+        <div class="top-links" style="display: flex; align-items: center; gap: 1rem;">
+            <span style="cursor: pointer; color: #a7f3d0;" onclick="openTrackingModal()">📦 Tra cứu đơn hàng</span>
+            <a href="/">Hỗ trợ thanh toán: 1800 6868</a>
+            <a href="/">Chính sách bảo mật</a>
+        </div>
+    </div>
+
+    <!-- Live Cloud Architecture Header Badge -->
+    <div class="cloud-badge-bar">
+        <div class="sys-info">
+            <span class="cloud-pill"><span class="dot"></span> AWS ALB Routed</span>
+            <span>Target Group: <strong>tg_checkout</strong></span>
+            <span>| Path Pattern: <strong>/checkout/*</strong></span>
+        </div>
+        <div>
+            <span class="cloud-pill">Backend Node: EC2 Checkout (Nginx) • Huỳnh Nhật Hòa</span>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header>
+        <div class="nav-container">
+            <a href="/" class="brand-logo">
+                🛒 Cloud<span>Mart</span>
+            </a>
+
+            <div class="secure-badge">
+                <span>🛡️ Cổng Thanh Toán Bảo Mật 256-bit</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stepper Navigation -->
+    <div class="stepper-container">
+        <div class="stepper">
+            <div class="step-item completed">
+                <div class="step-num">✓</div>
+                <div class="step-label">Giỏ hàng</div>
+            </div>
+            <div class="step-item active">
+                <div class="step-num">2</div>
+                <div class="step-label">Thanh toán & Giao nhận</div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-label">Hoàn tất đơn</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Checkout Container -->
+    <div class="checkout-container">
+        <!-- Left: Input Forms -->
+        <div>
+            <!-- Shipping Information -->
+            <div class="checkout-box">
+                <h2 class="box-title">📍 1. Thông Tin Nhận Hàng & Vận Chuyển</h2>
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label class="form-label">Họ và tên người nhận *</label>
+                        <input type="text" class="form-input" id="custName" value="Huỳnh Nhật Hòa">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Số điện thoại *</label>
+                        <input type="text" class="form-input" id="custPhone" value="0912 345 678">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email nhận hóa đơn điện tử *</label>
+                        <input type="email" class="form-input" id="custEmail" value="hoahuynh@example.com">
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Địa chỉ giao hàng (Số nhà, tên đường, phường/xã) *</label>
+                        <input type="text" class="form-input" id="custAddress" value="Khu Công Nghệ Cao, TP. Thủ Đức, TP. Hồ Chí Minh">
+                    </div>
+                </div>
+
+                <div class="vat-toggle">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600;">
+                        <input type="checkbox" id="vatCheck" onchange="toggleVat()">
+                        <span>Yêu cầu xuất hóa đơn điện tử VAT Doanh Nghiệp (Hóa đơn đỏ)</span>
+                    </label>
+                    <div id="vatForm" style="display: none; margin-top: 1rem;" class="form-grid">
+                        <div class="form-group full">
+                            <label class="form-label">Tên Công ty / Doanh nghiệp</label>
+                            <input type="text" class="form-input" placeholder="Ví dụ: Công ty TNHH Giải Pháp Công Nghệ...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mã số thuế</label>
+                            <input type="text" class="form-input" placeholder="Ví dụ: 0312345678">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Địa chỉ đăng ký kinh doanh</label>
+                            <input type="text" class="form-input" placeholder="Địa chỉ theo giấy phép ĐKKD...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Methods Selection with Dynamic Views -->
+            <div class="checkout-box">
+                <h2 class="box-title">💳 2. Chọn Phương Thức Thanh Toán Thuận Tiện</h2>
+                <div class="payment-options">
+
+                    <!-- Method 1: VietQR -->
+                    <div class="payment-card active" id="cardVietQR">
+                        <div class="payment-header" onclick="selectPayment('VietQR')">
+                            <div class="payment-info">
+                                <input type="radio" name="pay_opt" checked id="radioVietQR" style="accent-color: var(--primary);">
+                                <span>Chuyển khoản Ngân hàng qua Mã VietQR (Napas 247)</span>
+                            </div>
+                            <span class="payment-badge">⚡ Khuyên dùng</span>
+                        </div>
+                        <div class="payment-body" id="bodyVietQR" style="display: block;">
+                            <div class="vietqr-box" style="flex-wrap: wrap;">
+                                <div class="qr-image-wrapper" style="width: 160px; height: 160px; padding: 6px; background: white; border: 1.5px solid #cbd5e1; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow-sm);">
+                                    <img id="vietqrImg" src="https://api.vietqr.io/image/970436-0123456789999-compact2.png?amount=75480000&addInfo=CMD8899&accountName=CONG%20TY%20CO%20PHAN%20CLOUDMART" alt="Mã VietQR Thanh Toán" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;" onerror="handleQRError(this)">
+                                    <div class="qr-badge-sub" style="font-size: 0.65rem; font-weight: 800; color: #059669; margin-top: 4px; display: flex; align-items: center; gap: 4px;">
+                                        <span class="dot" style="width:6px; height:6px; background:#10b981; border-radius:50%; display:inline-block;"></span> VietQR 24/7 Tự Động
+                                    </div>
+                                </div>
+                                <div style="flex: 1; min-width: 260px;">
+                                    <div style="font-size: 0.9rem; font-weight: 700; color: #059669; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem;">
+                                        <span>⚡</span> Quét mã bằng bất kỳ App Ngân hàng (VCB, MB, Techcombank, VPBank, ACB...)
+                                    </div>
+                                    <table class="qr-details-table">
+                                        <tr>
+                                            <td>Ngân hàng:</td>
+                                            <td><strong>Vietcombank (VCB)</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số tài khoản:</td>
+                                            <td>
+                                                <span style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">0123456789999</span>
+                                                <button type="button" class="copy-pill" onclick="copyText('0123456789999')">Sao chép</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số tiền chuyển:</td>
+                                            <td>
+                                                <span id="qrTransferAmount" style="font-size: 1.05rem; font-weight: 800; color: #7c3aed;">75.480.000 ₫</span>
+                                                <button type="button" class="copy-pill" onclick="copyTransferAmount()">Sao chép</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chủ tài khoản:</td>
+                                            <td><strong>CONG TY CO PHAN CLOUDMART</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nội dung CK:</td>
+                                            <td>
+                                                <span id="qrTransferMemo" style="color:#7c3aed; font-weight: 800; letter-spacing: 0.05em;">CMD8899</span>
+                                                <button type="button" class="copy-pill" onclick="copyTransferMemo()">Sao chép</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div style="margin-top: 0.75rem; font-size: 0.8rem; color: #64748b; background: #f1f5f9; padding: 0.45rem 0.75rem; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
+                                        <span>⏱️ Tự động kích hoạt đơn hàng trong <strong>3 giây</strong></span>
+                                        <button type="button" onclick="simulatePaymentSuccess()" style="font-size: 0.75rem; background: #059669; color: white; border: none; padding: 0.25rem 0.6rem; border-radius: 6px; cursor: pointer; font-weight: 700;">Kiểm tra ngay</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Method 2: International Card -->
+                    <div class="payment-card" id="cardCC">
+                        <div class="payment-header" onclick="selectPayment('CC')">
+                            <div class="payment-info">
+                                <input type="radio" name="pay_opt" id="radioCC" style="accent-color: var(--primary);">
+                                <span>Thẻ Tín Dụng / Ghi Nợ Quốc Tế (Visa, Master, JCB, Amex)</span>
+                            </div>
+                            <span>💳</span>
+                        </div>
+                        <div class="payment-body" id="bodyCC">
+                            <div class="credit-card-preview" style="background: linear-gradient(135deg, #1e1b4b, #4338ca); color: white; border-radius: 14px; padding: 1.25rem; width: 100%; max-width: 320px; font-family: monospace; box-shadow: var(--shadow-md);">
+                                <div class="cc-chip" style="font-size: 1.5rem; margin-bottom: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>💳</span>
+                                    <span style="font-size: 0.85rem; font-weight: 700; background: rgba(255,255,255,0.2); padding: 0.15rem 0.5rem; border-radius: 4px;">VISA</span>
+                                </div>
+                                <div class="cc-number" id="previewCCNum" style="font-size: 1.15rem; letter-spacing: 2px; margin-bottom: 1rem;">•••• •••• •••• 8899</div>
+                                <div class="cc-bottom" style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                                    <span id="previewCCHolder">HUYNH NHAT HOA</span>
+                                    <span id="previewCCExp">EXP: 12/28</span>
+                                </div>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group full">
+                                    <label class="form-label">Số thẻ tín dụng (16 chữ số)</label>
+                                    <input type="text" id="ccNumber" class="form-input" placeholder="4000 1234 5678 8899" maxlength="19" oninput="formatAndPreviewCC(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tên in trên thẻ (không dấu)</label>
+                                    <input type="text" id="ccHolder" class="form-input" value="HUYNH NHAT HOA" oninput="previewCCHolderName(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Hạn thẻ & CVV</label>
+                                    <input type="text" id="ccExpCvv" class="form-input" placeholder="12/28  |  CVC: 123" oninput="formatCCExp(this)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Method 3: E-Wallets -->
+                    <div class="payment-card" id="cardWallet">
+                        <div class="payment-header" onclick="selectPayment('Wallet')">
+                            <div class="payment-info">
+                                <input type="radio" name="pay_opt" id="radioWallet" style="accent-color: var(--primary);">
+                                <span>Ví Điện Tử (MoMo, ZaloPay, ShopeePay, Apple Pay)</span>
+                            </div>
+                            <span>📱</span>
+                        </div>
+                        <div class="payment-body" id="bodyWallet">
+                            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 0.75rem;">Liên kết trực tiếp và thanh toán một chạm an toàn:</p>
+                            <div style="display: flex; gap: 0.75rem;">
+                                <button style="flex:1; padding: 0.7rem; border: 1.5px solid #d946ef; background: #fdf4ff; border-radius: 8px; font-weight: 700; color: #c026d3; cursor: pointer;">Ví MoMo</button>
+                                <button style="flex:1; padding: 0.7rem; border: 1.5px solid #0284c7; background: #f0f9ff; border-radius: 8px; font-weight: 700; color: #0284c7; cursor: pointer;">ZaloPay</button>
+                                <button style="flex:1; padding: 0.7rem; border: 1.5px solid #000; background: #000; border-radius: 8px; font-weight: 700; color: #fff; cursor: pointer;"> Apple Pay</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Method 4: 0% Installment -->
+                    <div class="payment-card" id="cardInstallment">
+                        <div class="payment-header" onclick="selectPayment('Installment')">
+                            <div class="payment-info">
+                                <input type="radio" name="pay_opt" id="radioInstallment" style="accent-color: var(--primary);">
+                                <span>Trả Góp 0% Lãi Suất (Qua Thẻ Tín Dụng / Kredivo / Fundiin)</span>
+                            </div>
+                            <span class="payment-badge" style="background:#fef3c7; color:#b45309;">0% Lãi suất</span>
+                        </div>
+                        <div class="payment-body" id="bodyInstallment">
+                            <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.5rem;">Chọn ngân hàng trả góp 0% Lãi suất:</p>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                                <button type="button" class="inst-bank-pill active" onclick="selectInstBank(this, 'Techcombank')" style="padding: 0.4rem 0.8rem; border-radius: 6px; border: 1.5px solid var(--primary); background: #faf5ff; font-weight: 700; font-size: 0.8rem; cursor: pointer;">Techcombank</button>
+                                <button type="button" class="inst-bank-pill" onclick="selectInstBank(this, 'Vietcombank')" style="padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid var(--border); background: white; font-weight: 700; font-size: 0.8rem; cursor: pointer;">Vietcombank</button>
+                                <button type="button" class="inst-bank-pill" onclick="selectInstBank(this, 'VPBank')" style="padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid var(--border); background: white; font-weight: 700; font-size: 0.8rem; cursor: pointer;">VPBank</button>
+                                <button type="button" class="inst-bank-pill" onclick="selectInstBank(this, 'MB Bank')" style="padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid var(--border); background: white; font-weight: 700; font-size: 0.8rem; cursor: pointer;">MB Bank</button>
+                                <button type="button" class="inst-bank-pill" onclick="selectInstBank(this, 'HSBC')" style="padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid var(--border); background: white; font-weight: 700; font-size: 0.8rem; cursor: pointer;">HSBC</button>
+                            </div>
+                            <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.5rem;">Chọn kỳ hạn trả góp:</p>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; text-align: center;">
+                                <div class="term-card active" onclick="selectTerm(this, 3)" style="border: 2px solid var(--primary); padding: 0.6rem 0.4rem; border-radius: 8px; background: #faf5ff; cursor: pointer;">
+                                    <div style="font-weight: 800; font-size: 0.95rem; color: var(--primary);">3 Tháng</div>
+                                    <div id="termAmount3" style="font-size: 0.75rem; color: #475569; font-weight: 700;">25.160.000₫/th</div>
+                                </div>
+                                <div class="term-card" onclick="selectTerm(this, 6)" style="border: 1px solid var(--border); padding: 0.6rem 0.4rem; border-radius: 8px; background: white; cursor: pointer;">
+                                    <div style="font-weight: 800; font-size: 0.95rem; color: var(--secondary);">6 Tháng</div>
+                                    <div id="termAmount6" style="font-size: 0.75rem; color: var(--text-muted);">12.580.000₫/th</div>
+                                </div>
+                                <div class="term-card" onclick="selectTerm(this, 9)" style="border: 1px solid var(--border); padding: 0.6rem 0.4rem; border-radius: 8px; background: white; cursor: pointer;">
+                                    <div style="font-weight: 800; font-size: 0.95rem; color: var(--secondary);">9 Tháng</div>
+                                    <div id="termAmount9" style="font-size: 0.75rem; color: var(--text-muted);">8.386.000₫/th</div>
+                                </div>
+                                <div class="term-card" onclick="selectTerm(this, 12)" style="border: 1px solid var(--border); padding: 0.6rem 0.4rem; border-radius: 8px; background: white; cursor: pointer;">
+                                    <div style="font-weight: 800; font-size: 0.95rem; color: var(--secondary);">12 Tháng</div>
+                                    <div id="termAmount12" style="font-size: 0.75rem; color: var(--text-muted);">6.290.000₫/th</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Method 5: COD -->
+                    <div class="payment-card" id="cardCOD">
+                        <div class="payment-header" onclick="selectPayment('COD')">
+                            <div class="payment-info">
+                                <input type="radio" name="pay_opt" id="radioCOD" style="accent-color: var(--primary);">
+                                <span>Thanh toán Tiền mặt khi nhận hàng (COD)</span>
+                            </div>
+                            <span>💵</span>
+                        </div>
+                        <div class="payment-body" id="bodyCOD">
+                            <p style="font-size: 0.85rem; color: #059669; font-weight: 600;">
+                                ✓ Được đồng kiểm tra hàng (mở hộp kiểm tra ngoại quan máy) trước khi thanh toán cho shipper.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Architecture Banner -->
+            <div class="arch-banner">
+                <h3>☁️ Cơ Chế Định Tuyến Cân Bằng Tải (AWS ALB Listener Rule)</h3>
+                <p>Yêu cầu HTTP tới đường dẫn <code>/checkout/*</code> được Application Load Balancer so khớp bằng <strong>Listener Rule (Priority 20)</strong> và chuyển tiếp toàn bộ lưu lượng tới <strong>Target Group: tg_checkout</strong> nằm tại Subnet 2 (Multi-AZ).</p>
+            </div>
+        </div>
+
+        <!-- Right: Order Summary with Interactive Quantities -->
+        <aside class="summary-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                <h2 class="summary-title" style="margin-bottom: 0;">Tóm Tắt Đơn Hàng</h2>
+                <button type="button" id="btnClearCart" onclick="clearEntireCart()" style="font-size: 0.75rem; background: #fef2f2; border: 1px solid #fecaca; color: #ef4444; padding: 0.3rem 0.65rem; border-radius: 6px; cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                    <span>🗑️</span> Xóa hết
+                </button>
+            </div>
+
+            <!-- Dynamic Items Container -->
+            <div id="cartItemsList">
+                <!-- Javascript will render items from LocalStorage -->
+            </div>
+
+            <!-- Voucher Box -->
+            <div class="promo-box">
+                <input type="text" class="promo-input" id="couponCode" value="CLOUDMART10" placeholder="Nhập mã giảm giá...">
+                <button class="btn-apply" onclick="applyCoupon()">Áp dụng</button>
+            </div>
+
+            <!-- Pricing Breakdown -->
+            <div class="calc-row">
+                <span>Tạm tính tiền hàng:</span>
+                <span id="subTotalDisplay">76.980.000 ₫</span>
+            </div>
+            <div class="calc-row">
+                <span>Phí vận chuyển Express (2H):</span>
+                <span style="color: #10b981; font-weight: 700;">Miễn phí</span>
+            </div>
+            <div class="calc-row discount">
+                <span>Khuyến mãi Voucher (<span id="appliedCouponName">CLOUDMART10</span>):</span>
+                <span id="discountDisplay">- 1.500.000 ₫</span>
+            </div>
+            <div class="calc-row total">
+                <span>Tổng tiền thanh toán:</span>
+                <span id="totalDisplay">75.480.000 ₫</span>
+            </div>
+
+            <button class="btn-submit-order" onclick="openSuccessModal()">
+                <span>🔒 ĐẶT HÀNG & THANH TOÁN NGAY</span>
+            </button>
+        </aside>
+    </div>
+
+    <!-- Success Modal Pop-up -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-card" style="max-width: 520px; text-align: center;">
+            <div class="modal-icon">🎉</div>
+            <h3 class="modal-title" style="color: #059669; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">Đặt Hàng & Thanh Toán Thành Công!</h3>
+            <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 1rem;">Giao dịch đã được hệ thống AWS ALB xác thực an toàn.</p>
+            
+            <div class="modal-desc" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 1.25rem; text-align: left; font-size: 0.875rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #64748b;">Mã đơn hàng:</span>
+                    <strong id="mOrderCode" style="color: #7c3aed; font-size: 1rem; font-weight: 800;">#CMD8899</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #64748b;">Khách hàng:</span>
+                    <strong id="mCustName">Huỳnh Nhật Hòa</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #64748b;">Số điện thoại:</span>
+                    <strong id="mCustPhone">0912 345 678</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #64748b;">Phương thức:</span>
+                    <strong id="mPayMethod" style="color: #059669;">VietQR 24/7</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 0.5rem; border-top: 1px dashed #cbd5e1; margin-top: 0.5rem;">
+                    <span style="color: #1e293b; font-weight: 700;">Tổng thanh toán:</span>
+                    <strong id="mTotal" style="color: #7c3aed; font-size: 1.15rem; font-weight: 800;">75.480.000 ₫</strong>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <button type="button" class="btn-print-receipt" onclick="printReceipt()">
+                    <span>🖨️</span> In Biên Lai Thanh Toán (PDF)
+                </button>
+                <button type="button" onclick="openTrackingModal()" style="background: #f8fafc; border: 1.5px solid #cbd5e1; color: #0f172a; padding: 0.75rem; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.9rem; transition: 0.2s;">
+                    <span>📦</span> Theo Dõi Lộ Trình Giao Hàng (Live Tracking)
+                </button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
+                    <button type="button" class="btn-view-receipt" onclick="previewReceiptModal()">
+                        <span>📄</span> Xem Bản In
+                    </button>
+                    <a href="/products/" class="btn-view-receipt" style="background: var(--primary); color: white; border-color: var(--primary); text-decoration: none;">
+                        <span>🛒</span> Mua Tiếp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- CHÍNH THỨC: BẢN IN BIÊN LAI & HÓA ĐƠN BÁN LẺ CLOUDMART -->
+    <!-- ======================================================== -->
+    <div id="printableReceipt">
+        <div style="border-bottom: 2px solid #0f172a; padding-bottom: 1rem; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h1 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin-bottom: 0.25rem;">🛒 CLOUDMART E-COMMERCE</h1>
+                <p style="font-size: 0.85rem; color: #475569; margin: 0;">CÔNG TY CỔ PHẦN CÔNG NGHỆ & ĐIỆN TỬ CLOUDMART</p>
+                <p style="font-size: 0.8rem; color: #64748b; margin: 0.15rem 0;">Địa chỉ: Khu Công Nghệ Cao, TP. Thủ Đức, TP. Hồ Chí Minh</p>
+                <p style="font-size: 0.8rem; color: #64748b; margin: 0;">Hotline: 1800 6868 • MST: 0316888999 • Website: http://localhost:8080</p>
+            </div>
+            <div style="text-align: right;">
+                <div style="display: inline-block; border: 2px solid #10b981; color: #059669; font-weight: 800; font-size: 0.9rem; padding: 0.35rem 0.85rem; border-radius: 6px; text-transform: uppercase; margin-bottom: 0.4rem; letter-spacing: 0.05em;">
+                    ✓ ĐÃ THANH TOÁN (PAID)
+                </div>
+                <div style="font-size: 0.75rem; color: #64748b;">Hóa đơn điện tử khởi tạo tự động</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.4rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.25rem; color: #0f172a;">BIÊN LAI THANH TOÁN & HÓA ĐƠN BÁN LẺ</h2>
+            <p style="font-size: 0.85rem; color: #64748b;">Mã đơn hàng: <strong id="recOrderCode" style="color: #7c3aed;">#CMD8899</strong> • Ngày in: <span id="recPrintDate">22/11/2026 13:30</span></p>
+        </div>
+
+        <!-- Customer & Delivery Info -->
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; font-size: 0.85rem;">
+            <div>
+                <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; color: #1e293b;">Thông Tin Khách Hàng:</h4>
+                <p style="margin: 0.2rem 0;">• Họ và tên: <strong id="recCustName">Huỳnh Nhật Hòa</strong></p>
+                <p style="margin: 0.2rem 0;">• Số điện thoại: <strong id="recCustPhone">0912 345 678</strong></p>
+                <p style="margin: 0.2rem 0;">• Địa chỉ nhận hàng: <span id="recCustAddress">Khu Công Nghệ Cao, TP. Thủ Đức, TP. Hồ Chí Minh</span></p>
+            </div>
+            <div>
+                <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; color: #1e293b;">Thông Tin Thanh Toán:</h4>
+                <p style="margin: 0.2rem 0;">• Cổng thanh toán: <strong id="recPaymentMethod">VietQR Chuyển khoản 24/7</strong></p>
+                <p style="margin: 0.2rem 0;">• Trạng thái: <strong style="color: #059669;">Giao dịch thành công (Verified)</strong></p>
+                <p style="margin: 0.2rem 0;">• Hạ tầng xử lý: <span>AWS Application Load Balancer (ALB) Multi-AZ</span></p>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.85rem;">
+            <thead>
+                <tr style="background: #f1f5f9; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1;">
+                    <th style="padding: 0.6rem 0.5rem; text-align: center; width: 40px;">STT</th>
+                    <th style="padding: 0.6rem 0.5rem; text-align: left;">Tên Sản Phẩm & Quy Cách</th>
+                    <th style="padding: 0.6rem 0.5rem; text-align: center; width: 60px;">SL</th>
+                    <th style="padding: 0.6rem 0.5rem; text-align: right; width: 130px;">Đơn Giá</th>
+                    <th style="padding: 0.6rem 0.5rem; text-align: right; width: 140px;">Thành Tiền</th>
+                </tr>
+            </thead>
+            <tbody id="recItemsBody">
+                <!-- Dynamically filled with products -->
+            </tbody>
+        </table>
+
+        <!-- Totals Breakdown -->
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 2rem;">
+            <div style="width: 320px; font-size: 0.9rem;">
+                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
+                    <span style="color: #64748b;">Tạm tính tiền hàng:</span>
+                    <strong id="recSubTotal">76.980.000 ₫</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
+                    <span style="color: #64748b;">Phí vận chuyển Express (2H):</span>
+                    <span style="color: #059669; font-weight: 700;">0 ₫ (Miễn phí)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0; color: #059669;">
+                    <span>Khuyến mãi Voucher:</span>
+                    <strong id="recDiscount">- 1.500.000 ₫</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.6rem 0; border-top: 2px solid #0f172a; margin-top: 0.5rem; font-size: 1.15rem;">
+                    <span style="font-weight: 800; color: #0f172a;">TỔNG THANH TOÁN:</span>
+                    <strong id="recFinalTotal" style="color: #7c3aed; font-weight: 800;">75.480.000 ₫</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signature Section -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center; font-size: 0.85rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px dashed #cbd5e1;">
+            <div>
+                <p style="font-weight: 700; margin-bottom: 4rem;">NGƯỜI MUA HÀNG<br><span style="font-size:0.75rem; font-weight:normal; color:#64748b;">(Ký, ghi rõ họ tên)</span></p>
+                <p style="font-weight: 700;" id="recBuyerSignature">Huỳnh Nhật Hòa</p>
+            </div>
+            <div>
+                <p style="font-weight: 700; margin-bottom: 2rem;">ĐẠI DIỆN CLOUDMART E-COMMERCE<br><span style="font-size:0.75rem; font-weight:normal; color:#64748b;">(Ký số điện tử an toàn)</span></p>
+                <div style="display: inline-block; border: 2px dashed #059669; color: #059669; padding: 0.4rem 1rem; border-radius: 6px; font-weight: 800; font-size: 0.8rem; background: #ecfdf5;">
+                    ✓ DIGITAL SIGNATURE VERIFIED<br>SHA-256: 8a4f9b2c...7e1d
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; font-size: 0.75rem; color: #94a3b8;">
+            Cảm ơn Quý khách đã mua sắm tại CloudMart! Sản phẩm được bảo hành chính hãng 12 tháng tại các trung tâm ủy quyền toàn quốc.
+        </div>
+    </div>
+
+    <!-- Modal Xem Trước Hóa Đơn (On-screen Invoice Preview Modal) -->
+    <div id="receiptPreviewModal" class="modal-overlay" style="display: none; z-index: 200;">
+        <div class="modal-card" style="max-width: 720px; width: 90%; max-height: 90vh; overflow-y: auto; text-align: left; padding: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.75rem; margin-bottom: 1rem;">
+                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #0f172a;">📄 Bản Xem Trước Biên Lai / Hóa Đơn Bán Lẻ</h3>
+                <button type="button" onclick="closeReceiptPreviewModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #64748b;">✕</button>
+            </div>
+
+            <!-- Preview Content Container -->
+            <div id="previewReceiptBox" style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <!-- Cloned content of printableReceipt will be rendered here -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <button type="button" onclick="closeReceiptPreviewModal()" style="padding: 0.65rem 1.25rem; border-radius: 8px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 700; cursor: pointer;">Đóng</button>
+                <button type="button" onclick="printReceipt()" class="btn-print-receipt">
+                    <span>🖨️</span> In Ngay (Print / Save as PDF)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h4>🛒 CloudMart E-Commerce</h4>
+                <p>Hệ thống bán hàng trực tuyến ứng dụng kiến trúc cân bằng tải thông minh Application Load Balancer trên nền tảng AWS và Terraform.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Dịch Vụ & Sản Phẩm</h5>
+                <ul>
+                    <li><a href="/products/">Laptop & MacBook</a></li>
+                    <li><a href="/products/">Điện thoại thông minh</a></li>
+                    <li><a href="/products/">Phụ kiện & Âm thanh</a></li>
+                    <li><a href="/checkout/">Thanh toán đơn hàng</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Hỗ Trợ Khách Hàng</h5>
+                <ul>
+                    <li><a href="/">Chính sách bảo mật</a></li>
+                    <li><a href="/">Hướng dẫn thanh toán</a></li>
+                    <li><a href="/">Cam kết chất lượng</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Đồ Án Nhóm</h5>
+                <ul>
+                    <li><a href="/">1. Phạm Đinh Gia Bảo (Core ALB)</a></li>
+                    <li><a href="/">2. Huỳnh Nhật Hòa (Targets & Web)</a></li>
+                    <li><a href="/">3. Ngô Khánh Hưng (Security & SSL)</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 CloudMart E-Commerce System. All Rights Reserved.</div>
+            <div>Đồ án Cân bằng tải HTTPS ALB với Terraform</div>
+        </div>
+    </footer>
+
+    <script>
+        var currentMethod = 'VietQR';
+        var selectedWalletName = 'Ví MoMo';
+        var selectedBank = 'Techcombank';
+        var selectedMonths = 3;
+        var discount = 1500000;
+        var couponName = 'CLOUDMART10';
+        var orderCode = 'CMD' + Math.floor(1000 + Math.random() * 9000);
+
+        function showCheckoutToast(msg) {
+            var t = document.getElementById('checkoutToast');
+            if (t) {
+                t.innerText = msg;
+                t.style.display = 'block';
+                setTimeout(function() { t.style.display = 'none'; }, 2500);
+            }
+        }
+
+        function getCart() {
+            try {
+                var raw = localStorage.getItem('cloudmart_cart');
+                if (raw !== null) {
+                    return JSON.parse(raw);
+                }
+            } catch(e) {}
+
+            // Nếu người dùng đã từng bấm xóa hết thì để trống
+            if (localStorage.getItem('cloudmart_cart_user_cleared') === 'true') {
+                return [];
+            }
+
+            // Khởi tạo mặc định nếu là lần đầu truy cập
+            var defaultCart = [
+                {
+                    id: 'macbook-pro-16-m3-max-bac-silver',
+                    name: 'MacBook Pro 16" M3 Max',
+                    price: 68990000,
+                    img: '/assets/macbook_pro_silver.jpg',
+                    color: 'Bạc Silver',
+                    storage: '512GB',
+                    qty: 1
+                },
+                {
+                    id: 'sony-wh-1000xm5-bac-platinum',
+                    name: 'Sony WH-1000XM5 Wireless',
+                    price: 7990000,
+                    img: '/assets/sony_headphones.jpg',
+                    color: 'Bạc Platinum',
+                    storage: '',
+                    qty: 1
+                }
+            ];
+            localStorage.setItem('cloudmart_cart', JSON.stringify(defaultCart));
+            return defaultCart;
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cloudmart_cart', JSON.stringify(cart));
+            if (cart.length === 0) {
+                localStorage.setItem('cloudmart_cart_user_cleared', 'true');
+            } else {
+                localStorage.removeItem('cloudmart_cart_user_cleared');
+            }
+            renderCart();
+        }
+
+        function formatMoney(num) {
+            return Number(num).toLocaleString('vi-VN') + ' ₫';
+        }
+
+        function updateItemQty(index, delta) {
+            var cart = getCart();
+            if (cart[index]) {
+                cart[index].qty = (cart[index].qty || 1) + delta;
+                if (cart[index].qty <= 0) {
+                    var removedItem = cart.splice(index, 1)[0];
+                    saveCart(cart);
+                    showCheckoutToast('✓ Đã xóa "' + (removedItem ? removedItem.name : 'sản phẩm') + '" khỏi đơn hàng.');
+                    return;
+                }
+                saveCart(cart);
+            }
+        }
+
+        function removeItem(index) {
+            var cart = getCart();
+            if (index >= 0 && index < cart.length) {
+                var item = cart.splice(index, 1)[0];
+                saveCart(cart);
+                showCheckoutToast('✓ Đã xóa "' + (item ? item.name : 'sản phẩm') + '" khỏi đơn hàng.');
+            }
+        }
+        var removeCartItem = removeItem; // alias
+
+        function clearEntireCart() {
+            saveCart([]);
+            showCheckoutToast('✓ Đã xóa toàn bộ sản phẩm khỏi giỏ hàng.');
+        }
+
+        function renderCart() {
+            var cart = getCart();
+            var listEl = document.getElementById('cartItemsList');
+            var submitBtn = document.querySelector('.btn-submit-order');
+            var clearBtn = document.getElementById('btnClearCart');
+            if (!listEl) return;
+
+            if (cart.length === 0) {
+                if (clearBtn) clearBtn.style.display = 'none';
+                listEl.innerHTML = '<div style="text-align: center; padding: 2.5rem 1rem; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 14px; margin-bottom: 1.5rem;">' +
+                    '<div style="font-size: 3rem; margin-bottom: 0.5rem;">🛒</div>' +
+                    '<h4 style="font-size: 1.1rem; font-weight: 800; color: #1e293b; margin-bottom: 0.35rem;">Giỏ hàng của bạn đang trống</h4>' +
+                    '<p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1.25rem;">Bạn đã xóa hết sản phẩm khỏi giỏ hàng.</p>' +
+                    '<a href="/products/" style="display: inline-flex; align-items: center; gap: 0.4rem; background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: 9999px; text-decoration: none; font-size: 0.85rem; font-weight: 700; transition: 0.2s;">' +
+                        '<span>←</span> Tiếp tục xem sản phẩm' +
+                    '</a>' +
+                    '</div>';
+                
+                document.getElementById('subTotalDisplay').innerText = '0 ₫';
+                document.getElementById('discountDisplay').innerText = '- 0 ₫';
+                document.getElementById('totalDisplay').innerText = '0 ₫';
+                updateVietQR(0);
+                updateInstallmentCalcs(0);
+
+                if (submitBtn) {
+                    submitBtn.style.opacity = '0.5';
+                    submitBtn.style.cursor = 'not-allowed';
+                    submitBtn.title = 'Giỏ hàng đang trống, vui lòng chọn sản phẩm';
+                }
+                return;
+            }
+
+            if (clearBtn) clearBtn.style.display = 'inline-flex';
+            if (submitBtn) {
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.title = '';
+            }
+
+            var html = '';
+            var subTotal = 0;
+
+            cart.forEach(function(item, idx) {
+                var itemTotal = (item.price || 0) * (item.qty || 1);
+                subTotal += itemTotal;
+                var meta = (item.color || '') + (item.storage ? ' • ' + item.storage : '');
+
+                html += '<div class="cart-item">' +
+                    '<div class="cart-thumb">' +
+                        '<img src="' + (item.img || '/assets/macbook_pro_silver.jpg') + '" alt="' + item.name + '" onerror="this.src=\'/assets/macbook_pro_silver.jpg\'">' +
+                    '</div>' +
+                    '<div class="cart-details">' +
+                        '<div class="cart-name">' + item.name + '</div>' +
+                        '<div class="cart-meta" style="flex-wrap: wrap; gap: 0.4rem;">' +
+                            '<span>SL:</span>' +
+                            '<button type="button" class="qty-btn" onclick="updateItemQty(' + idx + ', -1)" title="Giảm số lượng">-</button>' +
+                            '<strong style="min-width: 16px; text-align: center;">' + (item.qty || 1) + '</strong>' +
+                            '<button type="button" class="qty-btn" onclick="updateItemQty(' + idx + ', 1)" title="Tăng số lượng">+</button>' +
+                            (meta ? '<span style="color: #64748b;">• ' + meta + '</span>' : '') +
+                            '<button type="button" onclick="removeItem(' + idx + ')" style="background: #fef2f2; border: 1px solid #fecaca; color: #ef4444; font-size: 0.72rem; font-weight: 700; border-radius: 4px; padding: 0.2rem 0.5rem; cursor: pointer; margin-left: auto;" title="Xóa món này khỏi đơn">✕ Xóa</button>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="cart-price">' + formatMoney(itemTotal) + '</div>' +
+                '</div>';
+            });
+
+            listEl.innerHTML = html;
+
+            var currentDiscount = (subTotal > 0) ? discount : 0;
+            var finalTotal = Math.max(0, subTotal - currentDiscount);
+            document.getElementById('subTotalDisplay').innerText = formatMoney(subTotal);
+            document.getElementById('discountDisplay').innerText = '- ' + formatMoney(currentDiscount);
+            document.getElementById('totalDisplay').innerText = formatMoney(finalTotal);
+
+            updateVietQR(finalTotal);
+            updateInstallmentCalcs(finalTotal);
+        }
+
+        function updateVietQR(finalTotal) {
+            var amountEl = document.getElementById('qrTransferAmount');
+            if (amountEl) amountEl.innerText = formatMoney(finalTotal);
+            
+            var memoEl = document.getElementById('qrTransferMemo');
+            if (memoEl) memoEl.innerText = orderCode;
+
+            var qrImg = document.getElementById('vietqrImg');
+            if (qrImg) {
+                var url = 'https://api.vietqr.io/image/970436-0123456789999-compact2.png?amount=' + 
+                          finalTotal + '&addInfo=' + orderCode + '&accountName=CONG%20TY%20CO%20PHAN%20CLOUDMART';
+                qrImg.src = url;
+            }
+        }
+
+        function handleQRError(img) {
+            var svgData = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23ffffff"/><rect x="10" y="10" width="25" height="25" fill="%230f172a"/><rect x="15" y="15" width="15" height="15" fill="%23ffffff"/><rect x="18" y="18" width="9" height="9" fill="%230f172a"/><rect x="65" y="10" width="25" height="25" fill="%230f172a"/><rect x="70" y="15" width="15" height="15" fill="%23ffffff"/><rect x="73" y="18" width="9" height="9" fill="%230f172a"/><rect x="10" y="65" width="25" height="25" fill="%230f172a"/><rect x="15" y="70" width="15" height="15" fill="%23ffffff"/><rect x="18" y="73" width="9" height="9" fill="%230f172a"/><rect x="45" y="15" width="8" height="8" fill="%237c3aed"/><rect x="45" y="45" width="10" height="10" fill="%23059669"/><rect x="65" y="65" width="12" height="12" fill="%237c3aed"/><rect x="78" y="45" width="12" height="12" fill="%230f172a"/><text x="50" y="95" font-size="7" font-weight="bold" text-anchor="middle" fill="%23059669">VIETQR 24/7</text></svg>';
+            img.src = svgData;
+        }
+
+        function updateInstallmentCalcs(finalTotal) {
+            var terms = [3, 6, 9, 12];
+            terms.forEach(function(m) {
+                var el = document.getElementById('termAmount' + m);
+                if (el) {
+                    var monthly = Math.round(finalTotal / m);
+                    el.innerText = formatMoney(monthly) + '/th';
+                }
+            });
+        }
+
+        function selectPayment(type) {
+            currentMethod = type;
+            var methods = ['VietQR', 'CC', 'Wallet', 'Installment', 'COD'];
+            methods.forEach(function(m) {
+                var card = document.getElementById('card' + m);
+                var body = document.getElementById('body' + m);
+                var radio = document.getElementById('radio' + m);
+                if (m === type) {
+                    card.classList.add('active');
+                    body.style.display = 'block';
+                    if (radio) radio.checked = true;
+                } else {
+                    card.classList.remove('active');
+                    body.style.display = 'none';
+                    if (radio) radio.checked = false;
+                }
+            });
+        }
+
+        function selectInstBank(btn, bank) {
+            document.querySelectorAll('.inst-bank-pill').forEach(function(b) {
+                b.style.borderColor = 'var(--border)';
+                b.style.background = '#fff';
+            });
+            btn.style.borderColor = 'var(--primary)';
+            btn.style.background = '#faf5ff';
+            selectedBank = bank;
+        }
+
+        function selectTerm(card, months) {
+            document.querySelectorAll('.term-card').forEach(function(c) {
+                c.style.border = '1px solid var(--border)';
+                c.style.background = '#fff';
+            });
+            card.style.border = '2px solid var(--primary)';
+            card.style.background = '#faf5ff';
+            selectedMonths = months;
+        }
+
+        function formatAndPreviewCC(input) {
+            var val = input.value.replace(/[^0-9]/g, '');
+            var formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+            input.value = formatted;
+            document.getElementById('previewCCNum').innerText = formatted || '•••• •••• •••• 8899';
+        }
+
+        function previewCCHolderName(input) {
+            var val = input.value.trim().toUpperCase();
+            document.getElementById('previewCCHolder').innerText = val || 'HUYNH NHAT HOA';
+        }
+
+        function formatCCExp(input) {
+            var val = input.value;
+            document.getElementById('previewCCExp').innerText = val ? 'EXP: ' + val.split('|')[0].trim() : 'EXP: 12/28';
+        }
+
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt).then(function() {
+                alert('✓ Đã sao chép: ' + txt);
+            }).catch(function() {
+                alert('✓ Đã sao chép: ' + txt);
+            });
+        }
+
+        function copyTransferAmount() {
+            var amount = document.getElementById('totalDisplay').innerText.replace(/[^0-9]/g, '');
+            copyText(amount);
+        }
+
+        function copyTransferMemo() {
+            copyText(orderCode);
+        }
+
+        function toggleVat() {
+            var chk = document.getElementById('vatCheck');
+            document.getElementById('vatForm').style.display = chk.checked ? 'grid' : 'none';
+        }
+
+        function applyCoupon() {
+            var code = document.getElementById('couponCode').value.trim().toUpperCase();
+            var cart = getCart();
+            var subTotal = cart.reduce(function(acc, it) { return acc + (it.price * (it.qty || 1)); }, 0);
+            if (subTotal === 0) {
+                alert('Giỏ hàng đang trống, không thể áp dụng mã giảm giá.');
+                return;
+            }
+
+            if (code === 'CLOUDMART10') {
+                discount = Math.min(2000000, Math.round(subTotal * 0.1));
+                couponName = 'CLOUDMART10 (-10%)';
+                alert('✓ Áp dụng mã CLOUDMART10 thành công! Giảm ' + formatMoney(discount));
+            } else if (code === 'FREESHIP') {
+                discount = 500000;
+                couponName = 'FREESHIP (-500k)';
+                alert('✓ Áp dụng mã FREESHIP thành công!');
+            } else if (code === 'VIETQR' || code === 'VIETQR500') {
+                discount = 500000;
+                couponName = 'VIETQR (-500k)';
+                alert('✓ Áp dụng ưu đãi VietQR thành công! Giảm 500.000₫');
+            } else {
+                alert('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+                return;
+            }
+            document.getElementById('appliedCouponName').innerText = couponName;
+            document.getElementById('discountDisplay').innerText = '- ' + formatMoney(discount);
+            renderCart();
+        }
+
+        function validateForm() {
+            var cart = getCart();
+            if (cart.length === 0) {
+                alert('⚠️ Giỏ hàng của bạn đang trống! Vui lòng chọn sản phẩm trước khi đặt hàng.');
+                window.location.href = '/products/';
+                return false;
+            }
+
+            var name = document.getElementById('custName');
+            var phone = document.getElementById('custPhone');
+            var addr = document.getElementById('custAddress');
+
+            var valid = true;
+            [name, phone, addr].forEach(function(inp) {
+                if (!inp || !inp.value.trim()) {
+                    if (inp) inp.style.borderColor = '#ef4444';
+                    valid = false;
+                } else {
+                    if (inp) inp.style.borderColor = '#e2e8f0';
+                }
+            });
+
+            if (!valid) {
+                alert('⚠️ Vui lòng điền đầy đủ Họ tên, Số điện thoại và Địa chỉ nhận hàng.');
+                if (name && !name.value.trim()) name.focus();
+                return false;
+            }
+
+            if (phone.value.replace(/[^0-9]/g, '').length < 9) {
+                phone.style.borderColor = '#ef4444';
+                alert('⚠️ Số điện thoại không hợp lệ. Vui lòng kiểm tra lại!');
+                phone.focus();
+                return false;
+            }
+
+            if (currentMethod === 'CC') {
+                var ccNum = document.getElementById('ccNumber');
+                if (!ccNum || ccNum.value.replace(/[^0-9]/g, '').length < 15) {
+                    alert('⚠️ Vui lòng nhập số thẻ tín dụng hợp lệ (16 chữ số).');
+                    if (ccNum) ccNum.focus();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function openSuccessModal() {
+            if (!validateForm()) return;
+
+            var btn = document.querySelector('.btn-submit-order');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<span>⏳ Đang kết nối cổng thanh toán an toàn AWS ALB...</span>';
+            }
+
+            setTimeout(function() {
+                var nameVal = document.getElementById('custName').value.trim();
+                var phoneVal = document.getElementById('custPhone').value.trim();
+                var addrVal = document.getElementById('custAddress').value.trim();
+                var totalVal = document.getElementById('totalDisplay').innerText;
+
+                document.getElementById('mCustName').innerText = nameVal;
+                document.getElementById('mCustPhone').innerText = phoneVal;
+                
+                var methodLabel = currentMethod;
+                if (currentMethod === 'VietQR') methodLabel = 'Chuyển khoản VietQR 24/7 (Đã xác nhận)';
+                else if (currentMethod === 'CC') methodLabel = 'Thẻ Quốc Tế Visa/Master (Xác thực 3D-Secure)';
+                else if (currentMethod === 'Wallet') methodLabel = selectedWalletName + ' (Thanh toán 1 chạm)';
+                else if (currentMethod === 'Installment') methodLabel = 'Trả góp 0% qua ' + selectedBank + ' (' + selectedMonths + ' tháng)';
+                else if (currentMethod === 'COD') methodLabel = 'Thanh toán tiền mặt khi giao hàng (COD)';
+
+                document.getElementById('mPayMethod').innerText = methodLabel;
+                document.getElementById('mTotal').innerText = totalVal;
+                
+                var orderMsgEl = document.getElementById('mOrderCode');
+                if (orderMsgEl) {
+                    orderMsgEl.innerText = '#' + orderCode;
+                }
+
+                // Lưu lại đơn hàng vừa hoàn tất trước khi xóa giỏ để in biên lai
+                lastCompletedOrder = {
+                    code: orderCode,
+                    date: new Date().toLocaleString('vi-VN'),
+                    name: nameVal,
+                    phone: phoneVal,
+                    address: addrVal,
+                    method: methodLabel,
+                    items: [...getCart()],
+                    subTotal: document.getElementById('subTotalDisplay').innerText,
+                    discount: document.getElementById('discountDisplay').innerText,
+                    finalTotal: totalVal
+                };
+
+                localStorage.removeItem('cloudmart_cart');
+                localStorage.setItem('cloudmart_cart_user_cleared', 'true');
+
+                document.getElementById('successModal').style.display = 'flex';
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>🔒 ĐẶT HÀNG & THANH TOÁN NGAY</span>';
+                }
+            }, 800);
+        }
+
+        function simulatePaymentSuccess() {
+            var cart = getCart();
+            if (cart.length === 0) {
+                alert('Giỏ hàng đang trống!');
+                return;
+            }
+            alert('✓ Đã nhận thanh toán chuyển khoản ' + document.getElementById('totalDisplay').innerText + ' thành công qua VietQR Napas247!');
+            openSuccessModal();
+        }
+
+        
+        var lastCompletedOrder = null;
+
+        function populateReceiptData() {
+            var order = lastCompletedOrder || {
+                code: orderCode,
+                date: new Date().toLocaleString('vi-VN'),
+                name: document.getElementById('custName').value.trim() || 'Huỳnh Nhật Hòa',
+                phone: document.getElementById('custPhone').value.trim() || '0912 345 678',
+                address: document.getElementById('custAddress').value.trim() || 'Khu Công Nghệ Cao, TP. Thủ Đức, TP. Hồ Chí Minh',
+                method: document.getElementById('mPayMethod').innerText || 'VietQR Chuyển khoản',
+                items: getCart(),
+                subTotal: document.getElementById('subTotalDisplay').innerText,
+                discount: document.getElementById('discountDisplay').innerText,
+                finalTotal: document.getElementById('totalDisplay').innerText
+            };
+
+            document.getElementById('recOrderCode').innerText = '#' + order.code;
+            document.getElementById('recPrintDate').innerText = order.date;
+            document.getElementById('recCustName').innerText = order.name;
+            document.getElementById('recCustPhone').innerText = order.phone;
+            document.getElementById('recCustAddress').innerText = order.address;
+            document.getElementById('recPaymentMethod').innerText = order.method;
+            document.getElementById('recBuyerSignature').innerText = order.name;
+
+            document.getElementById('recSubTotal').innerText = order.subTotal;
+            document.getElementById('recDiscount').innerText = order.discount;
+            document.getElementById('recFinalTotal').innerText = order.finalTotal;
+
+            var tbody = document.getElementById('recItemsBody');
+            var rows = '';
+            var items = order.items && order.items.length > 0 ? order.items : [
+                { name: 'MacBook Pro 16" M3 Max', color: 'Bạc Silver', storage: '512GB', qty: 1, price: 68990000 },
+                { name: 'Sony WH-1000XM5 Wireless', color: 'Bạc Platinum', storage: '', qty: 1, price: 7990000 }
+            ];
+
+            items.forEach(function(it, i) {
+                var total = (it.price || 0) * (it.qty || 1);
+                var spec = (it.color || '') + (it.storage ? ' • ' + it.storage : '');
+                rows += '<tr style="border-bottom: 1px solid #e2e8f0;">' +
+                    '<td style="padding: 0.6rem 0.5rem; text-align: center;">' + (i + 1) + '</td>' +
+                    '<td style="padding: 0.6rem 0.5rem;"><strong>' + it.name + '</strong>' + (spec ? '<div style="font-size: 0.75rem; color: #64748b;">Phân loại: ' + spec + '</div>' : '') + '</td>' +
+                    '<td style="padding: 0.6rem 0.5rem; text-align: center; font-weight: 700;">' + (it.qty || 1) + '</td>' +
+                    '<td style="padding: 0.6rem 0.5rem; text-align: right;">' + formatMoney(it.price || 0) + '</td>' +
+                    '<td style="padding: 0.6rem 0.5rem; text-align: right; font-weight: 700;">' + formatMoney(total) + '</td>' +
+                '</tr>';
+            });
+            tbody.innerHTML = rows;
+        }
+
+        function printReceipt() {
+            populateReceiptData();
+            // Đảm bảo receipt hiển thị lúc in
+            window.print();
+        }
+
+        function previewReceiptModal() {
+            populateReceiptData();
+            var content = document.getElementById('printableReceipt').innerHTML;
+            document.getElementById('previewReceiptBox').innerHTML = content;
+            document.getElementById('receiptPreviewModal').style.display = 'flex';
+        }
+
+        function closeReceiptPreviewModal() {
+            document.getElementById('receiptPreviewModal').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCart();
+        });
+    
+        function openTrackingModal() {
+            var m = document.getElementById('trackingModal');
+            if (m) {
+                var code = (typeof orderCode !== 'undefined') ? '#' + orderCode : '#CMD8899';
+                document.getElementById('trackCodeDisplay').innerText = code;
+                m.style.display = 'flex';
+            }
+        }
+        function closeTrackingModal() {
+            var m = document.getElementById('trackingModal');
+            if (m) m.style.display = 'none';
+        }
+
+    </script>
+
+    <!-- Order Tracking Modal -->
+    <div class="modal-overlay" id="trackingModal" style="display: none; align-items: center; justify-content: center; z-index: 1020;" onclick="if(event.target===this) closeTrackingModal()">
+        <div class="modal-card" style="max-width: 560px; width: 100%; text-align: left; padding: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <h3 style="font-size: 1.3rem; font-weight: 800; color: #0f172a;">📦 Theo Dõi Lộ Trình Giao Hàng</h3>
+                <button type="button" onclick="closeTrackingModal()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; font-size: 1.1rem; cursor: pointer;">✕</button>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1.25rem;">Hệ thống phân phối đa vùng Multi-AZ AWS CloudMart cập nhật trạng thái đơn hàng theo thời gian thực.</p>
+            
+            <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 1.25rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px dashed #cbd5e1;">
+                    <div>
+                        <div style="font-size: 0.75rem; color: #64748b;">Mã vận đơn:</div>
+                        <strong id="trackCodeDisplay" style="color: #7c3aed; font-size: 1.05rem;">#CMD8899</strong>
+                    </div>
+                    <span style="background: #ecfdf5; color: #059669; font-size: 0.75rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 20px;">⚡ Đang Vận Chuyển Hỏa Tốc (2H)</span>
+                </div>
+
+                <div style="position: relative; padding-left: 2rem; display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1rem;">
+                    <div style="position: relative;">
+                        <span style="position: absolute; left: -2rem; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: #10b981;"></span>
+                        <div style="font-size: 0.875rem; font-weight: 700; color: #1e293b;">1. Đơn hàng tiếp nhận thành công</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Hệ thống AWS ALB chuyển tiếp yêu cầu đến Target Group tg_checkout</div>
+                    </div>
+                    <div style="position: relative;">
+                        <span style="position: absolute; left: -2rem; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: #10b981;"></span>
+                        <div style="font-size: 0.875rem; font-weight: 700; color: #1e293b;">2. Đã đối soát thanh toán an toàn</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Giao dịch được chứng thực bảo mật 256-bit</div>
+                    </div>
+                    <div style="position: relative;">
+                        <span style="position: absolute; left: -2rem; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: #3b82f6; box-shadow: 0 0 0 4px rgba(59,130,246,0.25);"></span>
+                        <div style="font-size: 0.875rem; font-weight: 700; color: #1e293b;">3. Đang giao hàng siêu tốc</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Tài xế công nghệ đang giao tới địa chỉ đã đăng ký</div>
+                    </div>
+                    <div style="position: relative;">
+                        <span style="position: absolute; left: -2rem; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: #cbd5e1;"></span>
+                        <div style="font-size: 0.875rem; font-weight: 700; color: #94a3b8;">4. Giao hàng thành công</div>
+                        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px;">Dự kiến nhận hàng trong 40 - 60 phút</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

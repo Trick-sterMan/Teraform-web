@@ -1,0 +1,3334 @@
+[
+  {
+    "index": 1,
+    "brand": "Apple",
+    "name": "iPhone 17 Pro Max",
+    "cur_price": "38.990.000 ₫",
+    "old_price": "42.990.000 ₫",
+    "main_img": "/assets/real_iphone_17_pro_max_silver.jpg",
+    "storage": [
+      {
+        "label": "256GB",
+        "price": "38990000",
+        "oldprice": "42990000",
+        "active": true
+      },
+      {
+        "label": "512GB (+5.5tr)",
+        "price": "44490000",
+        "oldprice": "48990000",
+        "active": false
+      },
+      {
+        "label": "1TB (+12tr)",
+        "price": "50990000",
+        "oldprice": "55990000",
+        "active": false
+      },
+      {
+        "label": "2TB (+20tr)",
+        "price": "58990000",
+        "oldprice": "64990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titan Bạc Ánh Xanh",
+        "img": "/assets/real_iphone_17_pro_max_silver.jpg",
+        "active": true
+      },
+      {
+        "label": "Titan Đen Vũ Trụ (Space Black)",
+        "img": "/assets/iphone_17_pro_max_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "brand": "Apple",
+    "name": "iPhone 17 Pro",
+    "cur_price": "32.990.000 ₫",
+    "old_price": "35.990.000 ₫",
+    "main_img": "/assets/real_iphone_17_pro_max_orange.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "32990000",
+        "oldprice": "35990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+3tr)",
+        "price": "35990000",
+        "oldprice": "38990000",
+        "active": false
+      },
+      {
+        "label": "512GB (+8.5tr)",
+        "price": "41490000",
+        "oldprice": "44990000",
+        "active": false
+      },
+      {
+        "label": "1TB (+15tr)",
+        "price": "47990000",
+        "oldprice": "51990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titan Đen Vũ Trụ",
+        "img": "/assets/real_iphone_17_pro_max_orange.jpg",
+        "active": true
+      },
+      {
+        "label": "Titan Bạc Ánh Kim",
+        "img": "/assets/iphone_17_pro.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "brand": "Apple",
+    "name": "iPhone 17 Air (Slim 5.6mm)",
+    "cur_price": "30.990.000 ₫",
+    "old_price": "33.990.000 ₫",
+    "main_img": "/assets/real_iphone_17_lineup_all.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "30990000",
+        "oldprice": "33990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+3tr)",
+        "price": "33990000",
+        "oldprice": "37490000",
+        "active": false
+      },
+      {
+        "label": "512GB (+8tr)",
+        "price": "38990000",
+        "oldprice": "42990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Thiên Thanh (Sky Blue)",
+        "img": "/assets/real_iphone_17_lineup_all.jpg",
+        "active": true
+      },
+      {
+        "label": "Trắng Ngọc Trai (Cloud White)",
+        "img": "/assets/iphone_17_air_white.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "brand": "Apple",
+    "name": "iPhone 17",
+    "cur_price": "24.990.000 ₫",
+    "old_price": "27.490.000 ₫",
+    "main_img": "/assets/real_iphone_17_mist_blue.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "24990000",
+        "oldprice": "27490000",
+        "active": true
+      },
+      {
+        "label": "256GB (+3tr)",
+        "price": "27990000",
+        "oldprice": "30990000",
+        "active": false
+      },
+      {
+        "label": "512GB (+8tr)",
+        "price": "32990000",
+        "oldprice": "36490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Băng Giá (Cloud White)",
+        "img": "/assets/real_iphone_17_mist_blue.jpg",
+        "active": true
+      },
+      {
+        "label": "Xanh Lam Tinh Khiết",
+        "img": "/assets/iphone_17_air_white.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "brand": "Apple",
+    "name": "iPhone 18 Pro Max",
+    "cur_price": "42.990.000 ₫",
+    "old_price": "46.990.000 ₫",
+    "main_img": "/assets/real_iphone_18_pro_max.jpg",
+    "storage": [
+      {
+        "label": "256GB",
+        "price": "42990000",
+        "oldprice": "46990000",
+        "active": true
+      },
+      {
+        "label": "512GB (+6tr)",
+        "price": "48990000",
+        "oldprice": "53990000",
+        "active": false
+      },
+      {
+        "label": "1TB (+13tr)",
+        "price": "55990000",
+        "oldprice": "61990000",
+        "active": false
+      },
+      {
+        "label": "2TB (+22tr)",
+        "price": "64990000",
+        "oldprice": "71990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titan Vũ Trụ Tối Thượng",
+        "img": "/assets/real_iphone_18_pro_max.jpg",
+        "active": true
+      },
+      {
+        "label": "Titan Tự Nhiên So Kèo",
+        "img": "/assets/real_iphone_18_pro_and_17.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "brand": "Apple",
+    "name": "iPhone 18 Fold Duo Màn Gập",
+    "cur_price": "68.990.000 ₫",
+    "old_price": "75.990.000 ₫",
+    "main_img": "/assets/real_iphone_18_duo_fold.jpg",
+    "storage": [
+      {
+        "label": "512GB",
+        "price": "68990000",
+        "oldprice": "75990000",
+        "active": true
+      },
+      {
+        "label": "1TB (+8tr)",
+        "price": "76990000",
+        "oldprice": "84990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Màn Gập Duo (Mặt Trước)",
+        "img": "/assets/real_iphone_18_duo_fold.jpg",
+        "active": true
+      },
+      {
+        "label": "Space Titanium (Mặt Lưng)",
+        "img": "/assets/real_iphone_18_duo_fold_rear.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 7,
+    "brand": "Apple",
+    "name": "iPhone 16 Pro Max",
+    "cur_price": "34.490.000 ₫",
+    "old_price": "37.990.000 ₫",
+    "main_img": "/assets/real_iphone_16_pro_max.jpg",
+    "storage": [
+      {
+        "label": "256GB",
+        "price": "34490000",
+        "oldprice": "37990000",
+        "active": true
+      },
+      {
+        "label": "512GB (+5.5tr)",
+        "price": "39990000",
+        "oldprice": "43490000",
+        "active": false
+      },
+      {
+        "label": "1TB (+11.5tr)",
+        "price": "45990000",
+        "oldprice": "49990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titan Tự Nhiên (Natural)",
+        "img": "/assets/real_iphone_16_pro_max.jpg",
+        "active": true
+      },
+      {
+        "label": "Titan Sa Mạc (Desert)",
+        "img": "/assets/real_iphone_16_pro.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 8,
+    "brand": "Apple",
+    "name": "iPhone 16 Pro",
+    "cur_price": "28.990.000 ₫",
+    "old_price": "31.990.000 ₫",
+    "main_img": "/assets/real_iphone_16_pro.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "28990000",
+        "oldprice": "31990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+3tr)",
+        "price": "31990000",
+        "oldprice": "34990000",
+        "active": false
+      },
+      {
+        "label": "512GB (+8tr)",
+        "price": "36990000",
+        "oldprice": "39990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titan Sa Mạc",
+        "img": "/assets/real_iphone_16_pro.jpg",
+        "active": true
+      },
+      {
+        "label": "Titan Tự Nhiên",
+        "img": "/assets/real_iphone_16_pro_max.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 9,
+    "brand": "Apple",
+    "name": "iPhone 16 Plus",
+    "cur_price": "25.490.000 ₫",
+    "old_price": "27.990.000 ₫",
+    "main_img": "/assets/real_iphone_16_plus.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "25490000",
+        "oldprice": "27990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+3.5tr)",
+        "price": "28990000",
+        "oldprice": "31490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Teal Mòng Két",
+        "img": "/assets/real_iphone_16_plus.jpg",
+        "active": true
+      },
+      {
+        "label": "Xanh Lưu Ly",
+        "img": "/assets/real_iphone_16.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 10,
+    "brand": "Apple",
+    "name": "iPhone 16",
+    "cur_price": "21.990.000 ₫",
+    "old_price": "23.990.000 ₫",
+    "main_img": "/assets/real_iphone_16.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "21990000",
+        "oldprice": "23990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+3.5tr)",
+        "price": "25490000",
+        "oldprice": "27490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Lưu Ly (Ultramarine)",
+        "img": "/assets/real_iphone_16.jpg",
+        "active": true
+      },
+      {
+        "label": "Xanh Teal",
+        "img": "/assets/real_iphone_16_plus.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 11,
+    "brand": "Apple",
+    "name": "iPhone 15 Pro Max",
+    "cur_price": "27.490.000 ₫",
+    "old_price": "34.990.000 ₫",
+    "main_img": "/assets/real_iphone_15_pro_max.jpg",
+    "storage": [
+      {
+        "label": "256GB",
+        "price": "27490000",
+        "oldprice": "34990000",
+        "active": true
+      },
+      {
+        "label": "512GB (+5.5tr)",
+        "price": "32990000",
+        "oldprice": "38990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Pastel (Blue)",
+        "img": "/assets/real_iphone_15_pro_max.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 12,
+    "brand": "Apple",
+    "name": "iPhone 15",
+    "cur_price": "18.490.000 ₫",
+    "old_price": "20.990.000 ₫",
+    "main_img": "/assets/real_iphone_15.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "18490000",
+        "oldprice": "20990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+3tr)",
+        "price": "21490000",
+        "oldprice": "23990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Blue / Đen",
+        "img": "/assets/real_iphone_15.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 13,
+    "brand": "Apple",
+    "name": "iPhone 14 Pro Max",
+    "cur_price": "22.990.000 ₫",
+    "old_price": "26.990.000 ₫",
+    "main_img": "/assets/real_iphone_14_pro_max.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "22990000",
+        "oldprice": "26990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+2.5tr)",
+        "price": "25490000",
+        "oldprice": "29490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Tím Deep Purple",
+        "img": "/assets/real_iphone_14_pro_max.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 14,
+    "brand": "Apple",
+    "name": "iPhone 13",
+    "cur_price": "12.990.000 ₫",
+    "old_price": "14.990.000 ₫",
+    "main_img": "/assets/real_iphone_13.jpg",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "12990000",
+        "oldprice": "14990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+2.5tr)",
+        "price": "15490000",
+        "oldprice": "17490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Midnight / Starlight",
+        "img": "/assets/real_iphone_13.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 15,
+    "brand": "Apple",
+    "name": "MacBook Pro 16\" M3 Max",
+    "cur_price": "89.990.000 ₫",
+    "old_price": "99.990.000 ₫",
+    "main_img": "/assets/macbook_pro_m3_space_gray.jpg",
+    "storage": [
+      {
+        "label": "48GB / 1TB SSD",
+        "price": "89990000",
+        "oldprice": "99990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Silver",
+        "img": "/assets/macbook_pro_m3_space_gray.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 16,
+    "brand": "Apple",
+    "name": "MacBook Pro 14\" M4 (2024)",
+    "cur_price": "39.990.000 ₫",
+    "old_price": "42.990.000 ₫",
+    "main_img": "/assets/macbook_pro_silver_real.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB",
+        "price": "39990000",
+        "oldprice": "42990000",
+        "active": true
+      },
+      {
+        "label": "24GB / 1TB (+10tr)",
+        "price": "49990000",
+        "oldprice": "53990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Silver",
+        "img": "/assets/macbook_pro_silver_real.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 17,
+    "brand": "Apple",
+    "name": "MacBook Air 13\" M3",
+    "cur_price": "26.490.000 ₫",
+    "old_price": "28.990.000 ₫",
+    "main_img": "/assets/macbook_air_midnight.jpg",
+    "storage": [
+      {
+        "label": "16GB / 256GB SSD",
+        "price": "26490000",
+        "oldprice": "28990000",
+        "active": true
+      },
+      {
+        "label": "16GB / 512GB SSD (+5tr)",
+        "price": "31490000",
+        "oldprice": "33990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Vàng Ánh Kim Starlight",
+        "img": "/assets/macbook_air_midnight.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 18,
+    "brand": "Apple",
+    "name": "iPad Pro 13\" M4 OLED",
+    "cur_price": "36.990.000 ₫",
+    "old_price": "39.990.000 ₫",
+    "main_img": "/assets/ipad_pro_13_m4.jpg",
+    "storage": [
+      {
+        "label": "256GB Wi-Fi",
+        "price": "36990000",
+        "oldprice": "39990000",
+        "active": true
+      },
+      {
+        "label": "512GB (+6tr)",
+        "price": "42990000",
+        "oldprice": "45990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Không Gian (Space Black)",
+        "img": "/assets/ipad_pro_13_m4.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 19,
+    "brand": "Apple",
+    "name": "iPad Air 13\" M2 Liquid Retina",
+    "cur_price": "21.990.000 ₫",
+    "old_price": "23.990.000 ₫",
+    "main_img": "/assets/ipad_air_blue.jpg",
+    "storage": [
+      {
+        "label": "128GB Wi-Fi",
+        "price": "21990000",
+        "oldprice": "23990000",
+        "active": true
+      },
+      {
+        "label": "256GB (+2.5tr)",
+        "price": "24490000",
+        "oldprice": "26990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Da Trời (Blue)",
+        "img": "/assets/ipad_air_blue.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 20,
+    "brand": "Apple",
+    "name": "iPad mini 7 (A17 Pro)",
+    "cur_price": "13.990.000 ₫",
+    "old_price": "14.990.000 ₫",
+    "main_img": "/assets/ipad_air_blue.jpg",
+    "storage": [
+      {
+        "label": "128GB Wi-Fi",
+        "price": "13990000",
+        "oldprice": "14990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Hiện Đại",
+        "img": "/assets/ipad_air_blue.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 21,
+    "brand": "Apple",
+    "name": "Apple Watch Ultra 2 49mm",
+    "cur_price": "19.890.000 ₫",
+    "old_price": "21.990.000 ₫",
+    "main_img": "/assets/apple_watch_ultra2.jpg",
+    "storage": [
+      {
+        "label": "GPS + Cellular 49mm",
+        "price": "19890000",
+        "oldprice": "21990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Dây Alpine Cam",
+        "img": "/assets/apple_watch_ultra2.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 22,
+    "brand": "Apple",
+    "name": "Apple Watch Series 10 (46mm)",
+    "cur_price": "11.490.000 ₫",
+    "old_price": "12.490.000 ₫",
+    "main_img": "/assets/apple_watch_series_10.png",
+    "storage": [
+      {
+        "label": "46mm GPS Nhôm",
+        "price": "11490000",
+        "oldprice": "12490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Bóng Jet Black",
+        "img": "/assets/apple_watch_series_10.png",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 23,
+    "brand": "Apple",
+    "name": "AirPods Pro 2 (USB-C)",
+    "cur_price": "5.490.000 ₫",
+    "old_price": "6.190.000 ₫",
+    "main_img": "/assets/airpods_pro.jpg",
+    "storage": [
+      {
+        "label": "Bản Hộp Sạc USB-C",
+        "price": "5490000",
+        "oldprice": "6190000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Tinh Khôi",
+        "img": "/assets/airpods_pro.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 24,
+    "brand": "Apple",
+    "name": "AirPods 4 Chống Ồn Chủ Động (ANC)",
+    "cur_price": "4.790.000 ₫",
+    "old_price": "5.290.000 ₫",
+    "main_img": "/assets/airpods_pro.jpg",
+    "storage": [
+      {
+        "label": "Bản Chống Ồn ANC",
+        "price": "4790000",
+        "oldprice": "5290000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Tinh Khiết",
+        "img": "/assets/airpods_pro.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 25,
+    "brand": "Apple",
+    "name": "AirPods Max (USB-C)",
+    "cur_price": "12.990.000 ₫",
+    "old_price": "13.990.000 ₫",
+    "main_img": "/assets/real_airpods_max.jpg",
+    "storage": [
+      {
+        "label": "Bản USB-C 2024",
+        "price": "12990000",
+        "oldprice": "13990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Ánh Kim (Silver)",
+        "img": "/assets/real_airpods_max.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 26,
+    "brand": "Apple",
+    "name": "Apple Mac mini M4 2024",
+    "cur_price": "14.990.000 ₫",
+    "old_price": "16.490.000 ₫",
+    "main_img": "/assets/mac_mini_m4.png",
+    "storage": [
+      {
+        "label": "16GB / 256GB SSD",
+        "price": "14990000",
+        "oldprice": "16490000",
+        "active": true
+      },
+      {
+        "label": "16GB / 512GB SSD (+5tr)",
+        "price": "19990000",
+        "oldprice": "21490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Silver",
+        "img": "/assets/mac_mini_m4.png",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 27,
+    "brand": "Apple",
+    "name": "iMac 24\" M4 (2024)",
+    "cur_price": "34.990.000 ₫",
+    "old_price": "37.990.000 ₫",
+    "main_img": "/assets/real_imac_24.jpg",
+    "storage": [
+      {
+        "label": "16GB / 256GB SSD",
+        "price": "34990000",
+        "oldprice": "37990000",
+        "active": true
+      },
+      {
+        "label": "16GB / 512GB SSD (+5tr)",
+        "price": "39990000",
+        "oldprice": "42990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Silver / Xanh Dương",
+        "img": "/assets/real_imac_24.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 28,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S25 Ultra 5G AI",
+    "cur_price": "34.990.000 ₫",
+    "old_price": "38.990.000 ₫",
+    "main_img": "/assets/real_samsung_s25_ultra_silverblue.jpg",
+    "storage": [
+      {
+        "label": "256GB",
+        "price": "34990000",
+        "oldprice": "38990000",
+        "active": true
+      },
+      {
+        "label": "512GB (+5tr)",
+        "price": "39990000",
+        "oldprice": "43990000",
+        "active": false
+      },
+      {
+        "label": "1TB (+11tr)",
+        "price": "45990000",
+        "oldprice": "50990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Titan (Titanium Gray)",
+        "img": "/assets/real_samsung_s25_ultra_silverblue.jpg",
+        "active": true
+      },
+      {
+        "label": "Bạc Titan Ánh Xanh",
+        "img": "/assets/real_samsung_s25_ultra.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 29,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S25+ 5G AI",
+    "cur_price": "26.990.000 ₫",
+    "old_price": "29.990.000 ₫",
+    "main_img": "/assets/real_samsung_s25_plus.jpg",
+    "storage": [
+      {
+        "label": "256GB",
+        "price": "26990000",
+        "oldprice": "29990000",
+        "active": true
+      },
+      {
+        "label": "512GB (+4tr)",
+        "price": "30990000",
+        "oldprice": "34490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Ánh Kim (Titanium Silver)",
+        "img": "/assets/real_samsung_s25_plus.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Phantom Black",
+        "img": "/assets/samsung_s25_black.png",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 30,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S25 5G AI",
+    "cur_price": "21.990.000 ₫",
+    "old_price": "24.490.000 ₫",
+    "main_img": "/assets/real_samsung_s25_black_front.png",
+    "storage": [
+      {
+        "label": "128GB",
+        "price": "21990000",
+        "oldprice": "24490000",
+        "active": true
+      },
+      {
+        "label": "256GB (+2tr)",
+        "price": "23990000",
+        "oldprice": "26990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Huyền Bí Phantom Black",
+        "img": "/assets/real_samsung_s25_black_front.png",
+        "active": true
+      },
+      {
+        "label": "Bạc Ánh Xanh Tinh Khiết",
+        "img": "/assets/samsung_s25_base.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 31,
+    "brand": "Samsung",
+    "name": "Galaxy Z Fold Special Edition",
+    "cur_price": "56.990.000 ₫",
+    "old_price": "62.990.000 ₫",
+    "main_img": "/assets/real_samsung_zfold_se.jpg",
+    "storage": [
+      {
+        "label": "512GB",
+        "price": "56990000",
+        "oldprice": "62990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titan Đen Sọc (Shadow Black)",
+        "img": "/assets/real_samsung_zfold_se.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 32,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S24 Ultra 5G AI",
+    "cur_price": "27.990.000 ₫",
+    "old_price": "33.990.000 ₫",
+    "main_img": "/assets/real_samsung_s24_ultra.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "27990000",
+        "oldprice": "33990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 512GB (+4tr)",
+        "price": "31990000",
+        "oldprice": "37490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Titan (Titanium Gray)",
+        "img": "/assets/real_samsung_s24_ultra.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 33,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S24+ 5G AI",
+    "cur_price": "21.490.000 ₫",
+    "old_price": "26.990.000 ₫",
+    "main_img": "/assets/real_samsung_s24_plus.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "21490000",
+        "oldprice": "26990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 512GB (+3.5tr)",
+        "price": "24990000",
+        "oldprice": "30490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Tím Coban (Cobalt Violet)",
+        "img": "/assets/real_samsung_s24_plus.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 34,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S24 5G",
+    "cur_price": "16.990.000 ₫",
+    "old_price": "22.990.000 ₫",
+    "main_img": "/assets/real_samsung_s24.jpg",
+    "storage": [
+      {
+        "label": "8GB / 256GB",
+        "price": "16990000",
+        "oldprice": "22990000",
+        "active": true
+      },
+      {
+        "label": "8GB / 512GB (+3tr)",
+        "price": "19990000",
+        "oldprice": "25990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Vàng Hổ Phách (Amber Yellow)",
+        "img": "/assets/real_samsung_s24.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 35,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S24 FE 5G (Fan Edition)",
+    "cur_price": "15.990.000 ₫",
+    "old_price": "17.990.000 ₫",
+    "main_img": "/assets/real_samsung_s24_fe.jpg",
+    "storage": [
+      {
+        "label": "8GB / 128GB",
+        "price": "15990000",
+        "oldprice": "17990000",
+        "active": true
+      },
+      {
+        "label": "8GB / 256GB (+2tr)",
+        "price": "17990000",
+        "oldprice": "19990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Cool Mint",
+        "img": "/assets/real_samsung_s24_fe.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 36,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy Z Fold6 5G",
+    "cur_price": "41.990.000 ₫",
+    "old_price": "43.990.000 ₫",
+    "main_img": "/assets/real_samsung_zfold6.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "41990000",
+        "oldprice": "43990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 512GB (+4tr)",
+        "price": "45990000",
+        "oldprice": "48990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Navy (Navy Blue)",
+        "img": "/assets/real_samsung_zfold6.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 37,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy Z Flip6 5G",
+    "cur_price": "24.990.000 ₫",
+    "old_price": "28.990.000 ₫",
+    "main_img": "/assets/real_samsung_zflip6.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "24990000",
+        "oldprice": "28990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 512GB (+3tr)",
+        "price": "27990000",
+        "oldprice": "32990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Mint (Bạc Hà)",
+        "img": "/assets/real_samsung_zflip6.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 38,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S23 Ultra 5G",
+    "cur_price": "20.990.000 ₫",
+    "old_price": "31.990.000 ₫",
+    "main_img": "/assets/real_samsung_s23_ultra.jpg",
+    "storage": [
+      {
+        "label": "8GB / 256GB",
+        "price": "20990000",
+        "oldprice": "31990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 512GB (+4tr)",
+        "price": "24990000",
+        "oldprice": "36990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Phantom (Phantom Black)",
+        "img": "/assets/real_samsung_s23_ultra.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 39,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy A55 5G",
+    "cur_price": "9.490.000 ₫",
+    "old_price": "10.990.000 ₫",
+    "main_img": "/assets/real_samsung_a55.jpg",
+    "storage": [
+      {
+        "label": "8GB / 128GB",
+        "price": "9490000",
+        "oldprice": "10990000",
+        "active": true
+      },
+      {
+        "label": "8GB / 256GB (+1.2tr)",
+        "price": "10690000",
+        "oldprice": "11990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Iceblue",
+        "img": "/assets/real_samsung_a55.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 40,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy A35 5G",
+    "cur_price": "7.490.000 ₫",
+    "old_price": "8.490.000 ₫",
+    "main_img": "/assets/real_samsung_a35.jpg",
+    "storage": [
+      {
+        "label": "8GB / 128GB",
+        "price": "7490000",
+        "oldprice": "8490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Navy Tinh Thể",
+        "img": "/assets/real_samsung_a35.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 41,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy Watch Ultra 47mm",
+    "cur_price": "15.990.000 ₫",
+    "old_price": "17.990.000 ₫",
+    "main_img": "/assets/samsung_watch_ultra.jpg",
+    "storage": [
+      {
+        "label": "47mm LTE + Bluetooth",
+        "price": "15990000",
+        "oldprice": "17990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titanium Xám Đậm Dây Cam",
+        "img": "/assets/samsung_watch_ultra.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 42,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy Watch7 (44mm Bluetooth)",
+    "cur_price": "6.990.000 ₫",
+    "old_price": "7.990.000 ₫",
+    "main_img": "/assets/real_samsung_watch.jpg",
+    "storage": [
+      {
+        "label": "44mm Bluetooth",
+        "price": "6990000",
+        "oldprice": "7990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Quân Đội (Green)",
+        "img": "/assets/real_samsung_watch.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 43,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy Buds3 Pro",
+    "cur_price": "4.490.000 ₫",
+    "old_price": "5.490.000 ₫",
+    "main_img": "/assets/samsung_buds3_pro.jpg",
+    "storage": [
+      {
+        "label": "Bản Cao Cấp Pro",
+        "price": "4490000",
+        "oldprice": "5490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Ánh Kim (Silver)",
+        "img": "/assets/samsung_buds3_pro.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 44,
+    "brand": "Samsung",
+    "name": "Galaxy Tab S10 Ultra 5G AI",
+    "cur_price": "33.990.000 ₫",
+    "old_price": "37.990.000 ₫",
+    "main_img": "/assets/samsung_galaxy_tab.png",
+    "storage": [
+      {
+        "label": "12GB / 256GB 5G",
+        "price": "33990000",
+        "oldprice": "37990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Moonstone Gray",
+        "img": "/assets/samsung_galaxy_tab.png",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 45,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy Ring AI",
+    "cur_price": "9.990.000 ₫",
+    "old_price": "11.490.000 ₫",
+    "main_img": "/assets/samsung_galaxy_ring.jpg",
+    "storage": [
+      {
+        "label": "Size 8 - 12 Chuẩn",
+        "price": "9990000",
+        "oldprice": "11490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titan Vàng Gold",
+        "img": "/assets/samsung_galaxy_ring.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 46,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy Z Fold5 5G",
+    "cur_price": "29.990.000 ₫",
+    "old_price": "40.990.000 ₫",
+    "main_img": "/assets/samsung_fold_blue.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "29990000",
+        "oldprice": "40990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Phantom (Icy Black)",
+        "img": "/assets/samsung_fold_blue.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 47,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy S23 FE 5G",
+    "cur_price": "11.990.000 ₫",
+    "old_price": "14.890.000 ₫",
+    "main_img": "/assets/real_samsung_s23_fe.jpg",
+    "storage": [
+      {
+        "label": "8GB / 128GB",
+        "price": "11990000",
+        "oldprice": "14890000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Mint Nhẹ",
+        "img": "/assets/real_samsung_s23_fe.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 48,
+    "brand": "Samsung",
+    "name": "Samsung Galaxy Watch FE (40mm 2024)",
+    "cur_price": "4.490.000 ₫",
+    "old_price": "4.990.000 ₫",
+    "main_img": "/assets/samsung_galaxy_watch.jpg",
+    "storage": [
+      {
+        "label": "40mm Bluetooth",
+        "price": "4490000",
+        "oldprice": "4990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Huyền Bí",
+        "img": "/assets/samsung_galaxy_watch.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 49,
+    "brand": "Sony",
+    "name": "Sony WH-1000XM5 Wireless",
+    "cur_price": "7.990.000 ₫",
+    "old_price": "9.990.000 ₫",
+    "main_img": "/assets/sony_headphones.jpg",
+    "storage": [],
+    "colors": [
+      {
+        "label": "Bạc Platinum",
+        "img": "/assets/sony_headphones.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Nhám",
+        "img": "/assets/sony_xm5_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 50,
+    "brand": "Sony",
+    "name": "Sony PlayStation 5 (PS5) Slim 1TB",
+    "cur_price": "13.490.000 ₫",
+    "old_price": "15.990.000 ₫",
+    "main_img": "/assets/ps5_slim.png",
+    "storage": [
+      {
+        "label": "Bản Ổ Đĩa",
+        "price": "13490000",
+        "oldprice": "15990000",
+        "active": true
+      },
+      {
+        "label": "Bản Digital (-1.5tr)",
+        "price": "11990000",
+        "oldprice": "13990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng (Ổ Đĩa)",
+        "img": "/assets/ps5_slim.png",
+        "active": true
+      },
+      {
+        "label": "Trắng (Digital Slim)",
+        "img": "/assets/ps5_digital.jpg",
+        "active": false
+      },
+      {
+        "label": "Đứng Hiển Thị",
+        "img": "/assets/ps5_slim.png",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 51,
+    "brand": "Sony",
+    "name": "PlayStation Portal Remote Player",
+    "cur_price": "5.990.000 ₫",
+    "old_price": "6.990.000 ₫",
+    "main_img": "/assets/playstation_portal.jpg",
+    "storage": [
+      {
+        "label": "Tiêu Chuẩn",
+        "price": "5990000",
+        "oldprice": "6990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Đen PS5",
+        "img": "/assets/playstation_portal.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 52,
+    "brand": "Sony",
+    "name": "PlayStation VR2 Horizon Bundle",
+    "cur_price": "14.990.000 ₫",
+    "old_price": "17.990.000 ₫",
+    "main_img": "/assets/ps_vr2.png",
+    "storage": [
+      {
+        "label": "Bundle Game Horizon",
+        "price": "14990000",
+        "oldprice": "17990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng PS5",
+        "img": "/assets/ps_vr2.png",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 53,
+    "brand": "Sony",
+    "name": "PlayStation 5 Pro (PS5 Pro) 2TB",
+    "cur_price": "19.990.000 ₫",
+    "old_price": "22.990.000 ₫",
+    "main_img": "/assets/ps5_pro.jpg",
+    "storage": [
+      {
+        "label": "2TB SSD",
+        "price": "19990000",
+        "oldprice": "22990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bản PS5 Pro Độc Quyền",
+        "img": "/assets/ps5_pro.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 54,
+    "brand": "Sony",
+    "name": "Sony Xperia 1 VI 5G",
+    "cur_price": "31.990.000 ₫",
+    "old_price": "34.990.000 ₫",
+    "main_img": "/assets/sony_xperia_1.png",
+    "storage": [
+      {
+        "label": "256GB",
+        "price": "31990000",
+        "oldprice": "34990000",
+        "active": true
+      },
+      {
+        "label": "512GB (+3tr)",
+        "price": "34990000",
+        "oldprice": "38990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Tím Khói Platinum",
+        "img": "/assets/sony_xperia_1.png",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 55,
+    "brand": "Sony",
+    "name": "Sony WF-1000XM5 True Wireless",
+    "cur_price": "5.990.000 ₫",
+    "old_price": "6.990.000 ₫",
+    "main_img": "/assets/sony_wf1000xm5.jpg",
+    "storage": [
+      {
+        "label": "Bản Cao Cấp ANC",
+        "price": "5990000",
+        "oldprice": "6990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Nhám (Black)",
+        "img": "/assets/sony_wf1000xm5.jpg",
+        "active": true
+      },
+      {
+        "label": "Bạc Bạch Kim (Silver)",
+        "img": "/assets/sony_xm5_silver.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 56,
+    "brand": "Sony",
+    "name": "Sony ULT WEAR (WH-ULT900N)",
+    "cur_price": "3.990.000 ₫",
+    "old_price": "4.490.000 ₫",
+    "main_img": "/assets/sony_xm5_black.jpg",
+    "storage": [
+      {
+        "label": "Bản Tiêu Chuẩn 50H",
+        "price": "3990000",
+        "oldprice": "4490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Sâu (Black)",
+        "img": "/assets/sony_xm5_black.jpg",
+        "active": true
+      },
+      {
+        "label": "Trắng Ngà (Off-White)",
+        "img": "/assets/sony_xm5_silver.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 57,
+    "brand": "Sony",
+    "name": "Máy ảnh Sony Alpha A7 IV (ILCE-7M4 Body)",
+    "cur_price": "54.990.000 ₫",
+    "old_price": "58.990.000 ₫",
+    "main_img": "/assets/real_sony_a7.jpg",
+    "storage": [
+      {
+        "label": "Body Only (Thân máy)",
+        "price": "54990000",
+        "oldprice": "58990000",
+        "active": true
+      },
+      {
+        "label": "Kèm Lens 28-70mm Kit",
+        "price": "59990000",
+        "oldprice": "63990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Chuyên Nghiệp",
+        "img": "/assets/real_sony_a7.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 58,
+    "brand": "Sony",
+    "name": "Tay cầm Sony DualSense Edge Wireless Controller",
+    "cur_price": "4.990.000 ₫",
+    "old_price": "5.490.000 ₫",
+    "main_img": "/assets/ps5_controller_bundle.png",
+    "storage": [
+      {
+        "label": "Bản Pro Full Hộp",
+        "price": "4990000",
+        "oldprice": "5490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Đen PS5",
+        "img": "/assets/ps5_controller_bundle.png",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 59,
+    "brand": "Sony",
+    "name": "Loa Bluetooth Di Động Sony ULT FIELD 7",
+    "cur_price": "8.990.000 ₫",
+    "old_price": "9.990.000 ₫",
+    "main_img": "/assets/sony_ult_field7.jpg",
+    "storage": [
+      {
+        "label": "Bản Tiêu Chuẩn 30H",
+        "price": "8990000",
+        "oldprice": "9990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Stealth",
+        "img": "/assets/sony_ult_field7.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 60,
+    "brand": "Sony",
+    "name": "Máy ảnh Vlog Sony ZV-E10 II (2024)",
+    "cur_price": "24.990.000 ₫",
+    "old_price": "26.990.000 ₫",
+    "main_img": "/assets/real_sony_zve10.jpg",
+    "storage": [
+      {
+        "label": "Body Only (Thân máy)",
+        "price": "24990000",
+        "oldprice": "26990000",
+        "active": true
+      },
+      {
+        "label": "Kèm Lens 16-50mm OSS II",
+        "price": "27990000",
+        "oldprice": "29990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Chuyên Nghiệp",
+        "img": "/assets/real_sony_zve10.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 61,
+    "brand": "Dell",
+    "name": "Dell XPS 16 9640 Core Ultra",
+    "cur_price": "54.990.000 ₫",
+    "old_price": "59.990.000 ₫",
+    "main_img": "/assets/dell_xps.png",
+    "storage": [
+      {
+        "label": "Ultra 7 / 32GB",
+        "price": "54990000",
+        "oldprice": "59990000",
+        "active": true
+      },
+      {
+        "label": "Ultra 9 / 64GB (+8tr)",
+        "price": "62990000",
+        "oldprice": "68990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Platinum",
+        "img": "/assets/dell_xps.png",
+        "active": true
+      },
+      {
+        "label": "Graphite",
+        "img": "/assets/dell_xps_graphite.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 62,
+    "brand": "Dell",
+    "name": "Dell Inspiron 16 Plus Pro",
+    "cur_price": "27.990.000 ₫",
+    "old_price": "31.000.000 ₫",
+    "main_img": "/assets/dell_inspiron.jpg",
+    "storage": [
+      {
+        "label": "512GB SSD",
+        "price": "27990000",
+        "oldprice": "31000000",
+        "active": true
+      },
+      {
+        "label": "1TB SSD (+3tr)",
+        "price": "30990000",
+        "oldprice": "34000000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Ice Blue",
+        "img": "/assets/dell_inspiron.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 63,
+    "brand": "Dell",
+    "name": "Dell XPS 13 / 15 Prestige",
+    "cur_price": "39.990.000 ₫",
+    "old_price": "45.000.000 ₫",
+    "main_img": "/assets/dell_xps_platinum.jpg",
+    "storage": [
+      {
+        "label": "XPS 13-inch",
+        "price": "39990000",
+        "oldprice": "45000000",
+        "active": true
+      },
+      {
+        "label": "XPS 15-inch (+9tr)",
+        "price": "48990000",
+        "oldprice": "54000000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Platinum",
+        "img": "/assets/dell_xps_platinum.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 64,
+    "brand": "Dell",
+    "name": "Dell Latitude 7450 vPro AI",
+    "cur_price": "25.990.000 ₫",
+    "old_price": "28.990.000 ₫",
+    "main_img": "/assets/dell_latitude_black.jpg",
+    "storage": [
+      {
+        "label": "Core Ultra 5 / 16GB",
+        "price": "25990000",
+        "oldprice": "28990000",
+        "active": true
+      },
+      {
+        "label": "Core Ultra 7 / 32GB (+4tr)",
+        "price": "29990000",
+        "oldprice": "33990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Titan Doanh Nhân",
+        "img": "/assets/dell_latitude_black.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 65,
+    "brand": "Dell",
+    "name": "Alienware m16 R2 Gaming Monster",
+    "cur_price": "69.990.000 ₫",
+    "old_price": "78.000.000 ₫",
+    "main_img": "/assets/alienware_gaming.jpg",
+    "storage": [
+      {
+        "label": "32GB / 1TB SSD",
+        "price": "69990000",
+        "oldprice": "78000000",
+        "active": true
+      },
+      {
+        "label": "64GB / 2TB SSD (+13tr)",
+        "price": "82990000",
+        "oldprice": "92000000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Dark Metallic Đen Huyền Bí",
+        "img": "/assets/alienware_gaming.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 66,
+    "brand": "Dell",
+    "name": "Dell XPS 13 9340 (2024 Core Ultra 7 OLED)",
+    "cur_price": "41.990.000 ₫",
+    "old_price": "45.990.000 ₫",
+    "main_img": "/assets/dell_xps_graphite.jpg",
+    "storage": [
+      {
+        "label": "Ultra 7 / 16GB / 512GB",
+        "price": "41990000",
+        "oldprice": "45990000",
+        "active": true
+      },
+      {
+        "label": "Ultra 7 / 32GB / 1TB OLED",
+        "price": "48990000",
+        "oldprice": "52990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Than Chì (Graphite)",
+        "img": "/assets/dell_xps_graphite.jpg",
+        "active": true
+      },
+      {
+        "label": "Trắng Bạc (Platinum)",
+        "img": "/assets/dell_xps_platinum.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 67,
+    "brand": "Dell",
+    "name": "Dell XPS 14 9440 (2024 RTX 4050)",
+    "cur_price": "52.990.000 ₫",
+    "old_price": "57.990.000 ₫",
+    "main_img": "/assets/dell_xps_dual.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB SSD",
+        "price": "52990000",
+        "oldprice": "57990000",
+        "active": true
+      },
+      {
+        "label": "32GB / 1TB SSD (+6tr)",
+        "price": "58990000",
+        "oldprice": "63990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạch Kim Platinum",
+        "img": "/assets/dell_xps_dual.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 68,
+    "brand": "Dell",
+    "name": "Dell Gaming G15 5530 (Core i7 / RTX 4060)",
+    "cur_price": "27.990.000 ₫",
+    "old_price": "31.990.000 ₫",
+    "main_img": "/assets/alienware_gaming.jpg",
+    "storage": [
+      {
+        "label": "i7-13650HX / RTX 4060 16GB",
+        "price": "27990000",
+        "oldprice": "31990000",
+        "active": true
+      },
+      {
+        "label": "i5-13450HX / RTX 3050 16GB",
+        "price": "20990000",
+        "oldprice": "23990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Kim Loại (Dark Shadow)",
+        "img": "/assets/alienware_gaming.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 69,
+    "brand": "Dell",
+    "name": "Màn hình Dell UltraSharp 27\" 4K U2724D (IPS Black)",
+    "cur_price": "11.490.000 ₫",
+    "old_price": "12.990.000 ₫",
+    "main_img": "/assets/real_dell_u27.jpg",
+    "storage": [
+      {
+        "label": "27\" 2K 120Hz U2724D",
+        "price": "11490000",
+        "oldprice": "12990000",
+        "active": true
+      },
+      {
+        "label": "27\" 4K U2723QE (+2.5tr)",
+        "price": "13990000",
+        "oldprice": "15490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Platinum Văn Phòng",
+        "img": "/assets/real_dell_u27.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 70,
+    "brand": "Dell",
+    "name": "Dell Inspiron 14 2-in-1 (7440 Xoay Gập 360°)",
+    "cur_price": "18.990.000 ₫",
+    "old_price": "21.490.000 ₫",
+    "main_img": "/assets/dell_inspiron.jpg",
+    "storage": [
+      {
+        "label": "Core 5 / 16GB / 512GB",
+        "price": "18990000",
+        "oldprice": "21490000",
+        "active": true
+      },
+      {
+        "label": "Core 7 / 16GB / 1TB (+3tr)",
+        "price": "21990000",
+        "oldprice": "24990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Băng Tuyết (Ice Blue)",
+        "img": "/assets/dell_inspiron.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 71,
+    "brand": "Dell",
+    "name": "Dell Alienware m18 R2 Gaming Monster (2024)",
+    "cur_price": "109.990.000 ₫",
+    "old_price": "119.990.000 ₫",
+    "main_img": "/assets/alienware_gaming.jpg",
+    "storage": [
+      {
+        "label": "64GB DDR5 / 2TB SSD",
+        "price": "109990000",
+        "oldprice": "119990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Kim Loại Dark Metallic",
+        "img": "/assets/alienware_gaming.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 72,
+    "brand": "ASUS",
+    "name": "ASUS ROG Phone 9 Pro 5G",
+    "cur_price": "29.990.000 ₫",
+    "old_price": "33.500.000 ₫",
+    "main_img": "/assets/rog_phone_9_pro.jpg",
+    "storage": [
+      {
+        "label": "16GB/512GB",
+        "price": "29990000",
+        "oldprice": "33500000",
+        "active": true
+      },
+      {
+        "label": "24GB/1TB (+5tr)",
+        "price": "34990000",
+        "oldprice": "38990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Phantom Black Cyberpunk",
+        "img": "/assets/rog_phone_9_pro.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 73,
+    "brand": "ASUS",
+    "name": "ASUS ROG Zephyrus G16 OLED",
+    "cur_price": "58.990.000 ₫",
+    "old_price": "65.000.000 ₫",
+    "main_img": "/assets/asus_rog_gray.jpg",
+    "storage": [
+      {
+        "label": "RTX 4070 / 32GB",
+        "price": "58990000",
+        "oldprice": "65000000",
+        "active": true
+      },
+      {
+        "label": "RTX 4080 / 64GB (+11tr)",
+        "price": "69990000",
+        "oldprice": "85000000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Eclipse Gray",
+        "img": "/assets/asus_rog_gray.jpg",
+        "active": true
+      },
+      {
+        "label": "Platinum White",
+        "img": "/assets/asus_rog_white.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 74,
+    "brand": "ASUS",
+    "name": "ASUS ROG Strix SCAR Edition",
+    "cur_price": "89.990.000 ₫",
+    "old_price": "99.000.000 ₫",
+    "main_img": "/assets/asus_rog.jpg",
+    "storage": [
+      {
+        "label": "32GB / 1TB SSD",
+        "price": "89990000",
+        "oldprice": "99000000",
+        "active": true
+      },
+      {
+        "label": "64GB / 2TB SSD (+15tr)",
+        "price": "104990000",
+        "oldprice": "115000000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Armor Black Thể Thao",
+        "img": "/assets/asus_rog.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 75,
+    "brand": "ASUS",
+    "name": "ROG Zephyrus G14 Ultra Slim",
+    "cur_price": "49.990.000 ₫",
+    "old_price": "54.990.000 ₫",
+    "main_img": "/assets/asus_rog_white.jpg",
+    "storage": [
+      {
+        "label": "RTX 4060 / 16GB",
+        "price": "49990000",
+        "oldprice": "54990000",
+        "active": true
+      },
+      {
+        "label": "RTX 4070 / 32GB (+7tr)",
+        "price": "56990000",
+        "oldprice": "62990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Moonlight",
+        "img": "/assets/asus_rog_white.jpg",
+        "active": true
+      },
+      {
+        "label": "Xám Eclipse",
+        "img": "/assets/asus_rog_gray.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 76,
+    "brand": "ASUS",
+    "name": "ASUS ROG Ally X (2024) 1TB",
+    "cur_price": "23.990.000 ₫",
+    "old_price": "25.990.000 ₫",
+    "main_img": "/assets/rog_ally.png",
+    "storage": [
+      {
+        "label": "1TB SSD NVMe",
+        "price": "23990000",
+        "oldprice": "25990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Nhám Stealth Black",
+        "img": "/assets/rog_ally.png",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 77,
+    "brand": "ASUS",
+    "name": "ASUS ZenBook Duo OLED 2 Màn Hình",
+    "cur_price": "48.990.000 ₫",
+    "old_price": "54.990.000 ₫",
+    "main_img": "/assets/asus_zenbook_duo.jpg",
+    "storage": [
+      {
+        "label": "Ultra 7 / 16GB",
+        "price": "48990000",
+        "oldprice": "54990000",
+        "active": true
+      },
+      {
+        "label": "Ultra 9 / 32GB (+10tr)",
+        "price": "58990000",
+        "oldprice": "65990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Inkwell Gray",
+        "img": "/assets/asus_zenbook_duo.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 78,
+    "brand": "ASUS",
+    "name": "ASUS TUF Gaming A15 (FA507UV Ryzen 9 / RTX 4060)",
+    "cur_price": "26.990.000 ₫",
+    "old_price": "29.990.000 ₫",
+    "main_img": "/assets/asus_rog_gray.jpg",
+    "storage": [
+      {
+        "label": "Ryzen 9 / RTX 4060 16GB/512GB",
+        "price": "26990000",
+        "oldprice": "29990000",
+        "active": true
+      },
+      {
+        "label": "Ryzen 7 / RTX 4050 16GB/512GB",
+        "price": "22990000",
+        "oldprice": "25990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Jaeger Gray",
+        "img": "/assets/asus_rog_gray.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 79,
+    "brand": "ASUS",
+    "name": "ASUS ZenBook 14 OLED (UX3405 Core Ultra 7)",
+    "cur_price": "31.990.000 ₫",
+    "old_price": "34.990.000 ₫",
+    "main_img": "/assets/asus_rog_white.jpg",
+    "storage": [
+      {
+        "label": "Ultra 7 / 32GB / 1TB",
+        "price": "31990000",
+        "oldprice": "34990000",
+        "active": true
+      },
+      {
+        "label": "Ultra 5 / 16GB / 512GB",
+        "price": "24990000",
+        "oldprice": "27990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Lam Ponder Blue",
+        "img": "/assets/asus_rog_white.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 80,
+    "brand": "ASUS",
+    "name": "ASUS Vivobook S 14 OLED (M5406 AMD Ryzen 7)",
+    "cur_price": "21.990.000 ₫",
+    "old_price": "23.990.000 ₫",
+    "main_img": "/assets/asus_rog_white.jpg",
+    "storage": [
+      {
+        "label": "Ryzen 7 / 16GB / 512GB",
+        "price": "21990000",
+        "oldprice": "23990000",
+        "active": true
+      },
+      {
+        "label": "Ryzen 7 / 16GB / 1TB (+2tr)",
+        "price": "23990000",
+        "oldprice": "25990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Ánh Trăng (Cool Silver)",
+        "img": "/assets/asus_rog_white.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 81,
+    "brand": "ASUS",
+    "name": "Màn hình ROG Swift OLED 32\" PG32UCDM (4K 240Hz)",
+    "cur_price": "34.990.000 ₫",
+    "old_price": "38.990.000 ₫",
+    "main_img": "/assets/rog_swift_oled.jpg",
+    "storage": [
+      {
+        "label": "32\" QD-OLED 4K 240Hz",
+        "price": "34990000",
+        "oldprice": "38990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen ROG Titanium",
+        "img": "/assets/rog_swift_oled.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 82,
+    "brand": "ASUS",
+    "name": "Bàn phím cơ ROG Azoth Wireless 75% Custom",
+    "cur_price": "5.990.000 ₫",
+    "old_price": "6.990.000 ₫",
+    "main_img": "/assets/rog_azoth_keyboard.jpg",
+    "storage": [
+      {
+        "label": "ROG NX Snow Switch (Linear)",
+        "price": "5990000",
+        "oldprice": "6990000",
+        "active": true
+      },
+      {
+        "label": "ROG NX Storm Switch (Clicky)",
+        "price": "5990000",
+        "oldprice": "6990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Gunmetal",
+        "img": "/assets/rog_azoth_keyboard.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 83,
+    "brand": "ASUS",
+    "name": "ASUS ROG Phone 8 Pro (Snapdragon 8 Gen 3)",
+    "cur_price": "26.990.000 ₫",
+    "old_price": "29.990.000 ₫",
+    "main_img": "/assets/real_rog_phone8.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB",
+        "price": "26990000",
+        "oldprice": "29990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đen Phantom Black",
+        "img": "/assets/real_rog_phone8.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 84,
+    "brand": "OPPO",
+    "name": "OPPO Find N5 5G",
+    "cur_price": "46.990.000 ₫",
+    "old_price": "51.990.000 ₫",
+    "main_img": "/assets/oppo_find_n5.jpg",
+    "storage": [
+      {
+        "label": "512GB / 16GB",
+        "price": "46990000",
+        "oldprice": "51990000",
+        "active": true
+      },
+      {
+        "label": "1TB / 16GB (+6tr)",
+        "price": "52990000",
+        "oldprice": "58990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Vàng Sa Mạc Champagne",
+        "img": "/assets/oppo_find_n5.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Da Cao Cấp Classic Black",
+        "img": "/assets/oppo_find_n3_fold.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 85,
+    "brand": "OPPO",
+    "name": "OPPO Find X8 Pro 5G Flagship Hasselblad",
+    "cur_price": "29.990.000 ₫",
+    "old_price": "32.990.000 ₫",
+    "main_img": "/assets/oppo_find_x8_pro.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB",
+        "price": "29990000",
+        "oldprice": "32990000",
+        "active": true
+      },
+      {
+        "label": "16GB / 1TB (+3.5tr)",
+        "price": "33490000",
+        "oldprice": "36990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Ngọc Trai (Pearl White)",
+        "img": "/assets/oppo_find_x8_pro.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Không Gian",
+        "img": "/assets/samsung_s25_black.png",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 86,
+    "brand": "OPPO",
+    "name": "OPPO Find X8 5G Mỏng Nhẹ AI",
+    "cur_price": "22.990.000 ₫",
+    "old_price": "24.990.000 ₫",
+    "main_img": "/assets/oppo_find_white_back.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "22990000",
+        "oldprice": "24990000",
+        "active": true
+      },
+      {
+        "label": "16GB / 512GB (+3tr)",
+        "price": "25990000",
+        "oldprice": "28990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Tinh Vân",
+        "img": "/assets/oppo_find_white_back.jpg",
+        "active": true
+      },
+      {
+        "label": "Hồng Sa Mạc",
+        "img": "/assets/iphone_16_pink_real.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 87,
+    "brand": "OPPO",
+    "name": "OPPO Find N3 (Màn Hình Gập Flagship)",
+    "cur_price": "41.990.000 ₫",
+    "old_price": "44.990.000 ₫",
+    "main_img": "/assets/oppo_find_n3_fold.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB",
+        "price": "41990000",
+        "oldprice": "44990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Vàng Hoàng Kim (Gold)",
+        "img": "/assets/oppo_find_n3_fold.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Cổ Điển Da",
+        "img": "/assets/samsung_zfold_se.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 88,
+    "brand": "OPPO",
+    "name": "OPPO Find N3 Flip Nắp Gập Dọc",
+    "cur_price": "18.990.000 ₫",
+    "old_price": "22.990.000 ₫",
+    "main_img": "/assets/real_oppo_flip.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "18990000",
+        "oldprice": "22990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Vàng Thạch Anh",
+        "img": "/assets/real_oppo_flip.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Hổ Phách",
+        "img": "/assets/samsung_s24_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 89,
+    "brand": "OPPO",
+    "name": "OPPO Reno 12 Pro 5G Chuyên Gia Chân Dung AI",
+    "cur_price": "16.490.000 ₫",
+    "old_price": "18.990.000 ₫",
+    "main_img": "/assets/real_oppo_reno.jpg",
+    "storage": [
+      {
+        "label": "12GB / 512GB",
+        "price": "16490000",
+        "oldprice": "18990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Tinh Vân (Nebula Silver)",
+        "img": "/assets/real_oppo_reno.jpg",
+        "active": true
+      },
+      {
+        "label": "Nâu Không Gian",
+        "img": "/assets/samsung_s24_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 90,
+    "brand": "OPPO",
+    "name": "OPPO Reno 12 5G Màn Cong 3D",
+    "cur_price": "11.990.000 ₫",
+    "old_price": "12.990.000 ₫",
+    "main_img": "/assets/real_oppo_reno12.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "11990000",
+        "oldprice": "12990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 512GB (+1.5tr)",
+        "price": "13490000",
+        "oldprice": "14990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Hồng Ánh Hoàng Hôn",
+        "img": "/assets/real_oppo_reno12.jpg",
+        "active": true
+      },
+      {
+        "label": "Nâu Nhám Bạc",
+        "img": "/assets/iphone_16_ultramarine_real.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 91,
+    "brand": "OPPO",
+    "name": "OPPO A3 Pro 5G Siêu Bền Chuẩn Quân Đội IP69",
+    "cur_price": "7.490.000 ₫",
+    "old_price": "8.490.000 ₫",
+    "main_img": "/assets/real_oppo_find.jpg",
+    "storage": [
+      {
+        "label": "8GB / 256GB",
+        "price": "7490000",
+        "oldprice": "8490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Tím Ánh Trăng",
+        "img": "/assets/real_oppo_find.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Tinh Thể",
+        "img": "/assets/samsung_s24_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 92,
+    "brand": "OPPO",
+    "name": "Máy tính bảng OPPO Pad 2 Màn 7:5 144Hz",
+    "cur_price": "13.990.000 ₫",
+    "old_price": "15.990.000 ₫",
+    "main_img": "/assets/real_oppo_pad.jpg",
+    "storage": [
+      {
+        "label": "8GB / 256GB",
+        "price": "13990000",
+        "oldprice": "15990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xám Tinh Vân",
+        "img": "/assets/real_oppo_pad.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 93,
+    "brand": "OPPO",
+    "name": "Tai nghe OPPO Enco X3 Dynaudio Hi-Res",
+    "cur_price": "3.990.000 ₫",
+    "old_price": "4.490.000 ₫",
+    "main_img": "/assets/oppo_enco_x3.jpg",
+    "storage": [
+      {
+        "label": "Bản Cao Cấp Dynaudio",
+        "price": "3990000",
+        "oldprice": "4490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Tinh Khôi",
+        "img": "/assets/oppo_enco_x3.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 94,
+    "brand": "OPPO",
+    "name": "OPPO Find X6 Pro Hasselblad (Cảm Biến 1-inch)",
+    "cur_price": "21.990.000 ₫",
+    "old_price": "24.990.000 ₫",
+    "main_img": "/assets/real_oppo_findx6.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB",
+        "price": "21990000",
+        "oldprice": "24990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Nâu Da Cổ Điển",
+        "img": "/assets/real_oppo_findx6.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 95,
+    "brand": "Huawei",
+    "name": "Huawei Mate 70 Pro+",
+    "cur_price": "35.990.000 ₫",
+    "old_price": "39.990.000 ₫",
+    "main_img": "/assets/huawei_mate_70_pro.jpg",
+    "storage": [
+      {
+        "label": "512GB / 16GB",
+        "price": "35990000",
+        "oldprice": "39990000",
+        "active": true
+      },
+      {
+        "label": "1TB / 16GB (+6tr)",
+        "price": "41990000",
+        "oldprice": "46990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titan Bạc Vân Đá",
+        "img": "/assets/huawei_mate_70_pro.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Huyền Vũ (Obsidian Black)",
+        "img": "/assets/huawei_mate_xt.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 96,
+    "brand": "Huawei",
+    "name": "Huawei Mate XT Ultimate Design (Gập 3 Đầu Tiên)",
+    "cur_price": "79.990.000 ₫",
+    "old_price": "89.990.000 ₫",
+    "main_img": "/assets/huawei_mate_xt.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB",
+        "price": "79990000",
+        "oldprice": "89990000",
+        "active": true
+      },
+      {
+        "label": "16GB / 1TB (+10tr)",
+        "price": "89990000",
+        "oldprice": "99990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Đỏ Ruihong Da Bò",
+        "img": "/assets/huawei_mate_xt.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Huyền Bí Da",
+        "img": "/assets/samsung_zfold_se.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 97,
+    "brand": "Huawei",
+    "name": "Huawei Pura 70 Ultra Camera Thò Thụt 1-inch",
+    "cur_price": "34.990.000 ₫",
+    "old_price": "38.990.000 ₫",
+    "main_img": "/assets/huawei_pura_70_ultra.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB",
+        "price": "34990000",
+        "oldprice": "38990000",
+        "active": true
+      },
+      {
+        "label": "16GB / 1TB (+5tr)",
+        "price": "39990000",
+        "oldprice": "44990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Lục Bảo Da",
+        "img": "/assets/huawei_pura_70_ultra.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Cổ Điển Da",
+        "img": "/assets/samsung_s25_black.png",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 98,
+    "brand": "Huawei",
+    "name": "Huawei Pura 70 Pro Kính Kunlun Siêu Bền",
+    "cur_price": "24.990.000 ₫",
+    "old_price": "27.990.000 ₫",
+    "main_img": "/assets/real_huawei_p60.jpg",
+    "storage": [
+      {
+        "label": "12GB / 512GB",
+        "price": "24990000",
+        "oldprice": "27990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Trắng Tuyết Roland",
+        "img": "/assets/real_huawei_p60.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Lông Vũ",
+        "img": "/assets/samsung_s24_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 99,
+    "brand": "Huawei",
+    "name": "Huawei Mate 60 Pro Vệ Tinh Hai Chiều",
+    "cur_price": "21.990.000 ₫",
+    "old_price": "24.990.000 ₫",
+    "main_img": "/assets/real_huawei_mate60.jpg",
+    "storage": [
+      {
+        "label": "12GB / 512GB",
+        "price": "21990000",
+        "oldprice": "24990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Nhã Xuyên (Yachuan Green)",
+        "img": "/assets/real_huawei_mate60.jpg",
+        "active": true
+      },
+      {
+        "label": "Bạc Bạch Sa",
+        "img": "/assets/iphone_16_pro_white_titanium.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 100,
+    "brand": "Huawei",
+    "name": "Huawei Mate X5 Màn Gập Siêu Mỏng",
+    "cur_price": "43.990.000 ₫",
+    "old_price": "47.990.000 ₫",
+    "main_img": "/assets/huawei_mate_xt.jpg",
+    "storage": [
+      {
+        "label": "16GB / 512GB",
+        "price": "43990000",
+        "oldprice": "47990000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Tím Ảo Ảnh",
+        "img": "/assets/huawei_mate_xt.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Lông Vũ",
+        "img": "/assets/samsung_s24_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 101,
+    "brand": "Huawei",
+    "name": "Đồng hồ Huawei Watch GT 5 Pro Titanium Sapphire",
+    "cur_price": "9.990.000 ₫",
+    "old_price": "11.490.000 ₫",
+    "main_img": "/assets/real_huawei_watch.jpg",
+    "storage": [
+      {
+        "label": "46mm Titanium",
+        "price": "9990000",
+        "oldprice": "11490000",
+        "active": true
+      },
+      {
+        "label": "42mm Ceramic Trắng Gốm",
+        "price": "12990000",
+        "oldprice": "14490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Titanium Xám Bạc",
+        "img": "/assets/real_huawei_watch.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 102,
+    "brand": "Huawei",
+    "name": "Tai nghe Huawei FreeBuds Pro 3 Kép Hi-Res",
+    "cur_price": "4.990.000 ₫",
+    "old_price": "5.490.000 ₫",
+    "main_img": "/assets/huawei_freebuds_pro.jpg",
+    "storage": [
+      {
+        "label": "Bản Cao Cấp ANC 3.0",
+        "price": "4990000",
+        "oldprice": "5490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Rừng Trúc",
+        "img": "/assets/huawei_freebuds_pro.jpg",
+        "active": true
+      },
+      {
+        "label": "Bạc Ánh Sương",
+        "img": "/assets/samsung_buds3_pro.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 103,
+    "brand": "Huawei",
+    "name": "Máy tính bảng Huawei MatePad Pro 13.2\" OLED",
+    "cur_price": "21.990.000 ₫",
+    "old_price": "24.990.000 ₫",
+    "main_img": "/assets/huawei_matepad_pro.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "21990000",
+        "oldprice": "24990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 512GB (+3tr)",
+        "price": "24990000",
+        "oldprice": "27990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Lục Bảo",
+        "img": "/assets/huawei_matepad_pro.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 104,
+    "brand": "Huawei",
+    "name": "Đồng hồ Huawei Watch Fit 3 (2024 AMOLED)",
+    "cur_price": "2.990.000 ₫",
+    "old_price": "3.290.000 ₫",
+    "main_img": "/assets/real_huawei_watch_fit.jpg",
+    "storage": [
+      {
+        "label": "Bản Dây Silicon",
+        "price": "2990000",
+        "oldprice": "3290000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Hồng Pastel / Đen",
+        "img": "/assets/real_huawei_watch_fit.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 105,
+    "brand": "Realme",
+    "name": "Realme GT 7 Pro 5G",
+    "cur_price": "16.990.000 ₫",
+    "old_price": "18.990.000 ₫",
+    "main_img": "/assets/realme_gt_7_pro.jpg",
+    "storage": [
+      {
+        "label": "256GB / 12GB",
+        "price": "16990000",
+        "oldprice": "18990000",
+        "active": true
+      },
+      {
+        "label": "512GB / 16GB (+2.5tr)",
+        "price": "19490000",
+        "oldprice": "21990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Cam Hỏa Tinh (Mars Orange)",
+        "img": "/assets/realme_gt_7_pro.jpg",
+        "active": true
+      },
+      {
+        "label": "Xám Thiên Thạch (Titan Gray)",
+        "img": "/assets/realme_gt_6.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 106,
+    "brand": "Realme",
+    "name": "Realme GT 6 (Kẻ Hủy Diệt Flagship 6000 nits 120W)",
+    "cur_price": "14.990.000 ₫",
+    "old_price": "16.990.000 ₫",
+    "main_img": "/assets/realme_gt_6.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "14990000",
+        "oldprice": "16990000",
+        "active": true
+      },
+      {
+        "label": "16GB / 512GB (+2.5tr)",
+        "price": "17490000",
+        "oldprice": "19490000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Ánh Gương (Fluid Silver)",
+        "img": "/assets/realme_gt_6.jpg",
+        "active": true
+      },
+      {
+        "label": "Xanh Lục Bảo (Razor Green)",
+        "img": "/assets/rog_phone_9_pro.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 107,
+    "brand": "Realme",
+    "name": "Realme GT Neo 6 (Snapdragon 7+ Gen 3 Tản Nhiệt Cực Đại)",
+    "cur_price": "9.990.000 ₫",
+    "old_price": "11.490.000 ₫",
+    "main_img": "/assets/realme_gt_neo_back.jpg",
+    "storage": [
+      {
+        "label": "12GB / 256GB",
+        "price": "9990000",
+        "oldprice": "11490000",
+        "active": true
+      },
+      {
+        "label": "16GB / 512GB (+1.5tr)",
+        "price": "11490000",
+        "oldprice": "12990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Tím Cyberpunk",
+        "img": "/assets/realme_gt_neo_back.jpg",
+        "active": true
+      },
+      {
+        "label": "Bạc Kim Loại",
+        "img": "/assets/iphone_16_pro_white_titanium.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 108,
+    "brand": "Realme",
+    "name": "Realme 13 Pro+ 5G (Thiết Kế Monet Camera Kép Sony LYT)",
+    "cur_price": "12.490.000 ₫",
+    "old_price": "13.990.000 ₫",
+    "main_img": "/assets/realme_13_pro_plus.jpg",
+    "storage": [
+      {
+        "label": "8GB / 256GB",
+        "price": "12490000",
+        "oldprice": "13990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 512GB (+1.8tr)",
+        "price": "14290000",
+        "oldprice": "15990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Ngọc Lục Bảo Monet",
+        "img": "/assets/realme_13_pro_plus.jpg",
+        "active": true
+      },
+      {
+        "label": "Vàng Hoàng Kim Monet",
+        "img": "/assets/iphone_16_pro_desert_rear.png",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 109,
+    "brand": "Realme",
+    "name": "Realme 13+ 5G (Dimensity 7300 Energy Chuyên Game 90FPS)",
+    "cur_price": "8.990.000 ₫",
+    "old_price": "9.990.000 ₫",
+    "main_img": "/assets/real_realme_11.jpg",
+    "storage": [
+      {
+        "label": "8GB / 256GB",
+        "price": "8990000",
+        "oldprice": "9990000",
+        "active": true
+      },
+      {
+        "label": "12GB / 256GB (+1tr)",
+        "price": "9990000",
+        "oldprice": "10990000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Tốc Độ",
+        "img": "/assets/real_realme_11.jpg",
+        "active": true
+      },
+      {
+        "label": "Vàng Kim Vinh Quang",
+        "img": "/assets/iphone_16_pro_desert_rear.png",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 110,
+    "brand": "Realme",
+    "name": "Realme 12 5G (Thiết Kế Đồng Hồ Xa Xỉ 108MP)",
+    "cur_price": "6.890.000 ₫",
+    "old_price": "7.590.000 ₫",
+    "main_img": "/assets/realme_13_pro_plus.jpg",
+    "storage": [
+      {
+        "label": "8GB / 128GB",
+        "price": "6890000",
+        "oldprice": "7590000",
+        "active": true
+      },
+      {
+        "label": "8GB / 256GB (+600k)",
+        "price": "7490000",
+        "oldprice": "8190000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Rừng Sâu",
+        "img": "/assets/realme_13_pro_plus.jpg",
+        "active": true
+      },
+      {
+        "label": "Tím Hoàng Hôn",
+        "img": "/assets/samsung_s24_series.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 111,
+    "brand": "Realme",
+    "name": "Realme C67 (Quốc Dân Tầm Trung 108MP Snapdragon)",
+    "cur_price": "4.990.000 ₫",
+    "old_price": "5.690.000 ₫",
+    "main_img": "/assets/real_realme_gt.jpg",
+    "storage": [
+      {
+        "label": "8GB / 128GB",
+        "price": "4990000",
+        "oldprice": "5690000",
+        "active": true
+      },
+      {
+        "label": "8GB / 256GB (+600k)",
+        "price": "5590000",
+        "oldprice": "6290000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Nắng Ban Mai",
+        "img": "/assets/real_realme_gt.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Đá Núi Lửa",
+        "img": "/assets/samsung_s24_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 112,
+    "brand": "Realme",
+    "name": "Realme C65 (Sạc Nhanh 45W Mượt Mà 48 Tháng)",
+    "cur_price": "3.890.000 ₫",
+    "old_price": "4.290.000 ₫",
+    "main_img": "/assets/real_realme_11.jpg",
+    "storage": [
+      {
+        "label": "6GB / 128GB",
+        "price": "3890000",
+        "oldprice": "4290000",
+        "active": true
+      },
+      {
+        "label": "8GB / 256GB (+800k)",
+        "price": "4690000",
+        "oldprice": "5090000",
+        "active": false
+      }
+    ],
+    "colors": [
+      {
+        "label": "Tím Tinh Vân",
+        "img": "/assets/real_realme_11.jpg",
+        "active": true
+      },
+      {
+        "label": "Đen Huyền Ảo",
+        "img": "/assets/samsung_s24_black.jpg",
+        "active": false
+      }
+    ]
+  },
+  {
+    "index": 113,
+    "brand": "Realme",
+    "name": "Tai nghe Realme Buds Air6 Pro (Driver Kép Chống Ồn 50dB)",
+    "cur_price": "1.990.000 ₫",
+    "old_price": "2.490.000 ₫",
+    "main_img": "/assets/realme_buds_air.jpg",
+    "storage": [
+      {
+        "label": "Bản Cao Cấp Pro 50dB",
+        "price": "1990000",
+        "oldprice": "2490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Bạc Ánh Titan",
+        "img": "/assets/realme_buds_air.jpg",
+        "active": true
+      }
+    ]
+  },
+  {
+    "index": 114,
+    "brand": "Realme",
+    "name": "Realme 12 Pro+ 5G (Camera Tiềm Vọng Zoom 120x)",
+    "cur_price": "9.490.000 ₫",
+    "old_price": "10.490.000 ₫",
+    "main_img": "/assets/realme_13_pro_plus.jpg",
+    "storage": [
+      {
+        "label": "8GB / 256GB",
+        "price": "9490000",
+        "oldprice": "10490000",
+        "active": true
+      }
+    ],
+    "colors": [
+      {
+        "label": "Xanh Tàu Ngầm (Submarine Blue)",
+        "img": "/assets/realme_13_pro_plus.jpg",
+        "active": true
+      }
+    ]
+  }
+]

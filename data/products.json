@@ -1,0 +1,41 @@
+[
+  {
+    "id": "p1",
+    "name": "iPhone 15 Pro",
+    "brand": "Apple",
+    "category": "Smartphone",
+    "price": 39990000,
+    "old_price": 44990000,
+    "image": "📱",
+    "specs": "A17 Pro • 256GB • 5G",
+    "tags": ["new"],
+    "stock": true,
+    "variants": ["256GB 5G","512GB 5G"]
+  },
+  {
+    "id": "p2",
+    "name": "Galaxy S24 Ultra",
+    "brand": "Samsung",
+    "category": "Smartphone",
+    "price": 35990000,
+    "old_price": 38990000,
+    "image": "📱",
+    "specs": "Snapdragon 8 Gen 3 • 256GB • 5G",
+    "tags": [],
+    "stock": true,
+    "variants": ["256GB 5G","512GB 5G"]
+  },
+  {
+    "id": "p3",
+    "name": "Dell XPS 16",
+    "brand": "Dell",
+    "category": "Laptop",
+    "price": 54990000,
+    "old_price": 59990000,
+    "image": "💻",
+    "specs": "Intel Ultra 7 • RTX 4060 • 32GB RAM • OLED 4K",
+    "tags": ["hot"],
+    "stock": true,
+    "variants": ["Graphite","Platinum"]
+  }
+]
