@@ -30,21 +30,25 @@ import threading
 import time
 import json
 import sys
+import uuid
 import subprocess
 import mimetypes
+from http.cookies import SimpleCookie
 from pathlib import Path
 from datetime import datetime
 
 # ─── Cấu hình ─────────────────────────────────────────────────────────────────
 LB_PORT      = 7443   # Load Balancer — điểm vào duy nhất
-NODE2_PORT   = 9443   # Backend Node-2 (script này)
-NODE3_PORT   = 9444   # Backend Node-3 (script này)
-MAIN_PORT    = 8443   # Backend Node-1 (run_local_demo.py)
+NODE2_PORT   = 9443   # Web Support 1 (script này)
+NODE3_PORT   = 9444   # Web Support 2 (script này)
+MAIN_PORT    = 8443   # Web Chính (run_local_demo.py)
 
-CHECK_INTERVAL        = 2.0   # Giây giữa các health check
-FAIL_THRESHOLD        = 2     # Số lần fail liên tiếp → loại khỏi pool
-RECOVER_THRESHOLD     = 2     # Số lần ok liên tiếp → thêm lại vào pool
-OVERLOAD_RPS_THRESHOLD = 5.0  # Ngưỡng req/s để bật cảnh báo quá tải (dễ test bằng F5 liên tục hoặc stress test)
+MAIN_MAX_USERS         = 10    # Tối đa 10 người trên Web Chính; người thứ 11+ sang Web Support
+USER_SESSION_TTL       = 20.0  # Giây giữ phiên người dùng (hết hạn nếu đóng tab > 20s)
+CHECK_INTERVAL         = 2.0   # Giây giữa các health check
+FAIL_THRESHOLD         = 2     # Số lần fail liên tiếp → loại khỏi pool
+RECOVER_THRESHOLD      = 2     # Số lần ok liên tiếp → thêm lại vào pool
+OVERLOAD_RPS_THRESHOLD = 5.0   # Ngưỡng req/s phụ trợ
 
 BASE_DIR  = Path(__file__).parent.parent
 DEMO_DIR  = BASE_DIR / "demo_pages"
@@ -54,21 +58,22 @@ KEY_FILE  = SSL_DIR / "server.key"
 
 # ─── Danh sách backend nodes ──────────────────────────────────────────────────
 ALL_NODES = [
-    {'name': 'Node-1 (Main)',     'port': MAIN_PORT,  'icon': '🟢'},
-    {'name': 'Node-2 (Backup-1)', 'port': NODE2_PORT, 'icon': '🔵'},
-    {'name': 'Node-3 (Backup-2)', 'port': NODE3_PORT, 'icon': '🟣'},
+    {'name': 'Node-1 (Main)',      'port': MAIN_PORT,  'icon': '🟢', 'role': 'main'},
+    {'name': 'Node-2 (Support-1)', 'port': NODE2_PORT, 'icon': '🔵', 'role': 'support'},
+    {'name': 'Node-3 (Support-2)', 'port': NODE3_PORT, 'icon': '🟣', 'role': 'support'},
 ]
 
-# ─── Node Pool (Round-Robin) ───────────────────────────────────────────────────
+# ─── Node Pool (Max 10 Users on Main + Overflow to Support) ──────────────────
 class NodePool:
     """
-    Quản lý pool các backend nodes với Round-Robin load balancing.
-    Thread-safe.
+    Quản lý pool các backend nodes:
+    - Web Chính (Node-1): tối đa MAIN_MAX_USERS (10) người dùng hoạt động.
+    - Người thứ 11+ (hoặc khi Node-1 sập): tự động chuyển sang Web Support (Node-2, Node-3).
     """
     def __init__(self, nodes):
-        self._all    = nodes                    # Tất cả nodes (kể cả down)
-        self._active = list(nodes)              # Chỉ nodes đang healthy
-        self._idx    = 0                        # Con trỏ round-robin
+        self._all    = nodes
+        self._active = list(nodes)
+        self._support_idx = 0
         self._lock   = threading.Lock()
         self._fail_count    = {n['name']: 0 for n in nodes}
         self._recover_count = {n['name']: 0 for n in nodes}
@@ -76,6 +81,7 @@ class NodePool:
             n['name']: {
                 'port': n['port'],
                 'icon': n['icon'],
+                'role': n['role'],
                 'healthy': True,
                 'req_total': 0,
                 'req_ok': 0,
@@ -84,10 +90,17 @@ class NodePool:
             }
             for n in nodes
         }
-        self._events     = []    # Lịch sử sự kiện
-        self._start_time = time.time()
-        self._req_history = []   # Timestamps cho req/s calculation
-        self._was_overloaded = False
+        self._events          = []
+        self._start_time      = time.time()
+        self._req_history     = []
+        self._main_sessions   = {}   # uid -> last_seen
+        self._support_sessions = {}  # uid -> {'node': name, 'last_seen': ts}
+        self._was_overloaded  = False
+
+    def _prune_sessions_locked(self, now):
+        cutoff = now - USER_SESSION_TTL
+        self._main_sessions = {k: v for k, v in self._main_sessions.items() if v > cutoff}
+        self._support_sessions = {k: v for k, v in self._support_sessions.items() if v['last_seen'] > cutoff}
 
     def _calc_rps_locked(self):
         cutoff = time.time() - 3.0
@@ -95,40 +108,104 @@ class NodePool:
         return round(len(self._req_history) / 3.0, 1)
 
     def get_overload_state_locked(self):
+        now = time.time()
+        self._prune_sessions_locked(now)
         rps = self._calc_rps_locked()
-        inactive_cnt = len(self._all) - len(self._active)
-        high_traffic = rps >= OVERLOAD_RPS_THRESHOLD
-        is_overloaded = high_traffic or inactive_cnt > 0
+        main_cnt = len(self._main_sessions)
+        supp_cnt = len(self._support_sessions)
+        main_healthy = self._stats['Node-1 (Main)']['healthy']
+
+        is_overloaded = (main_cnt >= MAIN_MAX_USERS and supp_cnt > 0) or (not main_healthy) or (rps >= OVERLOAD_RPS_THRESHOLD)
         reason = []
-        if high_traffic:
+        if not main_healthy:
+            reason.append("Web chính đang bảo trì/sự cố")
+        elif main_cnt >= MAIN_MAX_USERS:
+            reason.append(f"Web chính đã đầy ({main_cnt}/{MAIN_MAX_USERS} người)")
+        if supp_cnt > 0:
+            reason.append(f"Đang chuyển {supp_cnt} người dư sang Web Support")
+        if rps >= OVERLOAD_RPS_THRESHOLD and main_cnt < MAIN_MAX_USERS:
             reason.append(f"Lưu lượng cao ({rps} req/s)")
-        if inactive_cnt > 0:
-            reason.append(f"{inactive_cnt} server gặp sự cố/quá tải")
-        return is_overloaded, rps, " • ".join(reason)
+        return is_overloaded, rps, " • ".join(reason), main_cnt, supp_cnt
 
-    def next_node(self):
-        """Lấy node tiếp theo theo Round-Robin. Trả về (node_dict | None, is_overloaded, rps, reason)."""
+    def _get_node_by_name_locked(self, name):
+        for n in self._active:
+            if n['name'] == name:
+                return n
+        return None
+
+    def _next_support_node_locked(self):
+        supports = [n for n in self._active if n['role'] == 'support']
+        if not supports:
+            return None
+        node = supports[self._support_idx % len(supports)]
+        self._support_idx += 1
+        return node
+
+    def assign_node(self, uid, is_asset=False):
+        """
+        Chọn node cho user `uid`.
+        Trả về: (node_dict | None, is_overflow, is_overloaded, rps, reason, main_cnt, supp_cnt)
+        """
         with self._lock:
-            if not self._active:
-                return None, True, 0.0, "Tất cả server đều đang quá tải hoặc bảo trì"
-            node = self._active[self._idx % len(self._active)]
-            self._idx += 1
-            self._stats[node['name']]['req_total'] += 1
-            self._req_history.append(time.time())
+            now = time.time()
+            self._prune_sessions_locked(now)
+            self._req_history.append(now)
 
-            is_overloaded, rps, reason = self.get_overload_state_locked()
-            if rps >= OVERLOAD_RPS_THRESHOLD and not self._was_overloaded:
-                self._was_overloaded = True
-                msg = f"🔥 CẢNH BÁO QUÁ TẢI ({rps} req/s) → Đang chia tải sang {len(self._active)} server!"
-                self._events.append({'time': _ts(), 'type': 'OVERLOAD', 'msg': msg})
-                print(_clr(f"\n  [{_ts()}] {msg}\n", 'red', 'bold'))
-            elif rps < OVERLOAD_RPS_THRESHOLD * 0.6 and self._was_overloaded:
+            if not self._active:
+                return None, True, True, 0.0, "Tất cả server đều đang quá tải hoặc bảo trì", 0, 0
+
+            main_node = self._get_node_by_name_locked('Node-1 (Main)')
+            node = None
+            is_overflow = False
+
+            # Nếu chỉ là request tải ảnh/CSS đi kèm và user chưa có session, không chiếm slot mới trên Main
+            if uid in self._main_sessions and main_node:
+                self._main_sessions[uid] = now
+                node = main_node
+            elif uid in self._support_sessions:
+                supp_info = self._support_sessions[uid]
+                supp_info['last_seen'] = now
+                node = self._get_node_by_name_locked(supp_info['node']) or self._next_support_node_locked()
+                is_overflow = True
+            else:
+                # Người dùng mới
+                if main_node and len(self._main_sessions) < MAIN_MAX_USERS:
+                    if not is_asset:
+                        self._main_sessions[uid] = now
+                    node = main_node
+                else:
+                    # Web chính đã đủ 10/10 người (hoặc sập) -> đẩy sang Web Support!
+                    node = self._next_support_node_locked() or main_node
+                    if node and node['role'] == 'support':
+                        is_overflow = True
+                        if not is_asset:
+                            self._support_sessions[uid] = {'node': node['name'], 'last_seen': now}
+
+            if not node:
+                return None, True, True, 0.0, "Không có server khả dụng", len(self._main_sessions), len(self._support_sessions)
+
+            self._stats[node['name']]['req_total'] += 1
+            is_overloaded, rps, reason, main_cnt, supp_cnt = self.get_overload_state_locked()
+
+            if (main_cnt >= MAIN_MAX_USERS and supp_cnt > 0) or rps >= OVERLOAD_RPS_THRESHOLD:
+                if not self._was_overloaded:
+                    self._was_overloaded = True
+                    msg = f"🔥 QUÁ TẢI WEB CHÍNH ({main_cnt}/{MAIN_MAX_USERS} người) → Đang đẩy {supp_cnt} người dư sang Web Support!"
+                    self._events.append({'time': _ts(), 'type': 'OVERLOAD', 'msg': msg})
+                    print(_clr(f"\n  [{_ts()}] {msg}\n", 'red', 'bold'))
+            elif self._was_overloaded and main_cnt < MAIN_MAX_USERS and supp_cnt == 0 and rps < OVERLOAD_RPS_THRESHOLD * 0.6:
                 self._was_overloaded = False
-                msg = f"✨ Lưu lượng đã ổn định trở lại ({rps} req/s)"
+                msg = f"✨ Web chính đã giảm tải ({main_cnt}/{MAIN_MAX_USERS} người)"
                 self._events.append({'time': _ts(), 'type': 'RECOVER', 'msg': msg})
                 print(_clr(f"\n  [{_ts()}] {msg}\n", 'green'))
 
-            return node, is_overloaded, rps, reason
+            return node, is_overflow, is_overloaded, rps, reason, main_cnt, supp_cnt
+
+    def next_node(self):
+        """Fallback helper cho retry."""
+        with self._lock:
+            supp = self._next_support_node_locked()
+            return supp or (self._active[0] if self._active else None)
 
     def report_ok(self, name, latency_ms):
         with self._lock:
@@ -169,11 +246,7 @@ class NodePool:
                         self._fail_count[name] >= FAIL_THRESHOLD):
                     st['healthy'] = False
                     self._active = [n for n in self._active if n['name'] != name]
-                    # Reset index để không out-of-range
-                    if self._active:
-                        self._idx = self._idx % len(self._active)
-                    else:
-                        self._idx = 0
+                    self._support_idx = 0
                     self._events.append({
                         'time': _ts(), 'type': 'DOWN',
                         'msg': f"🔴 {name} đã sập → loại khỏi pool"
@@ -187,14 +260,18 @@ class NodePool:
         """Trả về JSON stats cho endpoint /lb-stats."""
         with self._lock:
             uptime = int(time.time() - self._start_time)
-            is_overloaded, rps, overload_reason = self.get_overload_state_locked()
+            is_overloaded, rps, overload_reason, main_cnt, supp_cnt = self.get_overload_state_locked()
 
             total_reqs = sum(s['req_total'] for s in self._stats.values())
             return {
                 'active_nodes':       [n['name'] for n in self._active],
                 'inactive_nodes':     [n['name'] for n in self._all
                                        if n['name'] not in [a['name'] for a in self._active]],
-                'algorithm':          'Round-Robin',
+                'algorithm':          f'Max-{MAIN_MAX_USERS}-Main + Overflow-Support',
+                'main_max_users':     MAIN_MAX_USERS,
+                'main_users':         main_cnt,
+                'support_users':      supp_cnt,
+                'total_users':        main_cnt + supp_cnt,
                 'total_requests':     total_reqs,
                 'req_per_sec':        rps,
                 'overload_threshold': OVERLOAD_RPS_THRESHOLD,
@@ -202,7 +279,7 @@ class NodePool:
                 'overload_reason':    overload_reason,
                 'uptime_sec':         uptime,
                 'nodes':              dict(self._stats),
-                'events':             self._events[-20:],  # 20 sự kiện gần nhất
+                'events':             self._events[-20:],
             }
 
 # ─── Khởi tạo pool ────────────────────────────────────────────────────────────
@@ -342,7 +419,7 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(data)
 
-    def _inject_overload_widget(self, body_bytes, node, is_overloaded, rps, reason):
+    def _inject_overload_widget(self, body_bytes, node, is_overflow, is_overloaded, rps, reason, main_cnt, supp_cnt):
         """Chèn thông báo quá tải & auto-polling /lb-stats vào HTML mà không cần sửa demo_pages/."""
         try:
             html = body_bytes.decode('utf-8')
@@ -353,12 +430,20 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
             return body_bytes
 
         node_name = node['name']
-        init_display = 'flex' if is_overloaded else 'none'
-        init_msg = (
-            f"⚠️ Hệ thống đang có lượng truy cập cao ({reason}) — "
-            f"Bạn đang được điều hướng tự động sang <b>{node_name}</b> để tránh quá tải!"
-            if is_overloaded else ""
-        )
+        show_banner = is_overflow or is_overloaded
+        init_display = 'flex' if show_banner else 'none'
+        if is_overflow:
+            init_msg = (
+                f"🔥 <b>WEB CHÍNH ĐANG QUÁ TẢI ({main_cnt}/{MAIN_MAX_USERS} người tối đa)</b> — "
+                f"Bạn đã được tự động chuyển sang <b>{node_name}</b> để tiếp tục truy cập mượt mà!"
+            )
+        elif is_overloaded:
+            init_msg = (
+                f"⚠️ <b>CẢNH BÁO QUÁ TẢI:</b> {reason} — "
+                f"Hệ thống đang chia số người dư sang Web Support (Bạn đang ở <b>{node_name}</b>)"
+            )
+        else:
+            init_msg = ""
 
         widget = f"""
 <!-- CloudMart Load Balancer Overload Notification -->
@@ -385,15 +470,15 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
   }}
   #cm-lb-pill {{
     position: fixed; bottom: 16px; left: 16px; z-index: 999998;
-    background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(8px);
-    color: #e2e8f0; padding: 6px 12px; border-radius: 999px;
+    background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px);
+    color: #e2e8f0; padding: 7px 14px; border-radius: 999px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 12px; border: 1px solid rgba(255,255,255,0.15);
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 7px;
   }}
   #cm-lb-dot {{
     width: 8px; height: 8px; border-radius: 50%;
-    background: {'#f59e0b' if is_overloaded else '#22c55e'};
+    background: {'#ef4444' if show_banner else '#22c55e'};
   }}
 </style>
 <div id="cm-lb-banner">
@@ -403,11 +488,12 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
 </div>
 <div id="cm-lb-pill">
   <span id="cm-lb-dot"></span>
-  <span id="cm-lb-pill-text">Server: <b>{node_name}</b> • {rps} req/s</span>
+  <span id="cm-lb-pill-text">Server: <b>{node_name}</b> • Web chính: {main_cnt}/{MAIN_MAX_USERS} người | Support: {supp_cnt}</span>
 </div>
 <script>
 (function() {{
   let dismissed = false;
+  const isOverflow = {'true' if is_overflow else 'false'};
   const closeBtn = document.querySelector('#cm-lb-banner .cm-close');
   if (closeBtn) closeBtn.addEventListener('click', () => {{ dismissed = true; }});
   setInterval(async () => {{
@@ -419,12 +505,18 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
       const text = document.getElementById('cm-lb-text');
       const dot = document.getElementById('cm-lb-dot');
       const pill = document.getElementById('cm-lb-pill-text');
-      if (pill) pill.innerHTML = 'Server: <b>{node_name}</b> • ' + st.req_per_sec + ' req/s (' + st.active_nodes.length + ' nodes)';
-      if (st.is_overloaded) {{
+      if (pill) {{
+        pill.innerHTML = 'Server: <b>{node_name}</b> • Web chính: <b>' + st.main_users + '/' + st.main_max_users + '</b> người | Support: <b>' + st.support_users + '</b>';
+      }}
+      if (st.is_overloaded || isOverflow) {{
         if (dot) dot.style.background = '#ef4444';
         if (banner && !dismissed) {{
-          text.innerHTML = '⚠️ <b>CẢNH BÁO QUÁ TẢI:</b> ' + (st.overload_reason || 'Lưu lượng cao') +
-            ' — Hệ thống đang tự động chia tải sang <b>' + st.active_nodes.length + ' server</b> (Bạn đang ở <b>{node_name}</b>)';
+          if (isOverflow) {{
+            text.innerHTML = '🔥 <b>WEB CHÍNH ĐÃ ĐẦY (' + st.main_users + '/' + st.main_max_users + ' người)</b> — Bạn đang được hỗ trợ tại <b>{node_name}</b> để tránh quá tải!';
+          }} else {{
+            text.innerHTML = '⚠️ <b>CẢNH BÁO QUÁ TẢI:</b> ' + (st.overload_reason || 'Lưu lượng cao') +
+              ' — Đang điều hướng số người dư sang Web Support (Bạn đang ở <b>{node_name}</b>)';
+          }}
           banner.style.display = 'flex';
         }}
       }} else {{
@@ -469,8 +561,29 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(html)
 
+    def _get_uid_and_is_new(self):
+        test_u = self.headers.get('X-Test-User')
+        if test_u:
+            return test_u, False
+        raw_cookie = self.headers.get('Cookie', '')
+        if raw_cookie:
+            c = SimpleCookie()
+            try:
+                c.load(raw_cookie)
+                if 'cm_uid' in c and c['cm_uid'].value:
+                    return c['cm_uid'].value, False
+            except Exception:
+                pass
+        return f"u-{uuid.uuid4().hex[:10]}", True
+
     def _proxy(self):
-        node, is_overloaded, rps, reason = pool.next_node()
+        path_only = self.path.split('?')[0].lower()
+        is_asset = (
+            path_only.startswith('/assets/')
+            or any(path_only.endswith(ext) for ext in ('.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.woff2'))
+        )
+        uid, is_new_uid = self._get_uid_and_is_new()
+        node, is_overflow, is_overloaded, rps, reason, main_cnt, supp_cnt = pool.assign_node(uid, is_asset=is_asset)
         if node is None:
             self._send_overload_503()
             return
@@ -491,7 +604,7 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
 
                 ctype = resp.headers.get('Content-Type', '')
                 if body and 'text/html' in ctype.lower():
-                    body = self._inject_overload_widget(body, node, is_overloaded, rps, reason)
+                    body = self._inject_overload_widget(body, node, is_overflow, is_overloaded, rps, reason, main_cnt, supp_cnt)
 
                 self.send_response(resp.status)
                 skip = {'transfer-encoding', 'connection', 'content-length'}
@@ -499,13 +612,19 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
                     if k.lower() not in skip:
                         self.send_header(k, v)
 
+                if is_new_uid and not is_asset:
+                    self.send_header('Set-Cookie', f'cm_uid={uid}; Path=/; Max-Age={int(USER_SESSION_TTL)}')
+
                 # LB headers — quan trọng để client biết đang nói chuyện với node nào
-                self.send_header('X-LB-Node',     node['name'])
-                self.send_header('X-LB-Port',     str(node['port']))
-                self.send_header('X-Served-By',   node['name'])
-                self.send_header('X-Latency-Ms',  str(latency_ms))
-                self.send_header('X-LB-Overload', 'true' if is_overloaded else 'false')
-                self.send_header('X-LB-RPS',      str(rps))
+                self.send_header('X-LB-Node',          node['name'])
+                self.send_header('X-LB-Port',          str(node['port']))
+                self.send_header('X-Served-By',        node['name'])
+                self.send_header('X-Latency-Ms',       str(latency_ms))
+                self.send_header('X-LB-Overload',      'true' if is_overloaded else 'false')
+                self.send_header('X-LB-Overflow',      'true' if is_overflow else 'false')
+                self.send_header('X-LB-Main-Users',    f'{main_cnt}/{MAIN_MAX_USERS}')
+                self.send_header('X-LB-Support-Users', str(supp_cnt))
+                self.send_header('X-LB-RPS',           str(rps))
                 if body:
                     self.send_header('Content-Length', len(body))
                 self.end_headers()
@@ -515,7 +634,7 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
         except Exception as e:
             pool.report_fail(node['name'])
             # Thử lại node tiếp theo ngay lập tức (tránh request bị lỗi)
-            fallback, is_overloaded2, rps2, reason2 = pool.next_node()
+            fallback = pool.next_node()
             if fallback and fallback['name'] != node['name']:
                 url2 = f"https://localhost:{fallback['port']}{self.path}"
                 try:
@@ -524,7 +643,7 @@ class LBHandler(http.server.BaseHTTPRequestHandler):
                         body2 = resp2.read() if self.command != 'HEAD' else b''
                         ctype2 = resp2.headers.get('Content-Type', '')
                         if body2 and 'text/html' in ctype2.lower():
-                            body2 = self._inject_overload_widget(body2, fallback, True, rps2, f"{node['name']} gặp sự cố")
+                            body2 = self._inject_overload_widget(body2, fallback, True, True, rps, f"{node['name']} gặp sự cố", main_cnt, supp_cnt)
                         self.send_response(resp2.status)
                         skip = {'transfer-encoding', 'connection', 'content-length'}
                         for k, v in resp2.headers.items():
@@ -583,7 +702,10 @@ def stats_printer_loop():
         time.sleep(5)
         st = pool.get_stats()
         total = st['total_requests'] or 1
-        print(_clr(f"\n  [{_ts()}] 📊 Phân phối tải (Round-Robin):", 'cyan', 'bold'))
+        main_u = st.get('main_users', 0)
+        main_max = st.get('main_max_users', MAIN_MAX_USERS)
+        supp_u = st.get('support_users', 0)
+        print(_clr(f"\n  [{_ts()}] 📊 Trạng thái tải (Web Chính: {main_u}/{main_max} người | Web Support: {supp_u} người):", 'cyan', 'bold'))
         for name, info in st['nodes'].items():
             pct = round(info['req_total'] / total * 100)
             bar = '█' * (pct // 5) + '░' * (20 - pct // 5)

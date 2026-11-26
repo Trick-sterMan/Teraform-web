@@ -46,10 +46,13 @@ def _ctx():
 
 CTX = _ctx()
 
-def fetch(url, timeout=3, method='GET'):
+def fetch(url, timeout=3, method='GET', extra_headers=None):
     try:
         t0 = time.time()
         req = urllib.request.Request(url, method=method)
+        if extra_headers:
+            for k, v in extra_headers.items():
+                req.add_header(k, v)
         with urllib.request.urlopen(req, context=CTX, timeout=timeout) as r:
             ms = int((time.time() - t0) * 1000)
             body = r.read()
@@ -120,13 +123,15 @@ def monitor():
             uptime = stats.get('uptime_sec', 0)
             is_overloaded = stats.get('is_overloaded', False)
             reason = stats.get('overload_reason', '')
+            main_u = stats.get('main_users', 0)
+            main_max = stats.get('main_max_users', 10)
+            supp_u = stats.get('support_users', 0)
             print(clr("  │  ", 'magenta') +
-                  f"Thuật toán: {clr('Round-Robin', 'yellow', 'bold')}  "
-                  f"| Nodes: {clr(f'{active_n}/{total_n} active', 'green' if active_n == total_n else 'yellow')}")
+                  f"Chế độ: {clr(f'Max {main_max} người Web Chính → Dư sang Support', 'yellow', 'bold')}")
             print(clr("  │  ", 'magenta') +
-                  f"Total reqs: {clr(str(total_r), 'bold')}  "
-                  f"| {clr(str(rps) + ' req/s', 'red' if is_overloaded else 'cyan')}  "
-                  f"| Uptime: {uptime}s")
+                  f"Web Chính: {clr(f'{main_u}/{main_max} người', 'red' if main_u >= main_max else 'green', 'bold')}  "
+                  f"| Web Support: {clr(f'{supp_u} người dư', 'cyan', 'bold')}  "
+                  f"| {clr(str(rps) + ' req/s', 'red' if is_overloaded else 'cyan')}")
         else:
             is_overloaded = False
             reason = ''
@@ -233,9 +238,10 @@ def stress_test(n):
     times  = []
     lock   = threading.Lock()
 
-    def send_one():
+    def send_one(idx):
         nonlocal errors
-        st, h, _, ms = fetch(LB_URL + '/')
+        uid = f"stress-u-{int(time.time())}-{idx}"
+        st, h, _, ms = fetch(LB_URL + '/', extra_headers={'X-Test-User': uid})
         with lock:
             if st:
                 node = h.get('X-LB-Node', h.get('X-Served-By', 'unknown'))
@@ -245,7 +251,7 @@ def stress_test(n):
             else:
                 errors += 1
 
-    threads = [threading.Thread(target=send_one) for _ in range(n)]
+    threads = [threading.Thread(target=send_one, args=(i,)) for i in range(n)]
     t0 = time.time()
     for t in threads: t.start()
     for t in threads: t.join()
