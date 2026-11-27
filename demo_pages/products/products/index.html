@@ -1969,7 +1969,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card" M3 Max" data-brand="Apple">
+                    <div class="product-card" data-brand="Apple">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">M3 Max Siêu Khủng</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -2005,7 +2005,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card" M4 (2024)" data-brand="Apple">
+                    <div class="product-card" data-brand="Apple">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">Mới Ra Mắt</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -2042,7 +2042,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card" M3" data-brand="Apple">
+                    <div class="product-card" data-brand="Apple">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">Mỏng Nhẹ 11mm</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -2079,7 +2079,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card" M4 OLED" data-brand="Apple">
+                    <div class="product-card" data-brand="Apple">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">Ultra Retina Tandem OLED</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -2116,7 +2116,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card" M2 Liquid Retina" data-brand="Apple">
+                    <div class="product-card" data-brand="Apple">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">Màn Lớn 13 Inch M2</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -2407,7 +2407,7 @@
                     </div>
                 
 
-                    <div class="product-card" M4 (2024)" data-brand="Apple">
+                    <div class="product-card" data-brand="Apple">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">Mới Ra Mắt 2024</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -4125,7 +4125,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card" 4K U2724D (IPS Black)" data-brand="Dell">
+                    <div class="product-card" data-brand="Dell">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">IPS Black 2000:1 120Hz</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -4631,7 +4631,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card" PG32UCDM (4K 240Hz)" data-brand="ASUS">
+                    <div class="product-card" data-brand="ASUS">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">QD-OLED 4K 240Hz 0.03ms</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -5554,7 +5554,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card" OLED" data-brand="Huawei">
+                    <div class="product-card" data-brand="Huawei">
                         <button type="button" class="btn-wishlist" onclick="toggleWishlist(this)" title="Thêm vào yêu thích">🤍</button>
                         <span class="tag-badge">Màn Tràn Viền 94% Mỏng Nhất</span>
                         <span class="stock-tag">✓ Còn hàng</span>
@@ -7069,54 +7069,222 @@
         // THUẬT TOÁN ĐỊNH DANH & BÁO GIÁ CHÍNH XÁC DUY NHẤT 1 SẢN PHẨM
         // ==============================================================
         function findExactProductMatch(query, catalog) {
-            var q = query.toLowerCase();
-            var cleanQ = q.replace(/giá|bao nhiêu|báo giá|bao nhieu|cho hỏi|máy|chi tiết|thông tin|tư vấn|giới thiệu|muốn biết|cần biết|hỏi về|xem|thế nào|sao|tiền|tôi|mình/g, '').trim();
+            if (!query || !catalog || catalog.length === 0) return null;
+            var rawQ = query.trim();
+            var lowerQ = rawQ.toLowerCase();
+
+            // 0. Khớp tên 100% nếu truyền đúng tên máy (ví dụ nhấn từ dropdown hoặc modal xem nhanh)
+            for (var i = 0; i < catalog.length; i++) {
+                var p = catalog[i];
+                if (rawQ === p.name || lowerQ === p.name.toLowerCase()) return p;
+            }
+
+            // Làm sạch các từ đệm tiếng Việt
+            var cleanQ = lowerQ
+                .replace(/giá|bao nhiêu|báo giá|bao nhieu|cho hỏi|máy|chi tiết|thông tin|tư vấn|giới thiệu|muốn biết|cần biết|hỏi về|xem|thế nào|sao|tiền|tôi|mình|cho em|cho anh|cho chị|shop ơi|ad ơi/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+
             if (!cleanQ) return null;
 
-            // Chuẩn hóa tên viết tắt / phát âm
-            cleanQ = cleanQ.replace(/celmi/g, 'realme').replace(/huwei/g, 'huawei');
+            // Khớp chính xác sau khi bỏ từ đệm
+            for (var j = 0; j < catalog.length; j++) {
+                var cProd = catalog[j];
+                if (cleanQ === cProd.name.toLowerCase()) return cProd;
+            }
 
+            // Chuẩn hóa khoảng trắng số (fold 5 -> fold5, s 24 -> s24...)
+            var normQ = cleanQ
+                .replace(/fold\s*([0-9]+)/g, 'fold$1')
+                .replace(/flip\s*([0-9]+)/g, 'flip$1')
+                .replace(/s\s*([0-9]+)\s*\+/g, 's$1+')
+                .replace(/s\s*([0-9]+)\s*plus/g, 's$1+')
+                .replace(/s\s*([0-9]+)/g, 's$1')
+                .replace(/gt\s*([0-9]+)/g, 'gt$1')
+                .replace(/xm\s*([0-9]+)/g, 'xm$1')
+                .replace(/note\s*([0-9]+)/g, 'note$1');
+
+            // 1. Nhận diện HÃNG YÊU CẦU từ câu hỏi để cô lập 100%
+            var targetBrand = null;
+            if (normQ.includes('apple') || normQ.includes('iphone') || normQ.includes('macbook') || normQ.includes('ipad') || normQ.includes('airpods') || normQ.includes('imac')) {
+                targetBrand = 'Apple';
+            } else if (normQ.includes('samsung') || normQ.includes('galaxy') || normQ.includes('z fold') || normQ.includes('z flip') || normQ.includes('fold5') || normQ.includes('fold6') || normQ.includes('flip6')) {
+                targetBrand = 'Samsung';
+            } else if (normQ.includes('sony') || normQ.includes('playstation') || normQ.includes('ps5') || normQ.includes('xperia') || normQ.includes('dualsense') || normQ.includes('bravia')) {
+                targetBrand = 'Sony';
+            } else if (normQ.includes('dell') || normQ.includes('alienware') || normQ.includes('xps')) {
+                targetBrand = 'Dell';
+            } else if (normQ.includes('asus') || normQ.includes('rog') || normQ.includes('tuf') || normQ.includes('zenbook') || normQ.includes('zephyrus')) {
+                targetBrand = 'ASUS';
+            } else if (normQ.includes('oppo') || normQ.includes('reno') || normQ.includes('find x') || normQ.includes('find n')) {
+                targetBrand = 'OPPO';
+            } else if (normQ.includes('huawei') || normQ.includes('mate') || normQ.includes('pura') || normQ.includes('matepad')) {
+                targetBrand = 'Huawei';
+            } else if (normQ.includes('realme') || normQ.includes('celmi')) {
+                targetBrand = 'Realme';
+            }
+
+            // 2. Nhận diện hậu tố phiên bản (Pro Max, Pro, Plus, Ultra, SE, FE, Fold, Flip, Mini, Air...)
+            var hasProMax = normQ.includes('pro max') || normQ.includes('promax');
+            var hasPro = !hasProMax && normQ.includes('pro');
+            var hasPlus = normQ.includes('plus') || normQ.includes('+');
+            var hasUltra = normQ.includes('ultra');
+            var hasFE = normQ.includes('fe');
+            var hasSE = normQ.includes('special edition') || normQ.includes('fold se') || normQ.includes('z fold se');
+            var hasAir = normQ.includes('air');
+            var hasMini = normQ.includes('mini');
 
             var scored = [];
+
             catalog.forEach(function(prod) {
                 var t = prod.name.toLowerCase();
+                var cat = (prod.category || '').toLowerCase();
+                var specs = (prod.specs || '').toLowerCase();
+                var brand = prod.brand || '';
+
+                var normT = t
+                    .replace(/fold\s*([0-9]+)/g, 'fold$1')
+                    .replace(/flip\s*([0-9]+)/g, 'flip$1')
+                    .replace(/s\s*([0-9]+)\s*\+/g, 's$1+')
+                    .replace(/s\s*([0-9]+)\s*plus/g, 's$1+')
+                    .replace(/s\s*([0-9]+)/g, 's$1')
+                    .replace(/gt\s*([0-9]+)/g, 'gt$1')
+                    .replace(/xm\s*([0-9]+)/g, 'xm$1');
+
                 var score = 0;
 
-                // Khớp chính xác tuyệt đối
-                if (cleanQ === t) {
-                    score = 10000;
-                } else if (t.includes(cleanQ)) {
-                    score = 2000 + cleanQ.length * 10;
+                // A. CÔ LẬP THƯƠNG HIỆU: Khách hỏi hãng A thì tuyệt đối không tư vấn hãng B
+                if (targetBrand && brand !== targetBrand) {
+                    return;
+                }
+                if (targetBrand && brand === targetBrand) {
+                    score += 1500;
                 }
 
-                // Nhận diện và phân biệt các từ khóa độc quyền của từng model
-                var keyTerms = ['17 pro max', '17 air', '17 pro', '17', '18 pro max', '18 fold', '18 duo', 's25 ultra', 's25+', 's25', 'z fold se', 'gt 7 pro', 'mate 70', 'find n5', '16 pro max', '16 pro', '16 plus', '16', '15 pro max', '15', '14 pro max', '13 pro max', '13', '12 pro max', '12', '11 pro max', '11', 'm4', 'm3', 'm2', 's24 ultra', 's24+', 's24', 's24 fe', 's23 ultra', 's23 fe', 'fold6', 'flip6', 'fold5', 'a55', 'a35', 'watch ultra', 'watch7', 'buds3', 'ring', 'tab s10', 'airpods max', 'airpods pro', 'airpods 4', 'macbook pro', 'macbook air', 'ipad pro', 'ipad air', 'oppo', 'find x8', 'find n3', 'reno 12', 'a3 pro', 'enco', 'huawei', 'mate xt', 'pura 70', 'mate 60', 'gt 5', 'freebuds', 'matepad', 'realme', 'celmi', 'gt 6', 'neo 6', '13 pro', '13+', 'c67', 'c65'];
-                keyTerms.forEach(function(term) {
-                    var inQ = cleanQ.includes(term);
-                    var inT = t.includes(term);
+                // B. Khớp chuỗi trực tiếp
+                if (normT.includes(normQ)) {
+                    score += 3000 + normQ.length * 30;
+                }
+
+                // C. Phân biệt theo số thế hệ (18, 17, 16, 15, 14, 13, 12, 11, 25, 24, 23, 9, 8, 7, 6, 5...)
+                var genNumbers = ['18', '17', '16', '15', '14', '13', '12', '11', '25', '24', '23', '9', '8', '7', '6', '5', '4', '3', '2', '1'];
+                genNumbers.forEach(function(num) {
+                    var re = new RegExp('\\b' + num + '\\b');
+                    var inQ = re.test(normQ) || normQ.includes('s' + num) || normQ.includes('fold' + num) || normQ.includes('flip' + num) || normQ.includes('gt' + num) || normQ.includes('m' + num);
+                    var inT = re.test(normT) || normT.includes('s' + num) || normT.includes('fold' + num) || normT.includes('flip' + num) || normT.includes('gt' + num) || normT.includes('m' + num);
                     if (inQ && inT) {
-                        score += 900;
+                        score += 2000;
                     } else if (inQ && !inT) {
-                        score -= 2500; // Phạt nặng nếu model khác nhau (VD: hỏi 16 nhưng máy là 17)
+                        score -= 4000; // Phạt nặng nếu sai số thế hệ
                     }
                 });
 
-                // Tính điểm theo token từ vựng
-                var tokens = cleanQ.split(/\s+/);
+                // D. Phân cấp Hậu tố (Pro Max, Pro, Plus, Ultra, FE, SE, Air...)
+                var tHasProMax = normT.includes('pro max') || normT.includes('promax');
+                var tHasPro = !tHasProMax && normT.includes('pro');
+                var tHasPlus = normT.includes('plus') || normT.includes('+');
+                var tHasUltra = normT.includes('ultra');
+                var tHasFE = normT.includes('fe');
+                var tHasSE = normT.includes('special edition') || normT.includes('se');
+                var tHasAir = normT.includes('air');
+
+                // PRO MAX
+                if (hasProMax) {
+                    if (tHasProMax) score += 3500;
+                    else score -= 4500;
+                } else if (tHasProMax) {
+                    score -= 1500;
+                }
+
+                // PRO
+                if (hasPro) {
+                    if (tHasPro) score += 3000;
+                    else score -= 3000;
+                } else if (tHasPro && !hasProMax) {
+                    score -= 1200;
+                }
+
+                // ULTRA
+                if (hasUltra) {
+                    if (tHasUltra) score += 3500;
+                    else score -= 4000;
+                } else if (tHasUltra) {
+                    score -= 1500;
+                }
+
+                // PLUS
+                if (hasPlus) {
+                    if (tHasPlus) score += 3500;
+                    else score -= 4000;
+                } else if (tHasPlus) {
+                    score -= 1500;
+                }
+
+                // FE
+                if (hasFE) {
+                    if (tHasFE) score += 3500;
+                    else score -= 4000;
+                } else if (tHasFE) {
+                    score -= 1500;
+                }
+
+                // SE
+                if (hasSE) {
+                    if (tHasSE) score += 4000;
+                    else score -= 4000;
+                }
+
+                // AIR
+                if (hasAir) {
+                    if (tHasAir) score += 3500;
+                    else score -= 4000;
+                } else if (tHasAir) {
+                    score -= 1500;
+                }
+
+                // E. Danh mục thiết bị (tai nghe, laptop, tablet, dong ho)
+                var isHeadphone = normQ.includes('tai nghe') || normQ.includes('headphone') || normQ.includes('earphone') || normQ.includes('buds') || normQ.includes('airpods') || normQ.includes('xm5');
+                if (isHeadphone) {
+                    if (t.includes('tai nghe') || t.includes('buds') || t.includes('airpods') || t.includes('xm5') || cat.includes('tai nghe')) score += 2500;
+                    else score -= 3000;
+                }
+
+                var isLaptop = normQ.includes('laptop') || normQ.includes('macbook') || normQ.includes('xps') || normQ.includes('zenbook') || normQ.includes('tuf');
+                if (isLaptop) {
+                    if (t.includes('macbook') || t.includes('xps') || t.includes('zenbook') || t.includes('laptop') || cat.includes('laptop')) score += 2500;
+                    else score -= 3000;
+                }
+
+                var isTablet = normQ.includes('ipad') || normQ.includes('may tinh bang') || normQ.includes('tab') || normQ.includes('matepad');
+                if (isTablet) {
+                    if (t.includes('ipad') || t.includes('tab') || t.includes('matepad') || cat.includes('may tinh bang') || cat.includes('tablet')) score += 2500;
+                    else score -= 3000;
+                }
+
+                var isWatch = normQ.includes('dong ho') || normQ.includes('watch');
+                if (isWatch) {
+                    if (t.includes('watch') || cat.includes('dong ho')) score += 2500;
+                    else score -= 3000;
+                }
+
+                // F. Khớp token từ vựng
+                var tokens = normQ.split(/\s+/);
                 tokens.forEach(function(tok) {
-                    if (tok.length >= 2 && t.includes(tok)) {
-                        score += 150 * tok.length;
+                    if (tok.length >= 2) {
+                        if (normT.includes(tok)) score += 300 * tok.length;
+                        else if (cat.includes(tok)) score += 100 * tok.length;
+                        else if (specs.includes(tok)) score += 50 * tok.length;
                     }
                 });
 
-                if (score > 200) {
+                if (score > 100) {
                     scored.push({ prod: prod, score: score });
                 }
             });
 
             if (scored.length === 0) return null;
             scored.sort(function(a, b) { return b.score - a.score; });
-            return scored[0].prod; // CHỈ LẤY ĐÚNG DUY NHẤT 1 SẢN PHẨM CÓ ĐIỂM CAO NHẤT
+            return scored[0].prod;
         }
 
         function generateBotReply(q) {
@@ -7124,14 +7292,25 @@
             var catalog = getCatalogProductsData();
 
             setTimeout(function() {
-                // 1. Tìm đúng DUY NHẤT 1 sản phẩm mà khách hàng yêu cầu
+                // 1. Tìm đúng sản phẩm mà khách hàng yêu cầu
                 var exactProduct = findExactProductMatch(q, catalog);
 
                 if (exactProduct) {
-                    var replyText = 'Dạ em xin gửi quý khách thông tin giới thiệu và báo giá chi tiết của đúng sản phẩm <strong>' + exactProduct.name + '</strong> mà quý khách yêu cầu ạ:';
+                    var replyText = 'Dạ em xin gửi quý khách thông tin giới thiệu và báo giá chi tiết của đúng sản phẩm <strong>' + exactProduct.name + '</strong> mà quý khách đang quan tâm ạ:';
                     replyText += createPriceCardHTML(exactProduct);
                     appendBotMessage(replyText);
                     return;
+                }
+
+                // 1b. Gợi ý dòng máy nếu khách hỏi nhiều dòng hoặc chung chung (VD: iPhone 16 & 17, các dòng S24)
+                if (lower.includes('iphone 16') && lower.includes('17')) {
+                    var iphones = catalog.filter(function(p) { return p.brand === 'Apple' && (p.name.includes('iPhone 17') || p.name.includes('iPhone 16')); }).slice(0, 3);
+                    if (iphones.length > 0) {
+                        var ipHtml = 'Dạ CloudMart xin giới thiệu bảng giá ưu đãi các dòng <strong>iPhone 16 & 17 Series</strong> chính hãng VN/A:';
+                        iphones.forEach(function(item) { ipHtml += createPriceCardHTML(item); });
+                        appendBotMessage(ipHtml);
+                        return;
+                    }
                 }
 
                 // 2. Các câu hỏi chính sách thông thường nếu khách không hỏi đích danh máy
@@ -7144,12 +7323,11 @@
                 } else if (lower.includes('vietqr') || lower.includes('giảm 500k') || lower.includes('voucher') || lower.includes('khuyến mãi')) {
                     appendBotMessage('⚡ <strong>Ưu đãi VietQR 24/7:</strong><br>• Giảm ngay 500.000₫ khi quét mã VietQR Napas 247 qua App ngân hàng.<br>• Nhập mã voucher <code>CLOUDMART10</code> tại trang thanh toán để được giảm thêm 1.500.000₫!');
                 } else {
-                    appendBotMessage('Dạ quý khách cần tư vấn hoặc báo giá dòng máy cụ thể nào ạ? Quý khách vui lòng nhập tên chính xác sản phẩm (ví dụ: <em>iPhone 16 Pro Max, iPhone 16 Plus, Samsung S24 Ultra, MacBook Pro 16...</em>) hoặc chọn nhanh ở thanh <strong>"🏷️ Tra giá nhanh"</strong> ngay phía trên để em báo giá đúng sản phẩm đó cho quý khách nhé!');
+                    appendBotMessage('Dạ quý khách cần tư vấn hoặc báo giá dòng máy cụ thể nào ạ? Quý khách vui lòng nhập tên chính xác sản phẩm (ví dụ: <em>iPhone 16 Pro Max, Samsung S24 Ultra, Z Fold5, MacBook Pro 16...</em>) hoặc chọn nhanh ở thanh <strong>"🏷️ Tra giá nhanh"</strong> ngay phía trên để em báo giá đúng sản phẩm đó cho quý khách nhé!');
                 }
-            }, 450);
+            }, 300);
         }
 
-        // Bật nút hỏi giá trong Quick View
         function setupQuickViewAskPrice() {
             var btn = document.getElementById('qvBtnAskPrice');
             if (btn) {
