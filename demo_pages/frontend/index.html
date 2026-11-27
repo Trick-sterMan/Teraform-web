@@ -1072,40 +1072,45 @@
                 <span class="brand-bar-sub">Cam kết phân phối chính hãng 100% đầy đủ hóa đơn VAT &amp; Bảo hành ủy quyền 12-24 tháng</span>
             </div>
             <div class="brand-grid">
-                <a href="/products/" class="brand-item apple">
+                <a href="/products/?brand=Apple" class="brand-item apple">
                     <span class="brand-icon">🍏</span>
                     <span class="brand-name">Apple</span>
                     <span class="brand-count">iPhone, Mac, iPad</span>
                 </a>
-                <a href="/products/" class="brand-item samsung">
+                <a href="/products/?brand=Samsung" class="brand-item samsung">
                     <span class="brand-icon">💫</span>
                     <span class="brand-name">Samsung</span>
                     <span class="brand-count">Galaxy S25, Z Fold</span>
                 </a>
-                <a href="/products/" class="brand-item sony">
+                <a href="/products/?brand=Sony" class="brand-item sony">
                     <span class="brand-icon">🎧</span>
                     <span class="brand-name">Sony</span>
                     <span class="brand-count">Tai nghe, PS5 Pro</span>
                 </a>
-                <a href="/products/" class="brand-item dell">
+                <a href="/products/?brand=Dell" class="brand-item dell">
                     <span class="brand-icon">💻</span>
                     <span class="brand-name">Dell</span>
                     <span class="brand-count">XPS 13/16, Alienware</span>
                 </a>
-                <a href="/products/" class="brand-item asus">
+                <a href="/products/?brand=ASUS" class="brand-item asus">
                     <span class="brand-icon">🎮</span>
                     <span class="brand-name">ASUS ROG</span>
                     <span class="brand-count">Gaming Phone &amp; PC</span>
                 </a>
-                <a href="/products/" class="brand-item xiaomi">
-                    <span class="brand-icon">⚡</span>
-                    <span class="brand-name">Xiaomi</span>
-                    <span class="brand-count">15 Pro Leica Flagship</span>
+                <a href="/products/?brand=OPPO" class="brand-item xiaomi">
+                    <span class="brand-icon">🟢</span>
+                    <span class="brand-name">OPPO</span>
+                    <span class="brand-count">Find X8 Pro, Find N3</span>
                 </a>
-                <a href="/products/" class="brand-item marshall">
-                    <span class="brand-icon">📻</span>
-                    <span class="brand-name">Marshall</span>
-                    <span class="brand-count">Loa &amp; Tai Nghe UK</span>
+                <a href="/products/?brand=Huawei" class="brand-item marshall">
+                    <span class="brand-icon">🔴</span>
+                    <span class="brand-name">Huawei</span>
+                    <span class="brand-count">Mate XT, Pura 70 Ultra</span>
+                </a>
+                <a href="/products/?brand=Realme" class="brand-item apple">
+                    <span class="brand-icon">🟡</span>
+                    <span class="brand-name">Realme</span>
+                    <span class="brand-count">GT 7 Pro, 13 Pro+</span>
                 </a>
             </div>
         </div>
@@ -1581,7 +1586,50 @@
     </div>
 
     <!-- Floating Chat Widget -->
-    <button class="chat-widget-btn" onclick="alert('Trợ lý AI CloudMart: Xin chào! Bạn cần tư vấn sản phẩm công nghệ nào hôm nay?')">💬</button>
+    <button type="button" class="chat-widget-btn" onclick="toggleHomeCskh()" title="Chăm sóc khách hàng AI">💬</button>
+    <div id="homeCskhBox" style="display:none; position:fixed; bottom:5.5rem; right:1.5rem; width:350px; max-width:calc(100vw - 2rem); background:#fff; border-radius:18px; box-shadow:0 20px 45px rgba(0,0,0,0.22); z-index:995; overflow:hidden; border:1px solid #e2e8f0; flex-direction:column;">
+        <div style="background:linear-gradient(135deg,#064e3b,#059669); color:#fff; padding:0.9rem 1.1rem; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <div style="font-weight:800; font-size:0.95rem;">🤖 Trợ Lý Tư Vấn CloudMart</div>
+                <div style="font-size:0.72rem; color:#a7f3d0;">● Trực tuyến • Tra cứu đúng 114 sản phẩm</div>
+            </div>
+            <button type="button" onclick="toggleHomeCskh()" style="background:none;border:none;color:#fff;font-size:1.15rem;cursor:pointer;">✕</button>
+        </div>
+        <div style="padding:1rem; background:#f8fafc; font-size:0.84rem; color:#1e293b; line-height:1.5;">
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:0.75rem; border-radius:12px; margin-bottom:0.75rem;">
+                Dạ chào quý khách! Quý khách đang cần tìm hiểu sản phẩm nào ạ? Nhập tên máy hoặc nhu cầu bên dưới, em sẽ tư vấn đúng cấu hình, giá &amp; khuyến mãi cho mình ngay!
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+                <button type="button" onclick="goAskCskh('Tư vấn iPhone 16 Pro Max')" style="background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;font-size:0.74rem;font-weight:700;padding:0.3rem 0.6rem;border-radius:999px;cursor:pointer;">iPhone 16 Pro Max</button>
+                <button type="button" onclick="goAskCskh('Samsung Galaxy Z Fold5')" style="background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;font-size:0.74rem;font-weight:700;padding:0.3rem 0.6rem;border-radius:999px;cursor:pointer;">Galaxy Z Fold5</button>
+                <button type="button" onclick="goAskCskh('Laptop gaming ASUS')" style="background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;font-size:0.74rem;font-weight:700;padding:0.3rem 0.6rem;border-radius:999px;cursor:pointer;">Laptop gaming ASUS</button>
+                <button type="button" onclick="goAskCskh('Tai nghe chống ồn Sony')" style="background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;font-size:0.74rem;font-weight:700;padding:0.3rem 0.6rem;border-radius:999px;cursor:pointer;">Tai nghe Sony</button>
+            </div>
+        </div>
+        <div style="padding:0.75rem; background:#fff; border-top:1px solid #e2e8f0; display:flex; gap:0.5rem;">
+            <input type="text" id="homeCskhInput" placeholder="Nhập sản phẩm bạn cần tìm hiểu..." style="flex:1;padding:0.55rem 0.85rem;border-radius:999px;border:1.5px solid #cbd5e1;outline:none;font-size:0.84rem;" onkeydown="if(event.key==='Enter') submitHomeCskh()">
+            <button type="button" onclick="submitHomeCskh()" style="background:#059669;color:#fff;border:none;border-radius:999px;padding:0.55rem 1rem;font-weight:700;font-size:0.82rem;cursor:pointer;">Tư vấn</button>
+        </div>
+    </div>
+    <script>
+        function toggleHomeCskh() {
+            var box = document.getElementById('homeCskhBox');
+            if (!box) return;
+            box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
+            if (box.style.display === 'flex') {
+                setTimeout(function(){ var i = document.getElementById('homeCskhInput'); if (i) i.focus(); }, 100);
+            }
+        }
+        function goAskCskh(q) {
+            window.location.href = '/products/?ask=' + encodeURIComponent(q);
+        }
+        function submitHomeCskh() {
+            var inp = document.getElementById('homeCskhInput');
+            var val = inp ? inp.value.trim() : '';
+            if (!val) return;
+            goAskCskh(val);
+        }
+    </script>
 
     <!-- Footer -->
     <footer>
