@@ -122,6 +122,9 @@
         .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
         .btn-buy-now { background: var(--primary); color: white; border: none; padding: 0.65rem; border-radius: 8px; font-weight: 700; font-size: 0.875rem; cursor: pointer; text-decoration: none; text-align: center; transition: 0.2s; }
         .btn-buy-now:hover { background: var(--primary-hover); }
+        .btn-consult-mini { grid-column: span 2; background: #f0fdf4; color: #059669; border: 1.5px solid #a7f3d0; padding: 0.5rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer; text-align: center; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.35rem; }
+        .btn-consult-mini:hover { background: #d1fae5; border-color: #34d399; color: #047857; transform: translateY(-1px); }
+
         .btn-cart-mini { background: #ecfdf5; color: var(--primary); border: 1.5px solid #a7f3d0; padding: 0.65rem; border-radius: 8px; font-weight: 700; font-size: 0.875rem; cursor: pointer; transition: 0.2s; text-align: center; }
         .btn-cart-mini:hover { background: #d1fae5; }
 
@@ -1353,6 +1356,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1393,6 +1397,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1432,6 +1437,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1471,6 +1477,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1511,6 +1518,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1549,6 +1557,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1588,6 +1597,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1627,6 +1637,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1665,6 +1676,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1703,6 +1715,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1740,6 +1753,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1777,6 +1791,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1814,6 +1829,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -1854,6 +1870,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 <div class="product-card" data-brand="Apple">
@@ -1890,6 +1907,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <div class="product-card" data-brand="Apple">
@@ -1928,6 +1946,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <div class="product-card" data-brand="Apple">
@@ -1966,6 +1985,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2002,6 +2022,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2039,6 +2060,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2076,6 +2098,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2113,6 +2136,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2150,6 +2174,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2186,6 +2211,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2222,6 +2248,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2258,6 +2285,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2294,6 +2322,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2330,6 +2359,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2366,6 +2396,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2403,6 +2434,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 
@@ -2441,6 +2473,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 </div>
@@ -2495,6 +2528,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <div class="product-card" data-brand="Samsung">
@@ -2533,6 +2567,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2571,6 +2606,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2609,6 +2645,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2645,6 +2682,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2682,6 +2720,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2719,6 +2758,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2756,6 +2796,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2793,6 +2834,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2830,6 +2872,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2867,6 +2910,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2904,6 +2948,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2941,6 +2986,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -2977,6 +3023,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3013,6 +3060,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3049,6 +3097,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3085,6 +3134,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3121,6 +3171,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3157,6 +3208,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3193,6 +3245,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3229,6 +3282,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 
@@ -3266,6 +3320,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 </div>
@@ -3322,6 +3377,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <!-- Product 18: Sony WH-1000XM5 -->
@@ -3353,6 +3409,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3393,6 +3450,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3430,6 +3488,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3467,6 +3526,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3504,6 +3564,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3542,6 +3603,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 
@@ -3579,6 +3641,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3616,6 +3679,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3653,6 +3717,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3689,6 +3754,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3725,6 +3791,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3764,6 +3831,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 </div>
@@ -3820,6 +3888,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <!-- Product 24: Dell XPS 16 -->
@@ -3858,6 +3927,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3896,6 +3966,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3934,6 +4005,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -3972,6 +4044,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4010,6 +4083,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 
@@ -4048,6 +4122,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4085,6 +4160,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4122,6 +4198,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4159,6 +4236,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4196,6 +4274,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4234,6 +4313,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 </div>
@@ -4290,6 +4370,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <!-- Product NEW 7: ASUS ROG Phone 9 Pro -->
@@ -4327,6 +4408,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <!-- Product 29: ASUS ROG Zephyrus G16 -->
@@ -4365,6 +4447,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4403,6 +4486,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4442,6 +4526,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4479,6 +4564,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4517,6 +4603,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 
@@ -4554,6 +4641,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4591,6 +4679,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4628,6 +4717,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4664,6 +4754,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4701,6 +4792,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4739,6 +4831,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 </div>
@@ -4791,6 +4884,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <div class="product-card" data-brand="OPPO">
@@ -4828,6 +4922,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4866,6 +4961,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4904,6 +5000,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4941,6 +5038,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -4978,6 +5076,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5015,6 +5114,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5053,6 +5153,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5090,6 +5191,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5126,6 +5228,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5162,6 +5265,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5200,6 +5304,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 </div>
@@ -5253,6 +5358,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <div class="product-card" data-brand="Huawei">
@@ -5290,6 +5396,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5328,6 +5435,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5366,6 +5474,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5403,6 +5512,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5440,6 +5550,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5477,6 +5588,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5514,6 +5626,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5551,6 +5664,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5588,6 +5702,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5626,6 +5741,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 </div>
@@ -5679,6 +5795,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                     <div class="product-card" data-brand="Realme">
@@ -5716,6 +5833,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5754,6 +5872,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5792,6 +5911,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5830,6 +5950,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5868,6 +5989,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5906,6 +6028,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5944,6 +6067,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -5982,6 +6106,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -6018,6 +6143,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
 
@@ -6056,6 +6182,7 @@
                         <div class="card-actions">
                             <button type="button" class="btn-cart-mini" onclick="addToCart(this)">Thêm giỏ</button>
                             <button type="button" class="btn-buy-now" onclick="buyNow(this)">Mua ngay</button>
+                            <button type="button" class="btn-consult-mini" onclick="consultProduct(this)">💬 Tư vấn chi tiết mẫu này</button>
                         </div>
                     </div>
                 </div>
@@ -7068,6 +7195,21 @@
                 // ==============================================================
         // THUẬT TOÁN ĐỊNH DANH & BÁO GIÁ CHÍNH XÁC DUY NHẤT 1 SẢN PHẨM
         // ==============================================================
+        // Bấm nút Tư vấn chi tiết trên thẻ sản phẩm
+        function consultProduct(btn) {
+            var card = btn.closest('.product-card');
+            if (!card) return;
+            var nameEl = card.querySelector('.product-name');
+            var name = nameEl ? nameEl.innerText.trim() : '';
+            if (!name) return;
+
+            var win = document.getElementById('chatWindow');
+            if (win && !win.classList.contains('active')) win.classList.add('active');
+
+            appendUserMessage('Mình muốn tìm hiểu tư vấn chi tiết về mẫu ' + name);
+            generateBotReply('tư vấn ' + name);
+        }
+
         function findExactProductMatch(query, catalog) {
             if (!query || !catalog || catalog.length === 0) return null;
             var rawQ = query.trim();
@@ -7081,7 +7223,7 @@
 
             // Làm sạch các từ đệm tiếng Việt
             var cleanQ = lowerQ
-                .replace(/giá|bao nhiêu|báo giá|bao nhieu|cho hỏi|máy|chi tiết|thông tin|tư vấn|giới thiệu|muốn biết|cần biết|hỏi về|xem|thế nào|sao|tiền|tôi|mình|cho em|cho anh|cho chị|shop ơi|ad ơi/g, ' ')
+                .replace(/giá|bao nhiêu|báo giá|bao nhieu|cho hỏi|máy|chi tiết|thông tin|tư vấn|giới thiệu|muốn biết|cần biết|hỏi về|xem|thế nào|sao|tiền|tôi|mình|cho em|cho anh|cho chị|shop ơi|ad ơi|mẫu|tìm hiểu|cho xem|cho mình hỏi|mình cần|cần tìm hiểu/g, ' ')
                 .replace(/\s+/g, ' ')
                 .trim();
 
@@ -7124,6 +7266,15 @@
                 targetBrand = 'Realme';
             }
 
+            // Sub-family anchors để phân lập từng dòng máy trong cùng một hãng
+            var subFamilies = [
+                'pura', 'mate', 'xperia', 'playstation', 'ps5', 'dualsense',
+                'reno', 'find', 'zenbook', 'zephyrus', 'tuf', 'rog phone', 'rog',
+                'xps', 'alienware', 'latitude', 'inspiron',
+                'macbook air', 'macbook pro', 'macbook', 'ipad', 'airpods', 'apple watch',
+                'fold', 'flip', 'ring', 'tab', 'watch', 'buds'
+            ];
+
             // 2. Nhận diện hậu tố phiên bản (Pro Max, Pro, Plus, Ultra, SE, FE, Fold, Flip, Mini, Air...)
             var hasProMax = normQ.includes('pro max') || normQ.includes('promax');
             var hasPro = !hasProMax && normQ.includes('pro');
@@ -7158,12 +7309,21 @@
                     return;
                 }
                 if (targetBrand && brand === targetBrand) {
-                    score += 1500;
+                    score += 1000;
+                }
+
+                // Sub-family isolation: Nếu khách chỉ định Pura, Mate, Reno, Find, XPS, Alienware... thì chỉ tìm trong dòng đó
+                for (var s = 0; s < subFamilies.length; s++) {
+                    var sf = subFamilies[s];
+                    if (normQ.includes(sf)) {
+                        if (normT.includes(sf) || cat.includes(sf)) score += 5000;
+                        else score -= 8000;
+                    }
                 }
 
                 // B. Khớp chuỗi trực tiếp
                 if (normT.includes(normQ)) {
-                    score += 3000 + normQ.length * 30;
+                    score += 4000 + normQ.length * 30;
                 }
 
                 // C. Phân biệt theo số thế hệ (18, 17, 16, 15, 14, 13, 12, 11, 25, 24, 23, 9, 8, 7, 6, 5...)
@@ -7173,9 +7333,9 @@
                     var inQ = re.test(normQ) || normQ.includes('s' + num) || normQ.includes('fold' + num) || normQ.includes('flip' + num) || normQ.includes('gt' + num) || normQ.includes('m' + num);
                     var inT = re.test(normT) || normT.includes('s' + num) || normT.includes('fold' + num) || normT.includes('flip' + num) || normT.includes('gt' + num) || normT.includes('m' + num);
                     if (inQ && inT) {
-                        score += 2000;
+                        score += 3000;
                     } else if (inQ && !inT) {
-                        score -= 4000; // Phạt nặng nếu sai số thế hệ
+                        score -= 5000; // Phạt nặng nếu sai số thế hệ
                     }
                 });
 
@@ -7190,89 +7350,89 @@
 
                 // PRO MAX
                 if (hasProMax) {
-                    if (tHasProMax) score += 3500;
-                    else score -= 4500;
+                    if (tHasProMax) score += 4000;
+                    else score -= 6000;
                 } else if (tHasProMax) {
-                    score -= 1500;
+                    score -= 2000;
                 }
 
                 // PRO
                 if (hasPro) {
-                    if (tHasPro) score += 3000;
-                    else score -= 3000;
+                    if (tHasPro) score += 3500;
+                    else score -= 4000;
                 } else if (tHasPro && !hasProMax) {
-                    score -= 1200;
+                    score -= 1500;
                 }
 
                 // ULTRA
                 if (hasUltra) {
-                    if (tHasUltra) score += 3500;
-                    else score -= 4000;
+                    if (tHasUltra) score += 4000;
+                    else score -= 5000;
                 } else if (tHasUltra) {
-                    score -= 1500;
+                    score -= 2000;
                 }
 
                 // PLUS
                 if (hasPlus) {
-                    if (tHasPlus) score += 3500;
-                    else score -= 4000;
+                    if (tHasPlus) score += 4000;
+                    else score -= 5000;
                 } else if (tHasPlus) {
-                    score -= 1500;
+                    score -= 2000;
                 }
 
                 // FE
                 if (hasFE) {
-                    if (tHasFE) score += 3500;
-                    else score -= 4000;
+                    if (tHasFE) score += 4000;
+                    else score -= 5000;
                 } else if (tHasFE) {
-                    score -= 1500;
+                    score -= 2000;
                 }
 
                 // SE
                 if (hasSE) {
-                    if (tHasSE) score += 4000;
-                    else score -= 4000;
+                    if (tHasSE) score += 4500;
+                    else score -= 4500;
                 }
 
                 // AIR
                 if (hasAir) {
-                    if (tHasAir) score += 3500;
-                    else score -= 4000;
+                    if (tHasAir) score += 4000;
+                    else score -= 5000;
                 } else if (tHasAir) {
-                    score -= 1500;
+                    score -= 2000;
                 }
 
                 // E. Danh mục thiết bị (tai nghe, laptop, tablet, dong ho)
                 var isHeadphone = normQ.includes('tai nghe') || normQ.includes('headphone') || normQ.includes('earphone') || normQ.includes('buds') || normQ.includes('airpods') || normQ.includes('xm5');
                 if (isHeadphone) {
-                    if (t.includes('tai nghe') || t.includes('buds') || t.includes('airpods') || t.includes('xm5') || cat.includes('tai nghe')) score += 2500;
-                    else score -= 3000;
+                    if (t.includes('tai nghe') || t.includes('buds') || t.includes('airpods') || t.includes('xm5') || cat.includes('tai nghe')) score += 3000;
+                    else score -= 4000;
                 }
 
                 var isLaptop = normQ.includes('laptop') || normQ.includes('macbook') || normQ.includes('xps') || normQ.includes('zenbook') || normQ.includes('tuf');
                 if (isLaptop) {
-                    if (t.includes('macbook') || t.includes('xps') || t.includes('zenbook') || t.includes('laptop') || cat.includes('laptop')) score += 2500;
-                    else score -= 3000;
+                    if (t.includes('macbook') || t.includes('xps') || t.includes('zenbook') || t.includes('laptop') || cat.includes('laptop')) score += 3000;
+                    else score -= 4000;
                 }
 
                 var isTablet = normQ.includes('ipad') || normQ.includes('may tinh bang') || normQ.includes('tab') || normQ.includes('matepad');
                 if (isTablet) {
-                    if (t.includes('ipad') || t.includes('tab') || t.includes('matepad') || cat.includes('may tinh bang') || cat.includes('tablet')) score += 2500;
-                    else score -= 3000;
+                    if (t.includes('ipad') || t.includes('tab') || t.includes('matepad') || cat.includes('may tinh bang') || cat.includes('tablet')) score += 3000;
+                    else score -= 4000;
                 }
 
                 var isWatch = normQ.includes('dong ho') || normQ.includes('watch');
                 if (isWatch) {
-                    if (t.includes('watch') || cat.includes('dong ho')) score += 2500;
-                    else score -= 3000;
+                    if (t.includes('watch') || cat.includes('dong ho')) score += 3000;
+                    else score -= 4000;
                 }
 
                 // F. Khớp token từ vựng
                 var tokens = normQ.split(/\s+/);
                 tokens.forEach(function(tok) {
                     if (tok.length >= 2) {
-                        if (normT.includes(tok)) score += 300 * tok.length;
-                        else if (cat.includes(tok)) score += 100 * tok.length;
+                        if (normT.includes(tok)) score += 400 * tok.length;
+                        else if (cat.includes(tok)) score += 150 * tok.length;
                         else if (specs.includes(tok)) score += 50 * tok.length;
                     }
                 });
@@ -7292,25 +7452,14 @@
             var catalog = getCatalogProductsData();
 
             setTimeout(function() {
-                // 1. Tìm đúng sản phẩm mà khách hàng yêu cầu
+                // 1. Tìm đúng DUY NHẤT 1 sản phẩm mà khách hàng yêu cầu
                 var exactProduct = findExactProductMatch(q, catalog);
 
                 if (exactProduct) {
-                    var replyText = 'Dạ em xin gửi quý khách thông tin giới thiệu và báo giá chi tiết của đúng sản phẩm <strong>' + exactProduct.name + '</strong> mà quý khách đang quan tâm ạ:';
+                    var replyText = 'Dạ em xin gửi tới quý khách thông tin giới thiệu và tư vấn chi tiết về <strong>' + exactProduct.name + '</strong> chính hãng phân phối tại CloudMart ạ:';
                     replyText += createPriceCardHTML(exactProduct);
                     appendBotMessage(replyText);
                     return;
-                }
-
-                // 1b. Gợi ý dòng máy nếu khách hỏi nhiều dòng hoặc chung chung (VD: iPhone 16 & 17, các dòng S24)
-                if (lower.includes('iphone 16') && lower.includes('17')) {
-                    var iphones = catalog.filter(function(p) { return p.brand === 'Apple' && (p.name.includes('iPhone 17') || p.name.includes('iPhone 16')); }).slice(0, 3);
-                    if (iphones.length > 0) {
-                        var ipHtml = 'Dạ CloudMart xin giới thiệu bảng giá ưu đãi các dòng <strong>iPhone 16 & 17 Series</strong> chính hãng VN/A:';
-                        iphones.forEach(function(item) { ipHtml += createPriceCardHTML(item); });
-                        appendBotMessage(ipHtml);
-                        return;
-                    }
                 }
 
                 // 2. Các câu hỏi chính sách thông thường nếu khách không hỏi đích danh máy
@@ -7323,7 +7472,7 @@
                 } else if (lower.includes('vietqr') || lower.includes('giảm 500k') || lower.includes('voucher') || lower.includes('khuyến mãi')) {
                     appendBotMessage('⚡ <strong>Ưu đãi VietQR 24/7:</strong><br>• Giảm ngay 500.000₫ khi quét mã VietQR Napas 247 qua App ngân hàng.<br>• Nhập mã voucher <code>CLOUDMART10</code> tại trang thanh toán để được giảm thêm 1.500.000₫!');
                 } else {
-                    appendBotMessage('Dạ quý khách cần tư vấn hoặc báo giá dòng máy cụ thể nào ạ? Quý khách vui lòng nhập tên chính xác sản phẩm (ví dụ: <em>iPhone 16 Pro Max, Samsung S24 Ultra, Z Fold5, MacBook Pro 16...</em>) hoặc chọn nhanh ở thanh <strong>"🏷️ Tra giá nhanh"</strong> ngay phía trên để em báo giá đúng sản phẩm đó cho quý khách nhé!');
+                    appendBotMessage('Dạ quý khách đang muốn tìm hiểu mẫu sản phẩm nào ạ? Quý khách chỉ cần bấm nút <strong>"💬 Tư vấn chi tiết mẫu này"</strong> ngay trên thẻ của sản phẩm đó, hoặc nhập tên máy (ví dụ: <em>iPhone 16 Pro Max, S24 Ultra, Z Fold5, XPS 16...</em>), em sẽ giới thiệu đầy đủ thông số và giá chi tiết của đúng mẫu máy đó cho quý khách nhé!');
                 }
             }, 300);
         }
